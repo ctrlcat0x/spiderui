@@ -167,7 +167,6 @@ export default function RootLayout({
 }>): React.JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Analytics />
       <head>
         <JsonLd />
       </head>
@@ -179,6 +178,7 @@ export default function RootLayout({
           <RouteScrollbarController />
           <Providers>{children}</Providers>
         </div>
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>

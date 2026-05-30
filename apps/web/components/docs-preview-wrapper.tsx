@@ -67,6 +67,18 @@ export function DocsPreviewWrapper({
   const variantBarRef = React.useRef<HTMLDivElement>(null)
   const iconButtonClass = "inline-flex h-7 w-7 items-center justify-center rounded-md border border-transparent text-foreground/60 transition-all duration-150 hover:border-border/70 hover:bg-muted/70 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 active:scale-[0.97]"
   const hasSourceCode = Boolean(sourceCodeKey)
+  const isDrawerOpen = showSource || showPersonalize
+
+  const handlePersonalizeToggle = React.useCallback(() => {
+    if (showPersonalize) {
+      setShowPersonalize(false)
+      return
+    }
+
+    setShowPersonalize(true)
+    setShowSource(false)
+    setIsExpanded(false)
+  }, [showPersonalize])
 
   const handleSourceToggle = React.useCallback(async () => {
     if (showSource) {
@@ -242,9 +254,10 @@ export function DocsPreviewWrapper({
           {/* Personalize */}
           {personalizeContent && (
             <button
-              onClick={() => { setShowPersonalize(true); setShowSource(false) }}
+              onClick={handlePersonalizeToggle}
               className={cn(iconButtonClass, showPersonalize && "border-primary/30 bg-primary/90 text-primary-foreground")}
-              aria-label="Personalize"
+              aria-label={showPersonalize ? "Close personalize panel" : "Open personalize panel"}
+              aria-pressed={showPersonalize}
             >
               <SlidersHorizontal className="w-4 h-4" />
             </button>
@@ -258,13 +271,13 @@ export function DocsPreviewWrapper({
           {/* Expand Preview Pane */}
           <button
             onClick={() => setIsExpanded((prev) => !prev)}
-            disabled={showSource}
+            disabled={isDrawerOpen}
             className={cn(
               iconButtonClass,
-              showSource && "cursor-not-allowed opacity-40 hover:border-transparent hover:bg-transparent hover:text-foreground/60",
+              isDrawerOpen && "cursor-not-allowed opacity-40 hover:border-transparent hover:bg-transparent hover:text-foreground/60",
             )}
             aria-label={isExpanded ? "Collapse preview pane" : "Expand preview pane"}
-            aria-disabled={showSource}
+            aria-disabled={isDrawerOpen}
           >
             {isExpanded ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
           </button>

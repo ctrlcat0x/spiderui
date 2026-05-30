@@ -1,0 +1,34 @@
+{
+  "name": "spiderui",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "validate:registry": "node scripts/validate-registry.js",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "screenshot": "node scripts/screenshot.js",
+    "optimize:previews": "./scripts/optimize-preview-videos.sh",
+    "recompress:previews": "scripts/venv/bin/python scripts/recompress-and-reupload-previews.py"
+  },
+  "devDependencies": {
+    "@types/three": "^0.182.0",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "playwright": "^1.57.0",
+    "prettier": "^3.7.4",
+    "turbo": "^2.6.3",
+    "typescript": "5.7.3"
+  },
+  "packageManager": "pnpm@10.4.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "lucide-react": "^0.475.0",
+    "three": "^0.182.0"
+  }
+}

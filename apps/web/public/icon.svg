@@ -1,0 +1,25 @@
+<svg viewBox="120 120 272 272" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    path { fill: #09090b; }
+    @media (prefers-color-scheme: dark) {
+      path { fill: #ffffff; }
+    }
+  </style>
+  <path d="
+    M120 160
+    Q120 120 160 120
+    H260
+    Q300 120 300 160
+    V220
+    H352
+    Q392 220 392 260
+    V352
+    Q392 392 352 392
+    H260
+    Q220 392 220 352
+    V292
+    H160
+    Q120 292 120 252
+    Z
+  "/>
+</svg>

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "spiderui",
+  "homepage": "https://spiderui.dev",
+  "aliases": [
+    "spiderui",
+    "spider-ui",
+    "ui",
+    "spd"
+  ],
+  "items": [
+    {
+      "name": "collection-surfer",
+      "type": "registry:ui"
+    },
+    {
+      "name": "image-trail",
+      "type": "registry:ui"
+    },
+    {
+      "name": "scroll-split-card",
+      "type": "registry:ui"
+    },
+    {
+      "name": "scrub-input",
+      "type": "registry:ui"
+    },
+    {
+      "name": "signature",
+      "type": "registry:ui"
+    }
+  ]
+}

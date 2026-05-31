@@ -4,13 +4,13 @@ import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown } from "lucide-react"
+import { ChevronsDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { docsConfig } from "@/config/docs"
 import { components, isNewComponent } from "@/registry"
 import { useClickSound } from "@/hooks/use-click-sound"
 import { playSound } from "@/lib/sound-engine"
-import { scroll002Sound } from "@/lib/scroll-002"
+import { impactGenericLight002Sound } from "@/lib/impact-generic-light-002"
 import { clickSoftSound } from "@/lib/click-soft"
 import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade"
 import { useDocsSidebar } from "@/components/docs-sidebar-context"
@@ -22,8 +22,8 @@ type PreviewSources = {
 
 type NavViewMode = "grouped" | "collection"
 
-const SCROLL_SOUND_MS = 70
-const TOGGLE_IN_SIDEBAR_DELAY_MS = 180
+const HOVER_SOUND_MS = 70
+const TOGGLE_IN_SIDEBAR_DELAY_MS = 50
 
 let preferredPreviewFormat: "webm" | "mp4" | null = null
 
@@ -50,17 +50,11 @@ function getPreviewSources(previewVideo?: string) {
 
 const DIAL_ROW_CLASS = "flex h-[7px] items-center pl-0.5"
 
-const microDashClassName =
-    "h-px w-2.5 shrink-0 rounded-none bg-[#4b5563] transition-[width,background-color] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/nav-item:w-3.5 group-hover/nav-item:bg-[#e8470a]/70 group-[.active]/nav-item:w-3.5 group-[.active]/nav-item:bg-[#e8470a]/70"
-
-const navDashClassName =
-    "nav-dash h-px w-6 shrink-0 rounded-none bg-[#4b5563] transition-[width,background-color] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] group-[.active]/nav-item:w-8 group-[.active]/nav-item:bg-[#e8470a] group-hover/nav-item:w-10 group-hover/nav-item:bg-[#e8470a]"
+const dialBaseClassName =
+    "h-px w-7 shrink-0 rounded-none bg-foreground/30 transition-[width,background-color] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]"
 
 const navTextClassName =
     "nav-text truncate text-[14px] font-medium text-[#9ca3af] transition-colors duration-150 ease-in-out group-[.active]/nav-item:text-[#e8470a] group-hover/nav-item:text-[#e8470a]"
-
-const companionDashClassName =
-    "h-px w-4 shrink-0 rounded-none bg-[#4b5563] transition-[width,background-color] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/nav-item:w-5 group-hover/nav-item:bg-[#e8470a]/85 group-[.active]/nav-item:w-5 group-[.active]/nav-item:bg-[#e8470a]/85"
 
 function SidebarToggleIcon() {
     return (
@@ -102,7 +96,7 @@ function SidebarToggleButton({
 function GroupSeparator({ title }: { title: string }) {
     return (
         <div className="flex items-center gap-2 py-1.5 mt-3 mb-0.5">
-            <div className="flex w-7 shrink-0 items-center pl-0.5" aria-hidden>
+            <div className="flex w-4 shrink-0 items-center pl-0.5" aria-hidden>
                 <span className="h-px w-4 shrink-0 bg-foreground/50" />
             </div>
             <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/60 whitespace-nowrap">
@@ -119,12 +113,13 @@ function DialLine({
     variant: "micro" | "companion" | "main"
     highlighted: boolean
 }) {
-    const className =
-        variant === "main"
-            ? cn(navDashClassName, highlighted && "!w-10 !bg-[#e8470a]")
-            : variant === "companion"
-              ? cn(companionDashClassName, highlighted && "!w-5 !bg-[#e8470a]/85")
-              : cn(microDashClassName, highlighted && "!w-3.5 !bg-[#e8470a]/70")
+    const isMain = variant === "main"
+
+    const className = cn(
+        dialBaseClassName,
+        highlighted && isMain && "!w-9 !bg-[#e8470a]",
+        highlighted && !isMain && "!w-6 !bg-[#e8470a]"
+    )
 
     return (
         <div className={DIAL_ROW_CLASS}>
@@ -352,7 +347,7 @@ export function FloatingDocsSidebar() {
 
     const startScrollSound = React.useCallback(() => {
         stopScrollSound()
-        void playSound(scroll002Sound.dataUri, { volume: 0.07, playbackRate: 2.2 }).then((playback) => {
+        void playSound(impactGenericLight002Sound.dataUri, { volume: 0.07, playbackRate: 2.2 }).then((playback) => {
             scrollPlaybackRef.current = playback
             scrollSoundTimerRef.current = window.setTimeout(() => {
                 playback.stop()
@@ -360,7 +355,7 @@ export function FloatingDocsSidebar() {
                     scrollPlaybackRef.current = null
                 }
                 scrollSoundTimerRef.current = null
-            }, SCROLL_SOUND_MS)
+            }, HOVER_SOUND_MS)
         })
     }, [stopScrollSound])
 
@@ -557,7 +552,7 @@ export function FloatingDocsSidebar() {
                                 ref={sidebarPanelRef}
                                 className="relative flex flex-1 flex-col overflow-hidden rounded-3xl border border-zinc-200/60 bg-white p-2 shadow-2xl shadow-black/40 dark:border-zinc-800/60 dark:bg-[#121212]"
                             >
-                                <div className="flex items-center px-1.5 pt-4 pb-3">
+                                <div className="flex items-center pb-3">
                                     <AnimatePresence mode="wait" initial={false}>
                                         {showSidebarToggle ? (
                                             <SidebarToggleButton key="sidebar-toggle" onClick={handleToggleOpen} isOpen />
@@ -578,18 +573,15 @@ export function FloatingDocsSidebar() {
                                     <ScrollEdgeFade position="top" variant="sidebar" />
                                     <ScrollEdgeFade position="bottom" variant="sidebar" />
 
-                                    <div ref={navScrollContainerRef} onScroll={handleNavScroll} className="h-full overflow-y-auto px-1.5 pt-2 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                                    <div ref={navScrollContainerRef} onScroll={handleNavScroll} className="h-full overflow-y-auto pl-0 pr-1 pt-10 pb-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                                         <button
                                             type="button"
                                             onClick={handleViewModeToggle}
-                                            className="mb-4 mt-2 flex w-full items-center gap-2 text-[13px] font-semibold text-zinc-500 transition-colors hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+                                            className="mb-4 mt-2 inline-flex items-center gap-1.5 text-[15px] font-semibold text-zinc-500 transition-colors hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
                                             aria-label={`Switch to ${viewMode === "grouped" ? "collection" : "grouped"} view`}
                                         >
-                                            <span className="w-7 shrink-0" aria-hidden />
-                                            <span className="inline-flex items-center gap-1.5">
-                                                <span>{viewMode === "grouped" ? "Grouped" : "Collection"}</span>
-                                                <ChevronDown className="h-3.5 w-3.5 opacity-50" />
-                                            </span>
+                                            <span>{viewMode === "grouped" ? "Grouped" : "Collection"}</span>
+                                            <ChevronsDown className="h-4 w-4 shrink-0 opacity-50" />
                                         </button>
 
                                         {gettingStartedGroup && (

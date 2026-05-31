@@ -5,9 +5,11 @@ import * as ReactDOM from "react-dom"
 import { cn } from "@/lib/utils"
 import { RotateCcw, Search, SlidersHorizontal, Check, Maximize, Minimize, CodeXml, ChevronLeft, Copy } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade"
 import { motion, AnimatePresence, useDragControls, type PanInfo } from "framer-motion"
 import { useDocStore } from "@/hooks/use-doc-store"
+import { useClickSound } from "@/hooks/use-click-sound"
+import { useSound } from "@/hooks/use-sound"
+import { cardPlace1Sound } from "@/lib/card-place-1"
 
 const CommandMenu = React.lazy(() =>
   import("@/components/command-menu").then((mod) => ({ default: mod.CommandMenu }))
@@ -53,6 +55,8 @@ export function DocsPreviewWrapper({
     hideDefaultVariant && variants.length > 0 ? 0 : -1
   ) // -1 = default preview
   const sourceDragControls = useDragControls()
+  const playClick = useClickSound()
+  const [playCardPlace] = useSound(cardPlace1Sound, { volume: 0.12, interrupt: true })
 
   const resolvedActiveVariant = hideDefaultVariant && activeVariant === -1 ? 0 : activeVariant
 
@@ -71,21 +75,27 @@ export function DocsPreviewWrapper({
 
   const handlePersonalizeToggle = React.useCallback(() => {
     if (showPersonalize) {
+      playClick()
       setShowPersonalize(false)
       return
     }
 
+    playClick()
+    playCardPlace()
     setShowPersonalize(true)
     setShowSource(false)
     setIsExpanded(false)
-  }, [showPersonalize])
+  }, [showPersonalize, playClick, playCardPlace])
 
   const handleSourceToggle = React.useCallback(async () => {
     if (showSource) {
+      playClick()
       setShowSource(false)
       return
     }
 
+    playClick()
+    playCardPlace()
     setShowSource(true)
     setShowPersonalize(false)
     setIsExpanded(false)
@@ -115,7 +125,7 @@ export function DocsPreviewWrapper({
     } finally {
       setIsSourceLoading(false)
     }
-  }, [isSourceLoading, showSource, sourceCodeKey, sourceHtml])
+  }, [isSourceLoading, showSource, sourceCodeKey, sourceHtml, playClick, playCardPlace])
 
   React.useEffect(() => {
     setMounted(true)
@@ -264,13 +274,13 @@ export function DocsPreviewWrapper({
           )}
 
           {/* Reload */}
-          <button onClick={() => setKey(k => k + 1)} className={iconButtonClass} aria-label="Reload preview">
+          <button onClick={() => { playClick(); setKey(k => k + 1) }} className={iconButtonClass} aria-label="Reload preview">
             <RotateCcw className="w-4 h-4" />
           </button>
 
           {/* Expand Preview Pane */}
           <button
-            onClick={() => setIsExpanded((prev) => !prev)}
+            onClick={() => { playClick(); setIsExpanded((prev) => !prev) }}
             disabled={isDrawerOpen}
             className={cn(
               iconButtonClass,
@@ -295,8 +305,6 @@ export function DocsPreviewWrapper({
         "h-full",
         !fullWidthPreview && "items-center justify-center"
       )}>
-        <ScrollEdgeFade position="top" variant="preview" className="z-10" />
-        <ScrollEdgeFade position="bottom" variant="preview" className={cn("z-10", variants.length > 0 && "bottom-14")} />
         <div
           className={cn(
             "w-full",
@@ -320,7 +328,7 @@ export function DocsPreviewWrapper({
           >
             {!hideDefaultVariant && (
               <button
-                onClick={() => setActiveVariant(-1)}
+                onClick={() => { playClick(); setActiveVariant(-1) }}
                 className={cn(
                   "shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border",
                   resolvedActiveVariant === -1
@@ -340,7 +348,7 @@ export function DocsPreviewWrapper({
             {variants.map((variant, i) => (
               <button
                 key={i}
-                onClick={() => setActiveVariant(i)}
+                onClick={() => { playClick(); setActiveVariant(i) }}
                 className={cn(
                   "shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border",
                   resolvedActiveVariant === i
@@ -388,7 +396,7 @@ export function DocsPreviewWrapper({
 
                     <div className="flex items-center justify-between px-4 py-1">
                       <button
-                        onClick={() => setShowPersonalize(false)}
+                        onClick={() => { playClick(); setShowPersonalize(false) }}
                         className="inline-flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400 transition-colors hover:text-zinc-900 dark:hover:text-white focus-visible:outline-none"
                       >
                         <ChevronLeft className="w-4 h-4" />
@@ -446,7 +454,7 @@ export function DocsPreviewWrapper({
                     {/* Header row */}
                     <div className="flex items-center justify-between px-4 py-1">
                       <button
-                        onClick={() => setShowSource(false)}
+                        onClick={() => { playClick(); setShowSource(false) }}
                         className="inline-flex items-center gap-1.5 text-zinc-500 dark:text-zinc-400 transition-colors hover:text-zinc-900 dark:hover:text-white focus-visible:outline-none"
                       >
                         <ChevronLeft className="w-4 h-4" />
@@ -466,6 +474,7 @@ export function DocsPreviewWrapper({
                         {sourceCode && (
                           <button
                             onClick={async () => {
+                              playClick()
                               await navigator.clipboard.writeText(sourceCode)
                               setCopied(true)
                               setTimeout(() => setCopied(false), 2000)

@@ -5,6 +5,7 @@ import { Terminal } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 import { CopyButton } from "@/components/copy-button"
+import { useClickSound } from "@/hooks/use-click-sound"
 
 const PACKAGE_MANAGERS = ["npm", "pnpm", "yarn", "bun"] as const
 type PackageManager = (typeof PACKAGE_MANAGERS)[number]
@@ -23,6 +24,7 @@ interface InstallCommandProps {
 
 export function InstallCommand({ component }: InstallCommandProps) {
   const [selected, setSelected] = React.useState<PackageManager>("pnpm")
+  const playClick = useClickSound()
 
   const registryNamespace = process.env.NEXT_PUBLIC_REGISTRY_NAMESPACE || "@spiderui"
   const componentRef = component.startsWith("@")
@@ -38,7 +40,7 @@ export function InstallCommand({ component }: InstallCommandProps) {
           {PACKAGE_MANAGERS.map((pm) => (
             <button
               key={pm}
-              onClick={() => setSelected(pm)}
+              onClick={() => { playClick(); setSelected(pm) }}
               className={cn(
                 "flex items-center gap-2 border-r border-border/40 px-4 py-2.5 text-xs font-medium transition-all min-w-fit outline-none hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50",
                 selected === pm

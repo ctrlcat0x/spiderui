@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-type FadeVariant = "docs-index" | "docs-content" | "preview"
+type FadeVariant = "docs-index" | "docs-content" | "preview" | "sidebar"
 
 type ScrollEdgeFadeProps = {
   position: "top" | "bottom"
@@ -23,6 +23,11 @@ const variantStyles: Record<FadeVariant, { top: string; bottom: string }> = {
     top: "h-32 bg-gradient-to-b from-white via-white to-transparent dark:from-[#121212] dark:via-[#121212] dark:to-transparent [mask-image:linear-gradient(to_bottom,black_20%,transparent)]",
     bottom:
       "h-20 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[#121212] dark:via-[#121212]/80 dark:to-transparent [mask-image:linear-gradient(to_top,black,transparent)]",
+  },
+  sidebar: {
+    top: "h-16 bg-gradient-to-b from-white via-white to-transparent dark:from-[#121212] dark:via-[#121212] dark:to-transparent [mask-image:linear-gradient(to_bottom,black_20%,transparent)]",
+    bottom:
+      "h-16 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[#121212] dark:via-[#121212]/80 dark:to-transparent [mask-image:linear-gradient(to_top,black,transparent)]",
   },
 }
 

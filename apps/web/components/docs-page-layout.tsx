@@ -10,8 +10,9 @@ import { DocsPreviewWrapper, type VariantItem } from "@/components/docs-preview-
 import { highlightCode } from "@/lib/shiki"
 import type { BundledLanguage } from "shiki"
 import { CodeXml, Info } from "lucide-react"
-import { FloatingDocsSidebarLazy } from "@/components/floating-docs-sidebar-lazy"
 import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade"
+import { DocsSidebarProvider } from "@/components/docs-sidebar-context"
+import { DocsHeaderNav } from "@/components/docs-header-nav"
 
 export interface PropItem {
   name: string
@@ -88,28 +89,12 @@ export async function DocsPageLayout({
   const variantTitles = examples.map(ex => ex.title)
 
   return (
+    <DocsSidebarProvider>
     <div
       data-docs-layout
       className="flex flex-col lg:flex-row w-full h-full min-h-screen lg:h-screen bg-[#f3f4f6] dark:bg-[#080808] text-foreground"
     >
-      {/* Minimal Navigation Cluster */}
-      <div className="fixed left-1 top-3 z-50 flex items-center gap-2 pointer-events-none sm:left-3 lg:absolute lg:left-6 lg:top-6">
-        <div className="pointer-events-auto">
-          <FloatingDocsSidebarLazy />
-        </div>
-        <div className="inline-flex h-5 min-w-0 items-center gap-2 text-[15px] font-semibold leading-none text-black/50 [font-family:ui-sans-serif,system-ui,sans-serif] pointer-events-auto dark:text-white/50 mix-blend-multiply dark:mix-blend-lighten">
-          <Link
-            href="/docs"
-            className="shrink-0 transition-colors hover:text-black/80 dark:hover:text-white/80"
-          >
-            Docs
-          </Link>
-          <span className="shrink-0 select-none opacity-40">·</span>
-          <span className="max-w-[130px] truncate sm:max-w-[220px] font-bold text-black/70 dark:text-white/70">
-            {title}
-          </span>
-        </div>
-      </div>
+      <DocsHeaderNav title={title} />
 
       {/* Left Column: Scrollable Content */}
       <div
@@ -326,5 +311,6 @@ export async function DocsPageLayout({
         </div>
       </div>
     </div>
+    </DocsSidebarProvider>
   )
 }

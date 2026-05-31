@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Check, Copy } from "lucide-react"
+import { useClickSound } from "@/hooks/use-click-sound"
 
 interface CopyButtonProps {
   code: string
@@ -11,8 +12,10 @@ interface CopyButtonProps {
 
 export function CopyButton({ code, className, absolute = true }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
+  const playClick = useClickSound()
 
   const handleCopy = async () => {
+    playClick()
     await navigator.clipboard.writeText(code)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)

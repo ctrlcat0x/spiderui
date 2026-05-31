@@ -87,11 +87,13 @@ const getLlmsText = () => {
 
 // Pre-compute nav at module load time (runs once)
 const componentNav = getComponentNav();
+const flatComponentNav = componentNav.flatMap((group) => group.items);
 const llmsText = getLlmsText();
 const precomputedNav = Object.freeze([gettingStarted, ...componentNav]);
 
 export const docsConfig = {
   nav: precomputedNav,
+  flatComponentNav,
   llms: {
     text: llmsText,
   },

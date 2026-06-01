@@ -50,6 +50,7 @@ export interface DocsPageLayoutProps {
   hideDefaultPreviewVariant?: boolean
   installationNote?: React.ReactNode
   usageNote?: React.ReactNode
+  afterApiReference?: React.ReactNode
 }
 
 function CodeBlockSkeleton({ className }: { className?: string }) {
@@ -75,6 +76,7 @@ export async function DocsPageLayout({
   hideDefaultPreviewVariant = false,
   installationNote,
   usageNote,
+  afterApiReference,
 }: DocsPageLayoutProps) {
 
   // Generate the page context markdown automatically
@@ -233,6 +235,8 @@ export async function DocsPageLayout({
                 </div>
               </Section>
             )}
+
+            {afterApiReference}
 
             <div className="mt-12 flex flex-col gap-4">
               {/* View Source Hint */}

@@ -1,8 +1,9 @@
 import React from "react"
+import Link from "next/link"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { VerticalSpotifyCardPlayground } from "@/components/docs/previews/vertical-spotify-card-playground"
-import { SpotifyGlobalsStylesNote } from "@/components/docs/spotify-globals-styles-note"
+import { SpotifyGlobalsUsageNote } from "@/components/docs/spotify-globals-styles-note"
 
 const usageCode = `import { VerticalSpotifyCard } from "@/components/ui/vertical-spotify-card"
 
@@ -40,33 +41,17 @@ export async function VerticalSpotifyCardDocs() {
     "// Unable to load source code"
 
   const installationNote = (
-    <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
-      <p>
-        Requires{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
-          GET /api/spotify?url=
-        </code>
-        . See the{" "}
-        <a href="/docs/components/spotify-card" className="text-foreground underline">
-          Spotify Card
-        </a>{" "}
-        docs for API setup.
-      </p>
-      <code className="block rounded bg-muted px-2 py-1 font-mono text-xs text-foreground">
-        pnpm add spotify-url-info
+    <p className="text-sm text-muted-foreground">
+      Uses{" "}
+      <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
+        /api/spotify
       </code>
-      <SpotifyGlobalsStylesNote uses="seek" />
-    </div>
-  )
-
-  const usageNote = (
-    <div className="space-y-4 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
-      <p>
-        Two image layers create the progressive blur: a blurred base and a sharp
-        layer masked to fade downward.
-      </p>
-      <SpotifyGlobalsStylesNote uses="seek" />
-    </div>
+      . Set up the route on the{" "}
+      <Link href="/docs/components/spotify-card" className="text-foreground underline">
+        Spotify Card
+      </Link>{" "}
+      page.
+    </p>
   )
 
   return (
@@ -80,7 +65,7 @@ export async function VerticalSpotifyCardDocs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/vertical-spotify-card.tsx"
       installationNote={installationNote}
-      usageNote={usageNote}
+      usageNote={<SpotifyGlobalsUsageNote />}
       usageCode={usageCode}
       examples={[
         {

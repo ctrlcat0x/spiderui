@@ -1,8 +1,9 @@
 import React from "react"
+import Link from "next/link"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { AlbumCardsPlayground } from "@/components/docs/previews/album-cards-playground"
-import { SpotifyGlobalsStylesNote } from "@/components/docs/spotify-globals-styles-note"
+import { SpotifyGlobalsUsageNote } from "@/components/docs/spotify-globals-styles-note"
 
 const usageCode = `import { AlbumCards } from "@/components/ui/album-cards"
 
@@ -22,34 +23,17 @@ export async function AlbumCardsDocs() {
     "// Unable to load source code"
 
   const installationNote = (
-    <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
-      <p>
-        Requires{" "}
-        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
-          GET /api/spotify?url=
-        </code>
-        . See the{" "}
-        <a href="/docs/components/spotify-card" className="text-foreground underline">
-          Spotify Card
-        </a>{" "}
-        docs for API setup.
-      </p>
-      <code className="block rounded bg-muted px-2 py-1 font-mono text-xs text-foreground">
-        pnpm add spotify-url-info
+    <p className="text-sm text-muted-foreground">
+      Uses{" "}
+      <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
+        /api/spotify
       </code>
-      <SpotifyGlobalsStylesNote uses="spin" />
-    </div>
-  )
-
-  const usageNote = (
-    <div className="space-y-4 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
-      <p>
-        Each card fetches track art via your API route. Click a cover to eject a
-        spinning vinyl SVG; only one disc stays open at a time. Neighbor cards
-        dim slightly when another is active.
-      </p>
-      <SpotifyGlobalsStylesNote uses="spin" />
-    </div>
+      . Set up the route on the{" "}
+      <Link href="/docs/components/spotify-card" className="text-foreground underline">
+        Spotify Card
+      </Link>{" "}
+      page.
+    </p>
   )
 
   return (
@@ -63,7 +47,7 @@ export async function AlbumCardsDocs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/album-cards.tsx"
       installationNote={installationNote}
-      usageNote={usageNote}
+      usageNote={<SpotifyGlobalsUsageNote />}
       usageCode={usageCode}
       props={[
         {

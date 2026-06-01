@@ -8,7 +8,7 @@ export interface ComponentMetadata {
   category: ComponentCategory;
   slug: string;
   addedAt?: string;
-  previewVideo?: string;
+  previewImage?: string;
 }
 
 const NEW_BADGE_DURATION_MS = 5 * 24 * 60 * 60 * 1000;
@@ -25,8 +25,7 @@ export const components: Record<string, ComponentMetadata> = {
     description: "Smooth surfing interaction for browsing collections.",
     category: "Components",
     slug: "collection-surfer",
-    previewVideo:
-      "https://pub-a50e7f4ea75a4970a1738e50d53b6eb1.r2.dev/preview-videos/component-animations/collectionsurfer.mov",
+    previewImage: "/previews/collection-surfer.png",
   },
   "scroll-split-card": {
     title: "Scroll Split Card",
@@ -34,8 +33,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Components",
     slug: "scroll-split-card",
     addedAt: "2026-04-03",
-    previewVideo:
-      "https://pub-a50e7f4ea75a4970a1738e50d53b6eb1.r2.dev/preview-videos/component-animations/scrollsplitcard.webm",
+    previewImage: "/previews/scroll-split-card.png",
   },
   "scrub-input": {
     title: "Scrub Input",
@@ -43,8 +41,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Components",
     slug: "scrub-input",
     addedAt: "2026-02-27",
-    previewVideo:
-      "https://pub-a50e7f4ea75a4970a1738e50d53b6eb1.r2.dev/preview-videos/component-animations/scrubinput.mp4",
+    previewImage: "/previews/scrub-input.png",
   },
   "signature": {
     title: "Signature",
@@ -52,8 +49,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Components",
     slug: "signature",
     addedAt: "2026-03-17",
-    previewVideo:
-      "https://pub-a50e7f4ea75a4970a1738e50d53b6eb1.r2.dev/preview-videos/component-animations/signature.webm",
+    previewImage: "/previews/signature.png",
   },
   "image-trail": {
     title: "Image Trail",
@@ -62,8 +58,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Visual Effects",
     slug: "image-trail",
     addedAt: "2026-03-09",
-    previewVideo:
-      "https://pub-a50e7f4ea75a4970a1738e50d53b6eb1.r2.dev/preview-videos/visual-effects/imagetrail.webm",
+    previewImage: "/previews/image-trail.png",
   },
   "card-stroke": {
     title: "Card Stroke",

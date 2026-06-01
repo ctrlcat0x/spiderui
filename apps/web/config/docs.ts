@@ -19,8 +19,8 @@ const gettingStarted: NavGroup = {
       href: "/docs",
     },
     {
-      title: "MCP",
-      href: "/docs/mcp",
+      title: "Templates",
+      href: "/docs/templates",
     },
   ],
 };
@@ -66,7 +66,11 @@ const getLlmsText = () => {
 ## Overview`;
 
   gettingStarted.items.forEach((item) => {
-    text += `\n- [${item.title}](${baseUrl}${item.href}): Getting started with Spider UI.`;
+    const blurb =
+      item.title === "Templates"
+        ? "Full starter templates you can clone and ship."
+        : "Getting started with Spider UI.";
+    text += `\n- [${item.title}](${baseUrl}${item.href}): ${blurb}`;
   });
 
   text += `\n\n## Components`;

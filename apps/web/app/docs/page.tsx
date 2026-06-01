@@ -1,47 +1,13 @@
 "use client"
 
-import type React from "react"
-import { useState, useEffect, useMemo, useRef } from "react"
+import Image from "next/image"
 import Link from "next/link"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { components, isNewComponent, type ComponentCategory, type ComponentMetadata } from "@/registry"
-import { Logomark } from "@/components/logos/logomark"
-import { usePrefetchPreviewVideos } from "@/hooks/use-prefetch-preview-videos"
-
 import { SiteHeader } from "@/components/site-header"
 import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade"
 
-type PreviewSources = {
-  mp4: string
-  webm: string
-}
-
-let preferredPreviewFormat: "webm" | "mp4" | null = null
-
-function getPreferredPreviewSrc(sources: PreviewSources) {
-  if (typeof window === "undefined") return sources.mp4
-  if (!preferredPreviewFormat) {
-    const probe = document.createElement("video")
-    const supportsWebm = Boolean(probe.canPlayType('video/webm; codecs="vp9,opus"'))
-    preferredPreviewFormat = supportsWebm ? "webm" : "mp4"
-  }
-  return preferredPreviewFormat === "webm" ? sources.webm : sources.mp4
-}
-
-function getPreviewSources(previewVideo?: string) {
-  if (!previewVideo) return null
-
-  const match = previewVideo.match(/^(.*)\.(mov|mp4|webm)(\?.*)?$/i)
-  if (!match) return null
-
-  const [, base, , query = ""] = match
-  return {
-    mp4: `${base}.mp4${query}`,
-    webm: `${base}.webm${query}`,
-  }
-}
-
-// ─── Component Card ────────────────────────────────────────────────────────
 function ComponentCard({
   component,
   index,
@@ -49,103 +15,10 @@ function ComponentCard({
   component: ComponentMetadata
   index: number
 }) {
-  const cardRef = useRef<HTMLDivElement | null>(null)
-  const videoRef = useRef<HTMLVideoElement | null>(null)
-  const [isHovered, setIsHovered] = useState(false)
-  const [isNearViewport, setIsNearViewport] = useState(false)
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
-  const [isVideoReady, setIsVideoReady] = useState(false)
-  const previewSources = useMemo(
-    () => getPreviewSources(component.previewVideo),
-    [component.previewVideo]
-  ) as PreviewSources | null
-  const previewVideoSrc = useMemo(
-    () => (previewSources ? getPreferredPreviewSrc(previewSources) : ""),
-    [previewSources]
-  )
-  const shouldAutoWarmVideo = index < 9
-
-  useEffect(() => {
-    const element = cardRef.current
-    if (!element) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsNearViewport(Boolean(entry?.isIntersecting)),
-      { rootMargin: "800px 0px 800px 0px", threshold: 0.01 }
-    )
-    observer.observe(element)
-
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!isNearViewport) return
-    if (shouldAutoWarmVideo) {
-      setShouldLoadVideo(true)
-      return
-    }
-
-    const warmWhenIdle = () => setShouldLoadVideo(true)
-    const idleApi = window as Window & {
-      requestIdleCallback?: (cb: IdleRequestCallback, options?: IdleRequestOptions) => number
-      cancelIdleCallback?: (handle: number) => void
-    }
-
-    if (typeof idleApi.requestIdleCallback === "function") {
-      const idleId = idleApi.requestIdleCallback(warmWhenIdle, { timeout: 800 })
-      return () => idleApi.cancelIdleCallback?.(idleId)
-    }
-
-    const timeoutId = setTimeout(warmWhenIdle, 400)
-    return () => clearTimeout(timeoutId)
-  }, [isNearViewport, shouldAutoWarmVideo])
-
-  useEffect(() => {
-    setIsVideoReady(false)
-  }, [component.slug, previewVideoSrc])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    if (!shouldLoadVideo) return
-
-    if (isHovered) {
-      const playPromise = video.play()
-      if (playPromise) {
-        playPromise.catch(() => { })
-      }
-      return
-    }
-
-    video.pause()
-    video.currentTime = 0.01
-  }, [isHovered, shouldLoadVideo])
-
-  const shouldRenderVideo = Boolean(previewSources)
-  const startPreview = () => {
-    setIsHovered(true)
-    setShouldLoadVideo(true)
-    const video = videoRef.current
-    if (!video) return
-    video.preload = "auto"
-    const playPromise = video.play()
-    if (playPromise) {
-      playPromise.catch(() => { })
-    }
-  }
-
-  const stopPreview = () => {
-    setIsHovered(false)
-    const video = videoRef.current
-    if (!video) return
-    video.pause()
-    video.currentTime = 0.01
-  }
+  const hasPreview = Boolean(component.previewImage)
 
   return (
     <motion.div
-      ref={cardRef}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -156,49 +29,23 @@ function ComponentCard({
     >
       <Link
         href={`/docs/components/${component.slug}`}
-        onMouseEnter={startPreview}
-        onMouseLeave={stopPreview}
-        onFocus={startPreview}
-        onBlur={stopPreview}
         className="group relative flex flex-col rounded-2xl border border-border bg-white dark:bg-zinc-900/50 overflow-hidden transition-all duration-300 shadow-card hover:-translate-y-0.5 hover:border-input hover:shadow-card-hover"
       >
-        {/* ── Preview area (Floating) ── */}
         <div className="p-1.5">
           <div className="relative h-[220px] w-full rounded-xl bg-zinc-50 dark:bg-zinc-900/80 group-hover:bg-zinc-100/50 dark:group-hover:bg-zinc-800/80 transition-colors border border-dashed border-border shadow-surface-inset overflow-hidden">
-            {shouldRenderVideo && previewSources && (
-              <video
-                ref={videoRef}
-                src={shouldLoadVideo ? previewVideoSrc : undefined}
-                loop
-                muted
-                playsInline
-                preload={shouldLoadVideo ? "auto" : "metadata"}
-                onLoadedData={(e) => {
-                  setIsVideoReady(true)
-                  if (!isHovered) {
-                    const video = e.currentTarget
-                    if (video.currentTime < 0.01) {
-                      video.currentTime = 0.01
-                    }
-                  }
-                }}
-                onCanPlay={() => {
-                  if (isHovered) {
-                    const video = videoRef.current
-                    if (!video) return
-                    const playPromise = video.play()
-                    if (playPromise) {
-                      playPromise.catch(() => { })
-                    }
-                  }
-                }}
-                className={`w-full h-full object-cover transition-opacity duration-200 ${isVideoReady ? "opacity-100" : "opacity-0"}`}
+            {hasPreview && component.previewImage && (
+              <Image
+                src={component.previewImage}
+                alt={`${component.title} preview`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+                priority={index < 6}
               />
             )}
           </div>
         </div>
 
-        {/* ── Info area ── */}
         <div className="flex flex-col gap-1.5 px-4 pb-4 pt-2">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-700 dark:group-hover:text-zinc-300 transition-colors">
@@ -224,15 +71,9 @@ const categoryOrder: ComponentCategory[] = [
   "Visual Effects",
 ]
 
-// ─── Main Docs Page ─────────────────────────────────────────────────────────
 export default function DocsPage() {
   const allComponents = Object.values(components)
   const [activeSection, setActiveSection] = useState<string>("")
-
-  // Continue prefetching any videos not yet cached
-  usePrefetchPreviewVideos()
-
-
 
   useEffect(() => {
     const observers = categoryOrder.map((cat) => {
@@ -246,7 +87,7 @@ export default function DocsPage() {
             setActiveSection(cat)
           }
         },
-        { rootMargin: "-20% 0px -50% 0px" } // Trigger when section is near center/top
+        { rootMargin: "-20% 0px -50% 0px" }
       )
       observer.observe(element)
       return observer
@@ -257,7 +98,6 @@ export default function DocsPage() {
     }
   }, [])
 
-  // Scroll active nav item into view
   useEffect(() => {
     if (activeSection) {
       const id = `nav-item-${activeSection}`
@@ -273,22 +113,19 @@ export default function DocsPage() {
   }, [activeSection])
 
   const grouped = categoryOrder
-    .map(cat => ({
+    .map((cat) => ({
       category: cat,
-      items: allComponents.filter(c => c.category === cat),
+      items: allComponents.filter((c) => c.category === cat),
     }))
-    .filter(g => g.items.length > 0)
+    .filter((g) => g.items.length > 0)
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#111] text-zinc-900 dark:text-zinc-100 font-sans overflow-x-hidden">
-      {/* ── Overlays ── */}
       <ScrollEdgeFade position="top" variant="docs-index" className="fixed z-40" />
       <ScrollEdgeFade position="bottom" variant="docs-index" className="fixed z-40" />
 
-      {/* ── Top Floating Header ── */}
       <SiteHeader />
 
-      {/* ── Floating Dock Nav ── */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-full max-w-[calc(100vw-2rem)] sm:max-w-fit pointer-events-none">
         <nav className="flex items-center gap-1 p-1.5 rounded-2xl border border-border bg-white/80 dark:bg-[#121212] backdrop-blur-xl shadow-card pointer-events-auto overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categoryOrder.map((cat) => {
@@ -297,10 +134,10 @@ export default function DocsPage() {
               <a
                 key={cat}
                 id={`nav-item-${cat}`}
-                href={`#${cat.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`#${cat.toLowerCase().replace(/\s+/g, "-")}`}
                 onClick={(e) => {
                   e.preventDefault()
-                  document.getElementById(cat.toLowerCase().replace(/\s+/g, '-'))?.scrollIntoView({ behavior: 'smooth' })
+                  document.getElementById(cat.toLowerCase().replace(/\s+/g, "-"))?.scrollIntoView({ behavior: "smooth" })
                   setActiveSection(cat)
                 }}
                 className={`relative px-4 py-2 text-[13px] font-medium transition-all duration-300 rounded-lg whitespace-nowrap flex-shrink-0 ${isActive
@@ -323,8 +160,6 @@ export default function DocsPage() {
       </div>
 
       <main className="max-w-[1400px] mx-auto pt-32 pb-32 px-6 sm:px-8 relative z-10">
-
-        {/* ── Hero ── */}
         <div className="mb-12 max-w-3xl">
           <h1 className="text-4xl lg:text-5xl font-bold tracking-tighter bg-gradient-to-br from-zinc-900 via-zinc-500 to-zinc-900 dark:from-white dark:via-zinc-400 dark:to-white bg-clip-text text-transparent leading-[1.1] mb-2 inline-block">
             Crafted Components.
@@ -334,15 +169,10 @@ export default function DocsPage() {
           </p>
         </div>
 
-
-
-
-
-        {/* ── Categories ── */}
         <div className="space-y-24">
           {grouped.map(({ category, items }) => {
             return (
-              <section key={category} id={category.toLowerCase().replace(/\s+/g, '-')} className="scroll-mt-32">
+              <section key={category} id={category.toLowerCase().replace(/\s+/g, "-")} className="scroll-mt-32">
                 <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-8 tracking-tight">
                   {category}
                 </h2>
@@ -359,9 +189,7 @@ export default function DocsPage() {
             )
           })}
         </div>
-
-
-      </main >
-    </div >
+      </main>
+    </div>
   )
 }

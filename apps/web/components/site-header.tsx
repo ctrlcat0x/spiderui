@@ -44,8 +44,8 @@ export function SiteHeader({ sidebarToggle }: SiteHeaderProps) {
                         <Link href="/docs" className="text-foreground/60 transition-colors hover:text-foreground">
                             Docs
                         </Link>
-                        <Link href="/docs/mcp" className="text-foreground/60 transition-colors hover:text-foreground">
-                            MCP
+                        <Link href="/docs/templates" className="text-foreground/60 transition-colors hover:text-foreground">
+                            Templates
                         </Link>
                         <Link
                             href="https://github.com/sponsors/ctrlcat0x"

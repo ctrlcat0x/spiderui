@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
@@ -15,38 +16,10 @@ import { clickSoftSound } from "@/lib/click-soft"
 import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade"
 import { useDocsSidebar } from "@/components/docs-sidebar-context"
 
-type PreviewSources = {
-    mp4: string
-    webm: string
-}
-
 type NavViewMode = "grouped" | "collection"
 
 const HOVER_SOUND_MS = 70
 const TOGGLE_IN_SIDEBAR_DELAY_MS = 50
-
-let preferredPreviewFormat: "webm" | "mp4" | null = null
-
-function getPreferredPreviewSrc(sources: PreviewSources) {
-    if (typeof window === "undefined") return sources.mp4
-    if (!preferredPreviewFormat) {
-        const probe = document.createElement("video")
-        const supportsWebm = Boolean(probe.canPlayType('video/webm; codecs="vp9,opus"'))
-        preferredPreviewFormat = supportsWebm ? "webm" : "mp4"
-    }
-    return preferredPreviewFormat === "webm" ? sources.webm : sources.mp4
-}
-
-function getPreviewSources(previewVideo?: string) {
-    if (!previewVideo) return null
-    const match = previewVideo.match(/^(.*)\.(mov|mp4|webm)(\?.*)?$/i)
-    if (!match) return null
-    const [, base, , query = ""] = match
-    return {
-        mp4: `${base}.mp4${query}`,
-        webm: `${base}.webm${query}`,
-    }
-}
 
 const DIAL_ROW_CLASS = "flex h-[7px] items-center pl-0.5"
 
@@ -268,16 +241,12 @@ export function FloatingDocsSidebar() {
     const { isOpen, setIsOpen } = useDocsSidebar()
     const [toggleInSidebar, setToggleInSidebar] = React.useState(false)
     const [viewMode, setViewMode] = React.useState<NavViewMode>("grouped")
-    const [isHoverVideoReady, setIsHoverVideoReady] = React.useState(false)
+    const [isHoverImageReady, setIsHoverImageReady] = React.useState(false)
     const [hoverPreview, setHoverPreview] = React.useState<{
         title: string
-        videoSrc: string
-        mp4: string
-        webm: string
+        imageSrc: string
     } | null>(null)
     const [hoverPosition, setHoverPosition] = React.useState<{ x: number; y: number } | null>(null)
-    const warmedPreviewKeys = React.useRef(new Set<string>())
-    const warmingVideos = React.useRef(new Map<string, HTMLVideoElement>())
     const scrollPlaybackRef = React.useRef<{ stop: () => void } | null>(null)
     const scrollSoundTimerRef = React.useRef<number | null>(null)
     const toggleMorphTimerRef = React.useRef<number | null>(null)
@@ -305,22 +274,6 @@ export function FloatingDocsSidebar() {
     const gettingStartedGroup = docsConfig.nav[0]
     const componentGroups = docsConfig.nav.slice(1)
     const collectionItems = docsConfig.flatComponentNav
-
-    const warmPreviewAssets = React.useCallback((sources: PreviewSources) => {
-        if (typeof window === "undefined") return
-        const selectedSrc = getPreferredPreviewSrc(sources)
-        if (warmedPreviewKeys.current.has(selectedSrc)) return
-
-        warmedPreviewKeys.current.add(selectedSrc)
-
-        const video = document.createElement("video")
-        video.preload = "auto"
-        video.muted = true
-        video.playsInline = true
-        video.src = selectedSrc
-        video.load()
-        warmingVideos.current.set(selectedSrc, video)
-    }, [])
 
     const getPreviewPosition = React.useCallback(
         (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -370,24 +323,20 @@ export function FloatingDocsSidebar() {
                 return
             }
 
-            const previewVideo = components[slug]?.previewVideo
-            const sources = getPreviewSources(previewVideo)
-            if (!sources) {
+            const previewImage = components[slug]?.previewImage
+            if (!previewImage) {
                 setHoverPreview(null)
                 setHoverPosition(null)
                 return
             }
-            warmPreviewAssets(sources)
             setHoverPosition(getPreviewPosition(event))
 
             setHoverPreview({
                 title: item.title,
-                videoSrc: getPreferredPreviewSrc(sources),
-                mp4: sources.mp4,
-                webm: sources.webm,
+                imageSrc: previewImage,
             })
         },
-        [getPreviewPosition, warmPreviewAssets]
+        [getPreviewPosition]
     )
 
     const updateHoverPosition = React.useCallback(
@@ -466,37 +415,17 @@ export function FloatingDocsSidebar() {
             stopScrollSound()
             setHoverPreview(null)
             setHoverPosition(null)
-            setIsHoverVideoReady(false)
+            setIsHoverImageReady(false)
         }
     }, [isOpen, stopScrollSound])
 
     React.useEffect(() => {
         if (!hoverPreview) {
-            setIsHoverVideoReady(false)
+            setIsHoverImageReady(false)
             return
         }
-        setIsHoverVideoReady(false)
-    }, [hoverPreview?.videoSrc])
-
-    React.useEffect(() => {
-        if (!isOpen) return
-
-        const initialSources: PreviewSources[] = []
-        for (const group of docsConfig.nav) {
-            for (const item of group.items) {
-                const slug = item.href.split("/").pop()
-                if (!slug) continue
-                const previewVideo = components[slug]?.previewVideo
-                const sources = getPreviewSources(previewVideo)
-                if (!sources) continue
-                initialSources.push(sources)
-                if (initialSources.length >= 5) break
-            }
-            if (initialSources.length >= 5) break
-        }
-
-        initialSources.forEach((sources) => warmPreviewAssets(sources))
-    }, [isOpen, warmPreviewAssets])
+        setIsHoverImageReady(false)
+    }, [hoverPreview?.imageSrc])
 
     React.useEffect(() => () => {
         stopScrollSound()
@@ -632,7 +561,7 @@ export function FloatingDocsSidebar() {
                             <AnimatePresence>
                                 {hoverPreview && hoverPosition && (
                                     <motion.div
-                                        key={hoverPreview.videoSrc}
+                                        key={hoverPreview.imageSrc}
                                         initial={{ opacity: 0, scale: 0.98 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0.98 }}
@@ -645,19 +574,17 @@ export function FloatingDocsSidebar() {
                                     >
                                         <div className="overflow-hidden rounded-xl border border-zinc-200/70 dark:border-zinc-800/70 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-2xl">
                                             <div className="relative h-32 w-full bg-zinc-100 dark:bg-zinc-800/60">
-                                                <video
-                                                    key={hoverPreview.videoSrc}
-                                                    src={hoverPreview.videoSrc}
-                                                    autoPlay
-                                                    loop
-                                                    muted
-                                                    playsInline
-                                                    preload="auto"
-                                                    onLoadedData={() => setIsHoverVideoReady(true)}
+                                                <Image
+                                                    key={hoverPreview.imageSrc}
+                                                    src={hoverPreview.imageSrc}
+                                                    alt={hoverPreview.title}
+                                                    fill
                                                     className={cn(
-                                                        "relative h-full w-full object-cover transition-opacity duration-150",
-                                                        isHoverVideoReady ? "opacity-100" : "opacity-0"
+                                                        "object-cover transition-opacity duration-150",
+                                                        isHoverImageReady ? "opacity-100" : "opacity-0"
                                                     )}
+                                                    sizes="224px"
+                                                    onLoad={() => setIsHoverImageReady(true)}
                                                 />
                                             </div>
                                         </div>

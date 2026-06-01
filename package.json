@@ -8,9 +8,7 @@
     "lint": "turbo lint",
     "validate:registry": "node scripts/validate-registry.js",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "screenshot": "node scripts/screenshot.js",
-    "optimize:previews": "./scripts/optimize-preview-videos.sh",
-    "recompress:previews": "scripts/venv/bin/python scripts/recompress-and-reupload-previews.py"
+    "screenshot": "node scripts/screenshot.js"
   },
   "devDependencies": {
     "@types/three": "^0.182.0",

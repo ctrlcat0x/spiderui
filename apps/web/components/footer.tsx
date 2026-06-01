@@ -5,7 +5,7 @@ import { SpiderUILogomark } from "@/components/logos/spider-logomark"
 const links = {
   product: [
     { label: "Components", href: "/docs" },
-    { label: "MCP Server", href: "/docs/mcp" },
+    { label: "Templates", href: "/docs/templates" },
     { label: "Quick Start", href: "/docs" },
   ],
   resources: [

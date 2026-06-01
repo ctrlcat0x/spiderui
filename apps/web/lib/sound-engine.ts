@@ -14,6 +14,9 @@ export async function decodeAudioData(dataUri: string): Promise<AudioBuffer> {
 
   const ctx = getAudioContext();
   const base64 = dataUri.split(",")[1];
+  if (!base64) {
+    throw new Error("Invalid audio data URI");
+  }
   const binaryString = atob(base64);
   const bytes = new Uint8Array(binaryString.length);
   for (let i = 0; i < binaryString.length; i++) {

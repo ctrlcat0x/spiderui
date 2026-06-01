@@ -11,7 +11,7 @@ const TRACKS = [
 
 export function VerticalSpotifyCardPlayground() {
   const [index, setIndex] = useState(0)
-  const trackUrl = TRACKS[Math.min(index, TRACKS.length - 1)] ?? TRACKS[0]
+  const trackUrl = TRACKS[Math.min(index, TRACKS.length - 1)] ?? TRACKS[0]!
 
   return (
     <div className="flex h-full w-full items-center justify-center p-8">

@@ -60,12 +60,17 @@ export function DocsPreviewWrapper({
 
   const resolvedActiveVariant = hideDefaultVariant && activeVariant === -1 ? 0 : activeVariant
 
-  const { setActiveVariantIndex } = useDocStore()
+  const { setActiveVariantIndex, setPreviewExpanded } = useDocStore()
 
   // Sync state with store
   React.useEffect(() => {
     setActiveVariantIndex(resolvedActiveVariant)
   }, [resolvedActiveVariant, setActiveVariantIndex])
+
+  React.useEffect(() => {
+    setPreviewExpanded(isExpanded)
+    return () => setPreviewExpanded(false)
+  }, [isExpanded, setPreviewExpanded])
 
   const previewRef = React.useRef<HTMLDivElement>(null)
   const variantBarRef = React.useRef<HTMLDivElement>(null)
@@ -408,7 +413,9 @@ export function DocsPreviewWrapper({
 
                 <div className="relative h-full min-h-0">
                   <div className="absolute bottom-0 left-0 right-0 z-10 h-24 bg-gradient-to-t from-[#f3f4f6] via-[#f3f4f6]/80 to-transparent dark:from-[#121212] dark:via-[#121212]/80 dark:to-transparent pointer-events-none backdrop-blur-sm [mask-image:linear-gradient(to_top,black,transparent)]" />
-                  <div className="h-full">{personalizeContent}</div>
+                  <div className="h-full overflow-y-auto overscroll-contain py-20 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                    {personalizeContent}
+                  </div>
                 </div>
               </div>
             </motion.div>

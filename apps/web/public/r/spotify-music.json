@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spotify-music",
+  "type": "registry:style",
+  "title": "Spotify Music Styles",
+  "description": "Music component styles from @workspace/ui/globals.css — .spotify-seek and @keyframes spin. Import in app/globals.css.",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "styles/spotify-music.css",
+      "content": ".spotify-seek {\n  -webkit-appearance: none;\n  appearance: none;\n  height: 4px;\n  border-radius: 4px;\n  outline: none;\n  cursor: pointer;\n  transition: opacity 0.15s;\n}\n\n.spotify-seek:disabled {\n  cursor: default;\n  opacity: 0.35;\n}\n\n.spotify-seek::-webkit-slider-thumb {\n  -webkit-appearance: none;\n  appearance: none;\n  width: 10px;\n  height: 10px;\n  border-radius: 9999px;\n  background: rgba(255, 255, 255, 0.9);\n  box-shadow: 0 0 8px rgba(255, 255, 255, 0.45);\n  transition: transform 0.15s ease, box-shadow 0.15s ease;\n}\n\n.spotify-seek:not(:disabled):hover::-webkit-slider-thumb {\n  transform: scale(1.12);\n  box-shadow: 0 0 10px rgba(255, 255, 255, 0.55);\n}\n\n.spotify-seek::-moz-range-thumb {\n  width: 10px;\n  height: 10px;\n  border: none;\n  border-radius: 9999px;\n  background: rgba(255, 255, 255, 0.9);\n  box-shadow: 0 0 8px rgba(255, 255, 255, 0.45);\n}\n\n.spotify-seek::-moz-range-track {\n  height: 4px;\n  border-radius: 4px;\n  background: transparent;\n}\n\n@keyframes spin {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n",
+      "type": "registry:style"
+    }
+  ]
+}

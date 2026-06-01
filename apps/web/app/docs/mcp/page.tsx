@@ -1,7 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Terminal } from "lucide-react"
+import {
+  PackageManagerIcon,
+  type PackageManagerName,
+} from "@/components/icons/package-managers"
 import { SiteHeader } from "@/components/site-header"
 import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade"
 import { CodeInline, Section } from "@/components/component-layout"
@@ -52,11 +55,9 @@ function CommandTabs({ selected, onSelect }: { selected: PackageManager; onSelec
                   : "bg-zinc-100/30 dark:bg-zinc-800/10 text-muted-foreground/80 hover:text-foreground",
               ].join(" ")}
             >
-              <Terminal
-                className={[
-                  "h-3.5 w-3.5",
-                  selected === pm ? "text-zinc-950 dark:text-zinc-50" : "text-muted-foreground/70",
-                ].join(" ")}
+              <PackageManagerIcon
+                manager={pm as PackageManagerName}
+                className="h-3.5 w-3.5 shrink-0"
               />
               <span>{pm}</span>
             </button>

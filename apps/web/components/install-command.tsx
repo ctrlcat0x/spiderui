@@ -1,10 +1,13 @@
 "use client"
 
 import * as React from "react"
-import { Terminal } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 import { CopyButton } from "@/components/copy-button"
+import {
+  PackageManagerIcon,
+  type PackageManagerName,
+} from "@/components/icons/package-managers"
 import { useClickSound } from "@/hooks/use-click-sound"
 
 const PACKAGE_MANAGERS = ["npm", "pnpm", "yarn", "bun"] as const
@@ -48,7 +51,10 @@ export function InstallCommand({ component }: InstallCommandProps) {
                   : "bg-zinc-100/30 dark:bg-zinc-800/10 text-muted-foreground/80 hover:text-foreground"
               )}
             >
-              <Terminal className={cn("h-3.5 w-3.5", selected === pm ? "text-zinc-950 dark:text-zinc-50" : "text-muted-foreground/70")} />
+              <PackageManagerIcon
+                manager={pm as PackageManagerName}
+                className="h-3.5 w-3.5 shrink-0"
+              />
               <span>{pm}</span>
             </button>
           ))}

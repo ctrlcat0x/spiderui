@@ -128,12 +128,12 @@ export async function DocsPageLayout({
 
             {/* Installation */}
             <Section title="Installation" className="pt-10">
+              <InstallCommand component={installPackageName} />
               {installationNote && (
-                <div className="mb-4">
+                <div className="mt-4">
                   {installationNote}
                 </div>
               )}
-              <InstallCommand component={installPackageName} />
             </Section>
 
             {/* Import */}

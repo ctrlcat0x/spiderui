@@ -65,6 +65,62 @@ export const components: Record<string, ComponentMetadata> = {
     previewVideo:
       "https://pub-a50e7f4ea75a4970a1738e50d53b6eb1.r2.dev/preview-videos/visual-effects/imagetrail.webm",
   },
+  "card-stroke": {
+    title: "Card Stroke",
+    description:
+      "A card with animated SVG strokes and word-by-word text reveal on hover.",
+    category: "Components",
+    slug: "card-stroke",
+    addedAt: "2026-06-01",
+  },
+  avatar: {
+    title: "Avatar",
+    description:
+      "An animated AI orb avatar with blinking eyes, 12 colors, 3 sizes, and 3 shapes.",
+    category: "Components",
+    slug: "avatar",
+    addedAt: "2026-06-01",
+  },
+  footer: {
+    title: "Footer",
+    description:
+      "A scroll-driven footer with animated spectrum bars, inspired by Dia browser.",
+    category: "Components",
+    slug: "footer",
+    addedAt: "2026-06-01",
+  },
+  "greeting-preloader": {
+    title: "Greetings Preloader",
+    description:
+      "A multilingual greeting preloader with Motion transitions and a GSAP page reveal.",
+    category: "Components",
+    slug: "greeting-preloader",
+    addedAt: "2026-06-01",
+  },
+  "spotify-card": {
+    title: "Spotify Card",
+    description:
+      "Spotify track card with blurred art, vinyl animation, preview playback, and seek controls.",
+    category: "Components",
+    slug: "spotify-card",
+    addedAt: "2026-06-01",
+  },
+  "vertical-spotify-card": {
+    title: "Vertical Spotify Card",
+    description:
+      "Tall vertical Spotify card with progressive blur album art, seek bar, and transport controls.",
+    category: "Components",
+    slug: "vertical-spotify-card",
+    addedAt: "2026-06-01",
+  },
+  "album-cards": {
+    title: "Album Cards",
+    description:
+      "Stacked Spotify album covers with click-to-eject spinning vinyl, reflections, and neighbor dimming.",
+    category: "Components",
+    slug: "album-cards",
+    addedAt: "2026-06-01",
+  },
 };
 
 export function getComponent(slug: string) {

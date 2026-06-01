@@ -27,6 +27,72 @@ export const SIGNATURE_DEFAULT_CONFIG: SignatureConfig = {
   duration: 1.5,
 };
 
+export interface CardStrokeConfig {
+  title: string;
+  description: string;
+  accentStrokeColor: string;
+  baseStrokeColor: string;
+  textColor: string;
+}
+
+export const CARD_STROKE_DEFAULT_CONFIG: CardStrokeConfig = {
+  title: "Card Title",
+  description: "A small two line paragraph passed by prop.",
+  accentStrokeColor: "#E0E0E0",
+  baseStrokeColor: "#2B7FFF",
+  textColor: "#F5F5F5",
+};
+
+export interface AvatarConfig {
+  color:
+    | "blue"
+    | "orange"
+    | "red"
+    | "green"
+    | "purple"
+    | "yellow"
+    | "cyan"
+    | "pink"
+    | "indigo"
+    | "lime"
+    | "turquoise"
+    | "violet";
+  size: "sm" | "md" | "lg";
+  shape: "circle" | "square" | "squircle";
+  blinking: boolean;
+}
+
+export const AVATAR_DEFAULT_CONFIG: AvatarConfig = {
+  color: "blue",
+  size: "md",
+  shape: "circle",
+  blinking: true,
+};
+
+export interface FooterConfig {
+  theme:
+    | "dia-browser"
+    | "ocean"
+    | "amber"
+    | "emerald"
+    | "violet"
+    | "rose";
+  copyrightText: string;
+}
+
+export const FOOTER_DEFAULT_CONFIG: FooterConfig = {
+  theme: "dia-browser",
+  copyrightText: `copyright © ${new Date().getFullYear()} — Spider UI`,
+};
+
+export interface GreetingPreloaderConfig {
+  intervalMs: number;
+}
+
+export const GREETING_PRELOADER_DEFAULT_CONFIG: GreetingPreloaderConfig = {
+  intervalMs: 300,
+};
+
 export interface SplitFlapDisplayConfig {
   text: string;
   columns: number;
@@ -199,6 +265,25 @@ interface PlaygroundStore {
   setActiveSplitFlapDisplayPreset: (preset: string) => void;
   resetSplitFlapDisplayPreview: () => void;
   resetSplitFlapDisplayConfig: () => void;
+  cardStrokeConfig: CardStrokeConfig;
+  activeCardStrokePreset: string;
+  cardStrokeRenderVersion: number;
+  setCardStrokeConfig: (config: CardStrokeConfig) => void;
+  updateCardStrokeConfig: (updates: Partial<CardStrokeConfig>) => void;
+  setActiveCardStrokePreset: (preset: string) => void;
+  resetCardStrokePreview: () => void;
+  resetCardStrokeConfig: () => void;
+  avatarConfig: AvatarConfig;
+  updateAvatarConfig: (updates: Partial<AvatarConfig>) => void;
+  resetAvatarConfig: () => void;
+  footerConfig: FooterConfig;
+  updateFooterConfig: (updates: Partial<FooterConfig>) => void;
+  resetFooterConfig: () => void;
+  greetingPreloaderConfig: GreetingPreloaderConfig;
+  greetingPreloaderRemountVersion: number;
+  updateGreetingPreloaderConfig: (updates: Partial<GreetingPreloaderConfig>) => void;
+  resetGreetingPreloaderConfig: () => void;
+  resetGreetingPreloaderPreview: () => void;
 }
 
 export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
@@ -322,5 +407,54 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
       splitFlapDisplayConfig: SPLIT_FLAP_DISPLAY_DEFAULT_CONFIG,
       activeSplitFlapDisplayPreset: "Default",
       splitFlapDisplayRenderVersion: state.splitFlapDisplayRenderVersion + 1,
+    })),
+  cardStrokeConfig: CARD_STROKE_DEFAULT_CONFIG,
+  activeCardStrokePreset: "Default",
+  cardStrokeRenderVersion: 0,
+  setCardStrokeConfig: (config) => set({ cardStrokeConfig: config }),
+  updateCardStrokeConfig: (updates) =>
+    set((state) => ({
+      cardStrokeConfig: { ...state.cardStrokeConfig, ...updates },
+    })),
+  setActiveCardStrokePreset: (preset) => set({ activeCardStrokePreset: preset }),
+  resetCardStrokePreview: () =>
+    set((state) => ({
+      cardStrokeRenderVersion: state.cardStrokeRenderVersion + 1,
+    })),
+  resetCardStrokeConfig: () =>
+    set((state) => ({
+      cardStrokeConfig: CARD_STROKE_DEFAULT_CONFIG,
+      activeCardStrokePreset: "Default",
+      cardStrokeRenderVersion: state.cardStrokeRenderVersion + 1,
+    })),
+  avatarConfig: AVATAR_DEFAULT_CONFIG,
+  updateAvatarConfig: (updates) =>
+    set((state) => ({
+      avatarConfig: { ...state.avatarConfig, ...updates },
+    })),
+  resetAvatarConfig: () => set({ avatarConfig: AVATAR_DEFAULT_CONFIG }),
+  footerConfig: FOOTER_DEFAULT_CONFIG,
+  updateFooterConfig: (updates) =>
+    set((state) => ({
+      footerConfig: { ...state.footerConfig, ...updates },
+    })),
+  resetFooterConfig: () => set({ footerConfig: FOOTER_DEFAULT_CONFIG }),
+  greetingPreloaderConfig: GREETING_PRELOADER_DEFAULT_CONFIG,
+  greetingPreloaderRemountVersion: 0,
+  updateGreetingPreloaderConfig: (updates) =>
+    set((state) => ({
+      greetingPreloaderConfig: {
+        ...state.greetingPreloaderConfig,
+        ...updates,
+      },
+    })),
+  resetGreetingPreloaderConfig: () =>
+    set((state) => ({
+      greetingPreloaderConfig: GREETING_PRELOADER_DEFAULT_CONFIG,
+      greetingPreloaderRemountVersion: state.greetingPreloaderRemountVersion + 1,
+    })),
+  resetGreetingPreloaderPreview: () =>
+    set((state) => ({
+      greetingPreloaderRemountVersion: state.greetingPreloaderRemountVersion + 1,
     })),
 }));

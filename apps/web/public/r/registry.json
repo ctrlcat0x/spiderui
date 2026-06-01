@@ -10,7 +10,27 @@
   ],
   "items": [
     {
+      "name": "album-cards",
+      "type": "registry:ui"
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui"
+    },
+    {
+      "name": "card-stroke",
+      "type": "registry:ui"
+    },
+    {
       "name": "collection-surfer",
+      "type": "registry:ui"
+    },
+    {
+      "name": "footer",
+      "type": "registry:ui"
+    },
+    {
+      "name": "greeting-preloader",
       "type": "registry:ui"
     },
     {
@@ -27,6 +47,18 @@
     },
     {
       "name": "signature",
+      "type": "registry:ui"
+    },
+    {
+      "name": "spotify-card",
+      "type": "registry:ui"
+    },
+    {
+      "name": "spotify-music",
+      "type": "registry:style"
+    },
+    {
+      "name": "vertical-spotify-card",
       "type": "registry:ui"
     }
   ]

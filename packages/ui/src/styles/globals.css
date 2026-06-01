@@ -4,6 +4,7 @@
 @source "../**/*.{ts,tsx}";
 
 @import "tw-animate-css";
+@import "./spotify-music.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -317,4 +318,13 @@ body.route-hide-scrollbar::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;
+}
+
+::selection {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+::-moz-selection {
+  background-color: var(--foreground);
+  color: var(--background);
 }

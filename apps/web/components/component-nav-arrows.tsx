@@ -31,7 +31,7 @@ export function ComponentNavArrows({ variant = "header" }: { variant?: "header" 
   }
 
   return (
-    <div className="flex shrink-0 items-center gap-0.5">
+    <div className="flex shrink-0 items-center gap-1">
       {prevItem ? (
         <Link
           href={prevItem.href}

@@ -18,11 +18,15 @@
       "type": "registry:ui"
     },
     {
-      "name": "card-stroke",
+      "name": "badge",
       "type": "registry:ui"
     },
     {
-      "name": "collection-surfer",
+      "name": "button",
+      "type": "registry:ui"
+    },
+    {
+      "name": "card-stroke",
       "type": "registry:ui"
     },
     {
@@ -35,6 +39,42 @@
     },
     {
       "name": "image-trail",
+      "type": "registry:ui"
+    },
+    {
+      "name": "logo-cloud-1",
+      "type": "registry:ui"
+    },
+    {
+      "name": "logo-cloud-2",
+      "type": "registry:ui"
+    },
+    {
+      "name": "logo-cloud-3",
+      "type": "registry:ui"
+    },
+    {
+      "name": "logo-cloud-4",
+      "type": "registry:ui"
+    },
+    {
+      "name": "pricing-1",
+      "type": "registry:ui"
+    },
+    {
+      "name": "pricing-2",
+      "type": "registry:ui"
+    },
+    {
+      "name": "pricing-3",
+      "type": "registry:ui"
+    },
+    {
+      "name": "pricing-4",
+      "type": "registry:ui"
+    },
+    {
+      "name": "pricing-5",
       "type": "registry:ui"
     },
     {
@@ -58,7 +98,15 @@
       "type": "registry:style"
     },
     {
+      "name": "sticker-trail",
+      "type": "registry:ui"
+    },
+    {
       "name": "vertical-spotify-card",
+      "type": "registry:ui"
+    },
+    {
+      "name": "weeeee-hover",
       "type": "registry:ui"
     }
   ]

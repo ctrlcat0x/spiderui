@@ -93,6 +93,46 @@ export const GREETING_PRELOADER_DEFAULT_CONFIG: GreetingPreloaderConfig = {
   intervalMs: 300,
 };
 
+export interface StickerTrailConfig {
+  spawnDistance: number;
+  driftAmount: number;
+  removeDelay: number;
+  maxItems: number;
+}
+
+export const STICKER_TRAIL_DEFAULT_CONFIG: StickerTrailConfig = {
+  spawnDistance: 76,
+  driftAmount: 36,
+  removeDelay: 1,
+  maxItems: 8,
+};
+
+export type ImageTrailBlindDirection = "vertical" | "horizontal";
+
+export interface ImageTrailConfig {
+  imageLifespan: number;
+  minDistance: number;
+  revealDuration: number;
+  fadeDuration: number;
+  staggerDelay: number;
+  lerpFactor: number;
+  maxItems: number;
+  slicesCount: number;
+  blindDirection: ImageTrailBlindDirection;
+}
+
+export const IMAGE_TRAIL_DEFAULT_CONFIG: ImageTrailConfig = {
+  imageLifespan: 1000,
+  minDistance: 45,
+  revealDuration: 450,
+  fadeDuration: 350,
+  staggerDelay: 30,
+  lerpFactor: 0.08,
+  maxItems: 8,
+  slicesCount: 10,
+  blindDirection: "vertical",
+};
+
 export interface SplitFlapDisplayConfig {
   text: string;
   columns: number;
@@ -284,6 +324,16 @@ interface PlaygroundStore {
   updateGreetingPreloaderConfig: (updates: Partial<GreetingPreloaderConfig>) => void;
   resetGreetingPreloaderConfig: () => void;
   resetGreetingPreloaderPreview: () => void;
+  stickerTrailConfig: StickerTrailConfig;
+  stickerTrailRemountVersion: number;
+  updateStickerTrailConfig: (updates: Partial<StickerTrailConfig>) => void;
+  resetStickerTrailConfig: () => void;
+  resetStickerTrailPreview: () => void;
+  imageTrailConfig: ImageTrailConfig;
+  imageTrailRemountVersion: number;
+  updateImageTrailConfig: (updates: Partial<ImageTrailConfig>) => void;
+  resetImageTrailConfig: () => void;
+  resetImageTrailPreview: () => void;
 }
 
 export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
@@ -456,5 +506,35 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
   resetGreetingPreloaderPreview: () =>
     set((state) => ({
       greetingPreloaderRemountVersion: state.greetingPreloaderRemountVersion + 1,
+    })),
+  stickerTrailConfig: STICKER_TRAIL_DEFAULT_CONFIG,
+  stickerTrailRemountVersion: 0,
+  updateStickerTrailConfig: (updates) =>
+    set((state) => ({
+      stickerTrailConfig: { ...state.stickerTrailConfig, ...updates },
+    })),
+  resetStickerTrailConfig: () =>
+    set((state) => ({
+      stickerTrailConfig: STICKER_TRAIL_DEFAULT_CONFIG,
+      stickerTrailRemountVersion: state.stickerTrailRemountVersion + 1,
+    })),
+  resetStickerTrailPreview: () =>
+    set((state) => ({
+      stickerTrailRemountVersion: state.stickerTrailRemountVersion + 1,
+    })),
+  imageTrailConfig: IMAGE_TRAIL_DEFAULT_CONFIG,
+  imageTrailRemountVersion: 0,
+  updateImageTrailConfig: (updates) =>
+    set((state) => ({
+      imageTrailConfig: { ...state.imageTrailConfig, ...updates },
+    })),
+  resetImageTrailConfig: () =>
+    set((state) => ({
+      imageTrailConfig: IMAGE_TRAIL_DEFAULT_CONFIG,
+      imageTrailRemountVersion: state.imageTrailRemountVersion + 1,
+    })),
+  resetImageTrailPreview: () =>
+    set((state) => ({
+      imageTrailRemountVersion: state.imageTrailRemountVersion + 1,
     })),
 }));

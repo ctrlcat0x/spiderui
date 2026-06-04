@@ -16,18 +16,20 @@ export function DocsHeaderNav({ title }: { title: string }) {
         <div className="pointer-events-auto shrink-0">
           <FloatingDocsSidebarLazy />
         </div>
-        <div className="inline-flex h-5 min-w-0 items-center gap-2 text-[15px] font-semibold leading-none text-black/50 [font-family:ui-sans-serif,system-ui,sans-serif] pointer-events-auto dark:text-white/50 mix-blend-multiply dark:mix-blend-lighten">
-          <Link
-            href="/docs"
-            className="shrink-0 transition-colors hover:text-black/80 dark:hover:text-white/80"
-          >
-            Docs
-          </Link>
-          <span className="shrink-0 select-none opacity-40">·</span>
-          <span className="max-w-[130px] truncate sm:max-w-[220px] font-bold text-black/70 dark:text-white/70">
-            {title}
-          </span>
-        </div>
+        {!isPreviewExpanded ? (
+          <div className="inline-flex h-5 min-w-0 items-center gap-2 text-[15px] font-semibold leading-none text-black/50 [font-family:ui-sans-serif,system-ui,sans-serif] pointer-events-auto dark:text-white/50 mix-blend-multiply dark:mix-blend-lighten">
+            <Link
+              href="/docs"
+              className="shrink-0 transition-colors hover:text-black/80 dark:hover:text-white/80"
+            >
+              Docs
+            </Link>
+            <span className="shrink-0 select-none opacity-40">·</span>
+            <span className="max-w-[130px] truncate sm:max-w-[220px] font-bold text-black/70 dark:text-white/70">
+              {title}
+            </span>
+          </div>
+        ) : null}
       </div>
 
       {!isOpen && !isPreviewExpanded && (

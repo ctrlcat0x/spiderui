@@ -4,7 +4,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { components, isNewComponent, type ComponentCategory, type ComponentMetadata } from "@/registry"
+import {
+  compareComponentsInCategory,
+  components,
+  getComponentDocsHref,
+  isNewComponent,
+  type ComponentCategory,
+  type ComponentMetadata,
+} from "@/registry"
 import { SiteHeader } from "@/components/site-header"
 import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade"
 
@@ -28,7 +35,7 @@ function ComponentCard({
       }}
     >
       <Link
-        href={`/docs/components/${component.slug}`}
+        href={getComponentDocsHref(component.slug)}
         className="group relative flex flex-col rounded-2xl border border-border bg-white dark:bg-zinc-900/50 overflow-hidden transition-all duration-300 shadow-card hover:-translate-y-0.5 hover:border-input hover:shadow-card-hover"
       >
         <div className="p-1.5">
@@ -67,7 +74,10 @@ function ComponentCard({
 }
 
 const categoryOrder: ComponentCategory[] = [
+  "Primitives",
   "Components",
+  "Logo Clouds",
+  "Pricing",
   "Visual Effects",
 ]
 
@@ -115,7 +125,9 @@ export default function DocsPage() {
   const grouped = categoryOrder
     .map((cat) => ({
       category: cat,
-      items: allComponents.filter((c) => c.category === cat),
+      items: allComponents
+        .filter((c) => c.category === cat)
+        .sort(compareComponentsInCategory),
     }))
     .filter((g) => g.items.length > 0)
 

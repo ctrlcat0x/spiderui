@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { components } from "@/registry";
+import { components, getComponentDocsHref } from "@/registry";
 
 const baseUrl = "https://spiderui.dev";
 
@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const componentSitemap: MetadataRoute.Sitemap = Object.keys(components).map(
     (slug) => ({
-      url: `${baseUrl}/docs/components/${slug}`,
+      url: `${baseUrl}${getComponentDocsHref(slug)}`,
       lastModified: currentDate,
       changeFrequency: "weekly" as const,
       priority: 0.8,

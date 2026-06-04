@@ -1,4 +1,8 @@
-import { components } from "@/registry";
+import {
+  compareComponentsInCategory,
+  components,
+  getComponentDocsHref,
+} from "@/registry";
 
 type NavItem = {
   title: string;
@@ -26,7 +30,10 @@ const gettingStarted: NavGroup = {
 };
 
 const categoryOrder = [
+  "Primitives",
   "Components",
+  "Logo Clouds",
+  "Pricing",
   "Visual Effects",
 ];
 
@@ -42,13 +49,21 @@ const getComponentNav = (): NavGroup[] => {
     }
     groups[component.category]!.items.push({
       title: component.title,
-      href: `/docs/components/${component.slug}`,
+      href: getComponentDocsHref(component.slug),
     });
   });
 
-  // Sort items within groups alphabetically
   Object.keys(groups).forEach((key) => {
-    groups[key]!.items.sort((a, b) => a.title.localeCompare(b.title));
+    const category = key as keyof typeof groups;
+    const categoryComponents = Object.values(components).filter(
+      (c) => c.category === category,
+    );
+    groups[category]!.items.sort((a, b) => {
+      const compA = categoryComponents.find((c) => c.title === a.title);
+      const compB = categoryComponents.find((c) => c.title === b.title);
+      if (!compA || !compB) return a.title.localeCompare(b.title);
+      return compareComponentsInCategory(compA, compB);
+    });
   });
 
   // Return groups in defined order
@@ -79,10 +94,10 @@ const getLlmsText = () => {
     text += `\n\n### ${category}\n\n`;
     const categoryComponents = Object.values(components)
       .filter((c) => c.category === category)
-      .sort((a, b) => a.title.localeCompare(b.title));
+      .sort(compareComponentsInCategory);
 
     categoryComponents.forEach((component) => {
-      text += `- [${component.title}](${baseUrl}/docs/components/${component.slug}): ${component.description}\n`;
+      text += `- [${component.title}](${baseUrl}${getComponentDocsHref(component.slug)}): ${component.description}\n`;
     });
   });
 

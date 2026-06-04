@@ -8,8 +8,8 @@ import { HeroButtons } from "@/components/landing/hero-buttons"
 import { Footer } from "@/components/footer"
 import { Signature } from "@workspace/ui/components/signature"
 import { ScrubInputDemo } from "@/components/docs/previews/scrub-input-preview"
-import { ImageTrailDemo } from "@/components/docs/previews/image-trail-preview"
-import { CollectionSurferPreview } from "@/components/docs/previews/collection-surfer-preview"
+import { ImageTrailDemo } from "@/components/docs/previews/image-trail-playground"
+import { StickerTrailPreview } from "@/components/docs/previews/sticker-trail-playground"
 
 const showcaseCardClass =
   "relative flex flex-col rounded-2xl border border-border bg-white dark:bg-[#1a1a1a] p-2 shadow-card transition-all duration-300 hover:border-input hover:shadow-card-hover"
@@ -78,12 +78,12 @@ export default function Home() {
           transition={{ duration: 1, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mt-20 w-full max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-3 md:gap-4 auto-rows-[300px] mb-20 px-4"
         >
-          <Link href="/docs/components/collection-surfer" className={`md:col-span-2 md:row-span-2 ${showcaseCardClass}`}>
+          <Link href="/docs/components/sticker-trail" className={`md:col-span-2 md:row-span-2 ${showcaseCardClass}`}>
             <div className={`${showcasePreviewClass} min-h-[320px]`}>
-              <CollectionSurferPreview src="/demo/collection-surfer/simple" title="Collection Surfer preview" />
+              <StickerTrailPreview />
             </div>
             <div className="shrink-0 pt-3 pb-1 px-3 text-sm font-medium text-zinc-700 dark:text-zinc-400">
-              Collection surfer
+              Sticker trail
             </div>
           </Link>
 

@@ -25,6 +25,8 @@ export interface VariantItem {
 interface DocsPreviewWrapperProps {
   children: React.ReactNode
   fullWidthPreview?: boolean
+  /** Tall previews that scroll from the top (e.g. pricing grids). */
+  scrollablePreview?: boolean
   personalizeContent?: React.ReactNode
   sourceCodeFilename?: string
   sourceCodeKey?: string
@@ -35,6 +37,7 @@ interface DocsPreviewWrapperProps {
 export function DocsPreviewWrapper({
   children,
   fullWidthPreview,
+  scrollablePreview = false,
   personalizeContent,
   sourceCodeFilename,
   sourceCodeKey,
@@ -58,7 +61,10 @@ export function DocsPreviewWrapper({
   const playClick = useClickSound()
   const [playCardPlace] = useSound(cardPlace1Sound, { volume: 0.12, interrupt: true })
 
-  const resolvedActiveVariant = hideDefaultVariant && activeVariant === -1 ? 0 : activeVariant
+  const resolvedActiveVariant =
+    hideDefaultVariant && variants.length > 0 && activeVariant === -1
+      ? 0
+      : activeVariant
 
   const { setActiveVariantIndex, setPreviewExpanded } = useDocStore()
 
@@ -77,6 +83,10 @@ export function DocsPreviewWrapper({
   const iconButtonClass = "inline-flex h-7 w-7 items-center justify-center rounded-md border border-transparent text-foreground/60 transition-all duration-150 hover:border-border/70 hover:bg-muted/70 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 active:scale-[0.97]"
   const hasSourceCode = Boolean(sourceCodeKey)
   const isDrawerOpen = showSource || showPersonalize
+  const isFullWidthLayout =
+    fullWidthPreview ||
+    (resolvedActiveVariant >= 0 && variants[resolvedActiveVariant]?.fullWidth)
+  const isScrollableLayout = scrollablePreview
 
   const handlePersonalizeToggle = React.useCallback(() => {
     if (showPersonalize) {
@@ -190,6 +200,7 @@ export function DocsPreviewWrapper({
           leftColumn.style.borderRightColor = "transparent"
           rightColumn.style.flex = "1 1 100%"
           rightColumn.style.maxWidth = "100%"
+          previewShell.style.paddingTop = "0.75rem"
           previewShell.style.paddingLeft = "1rem"
           previewShell.style.paddingRight = "1rem"
         } else {
@@ -200,6 +211,7 @@ export function DocsPreviewWrapper({
           leftColumn.style.borderRightColor = ""
           rightColumn.style.flex = "1 1 50%"
           rightColumn.style.maxWidth = "50%"
+          previewShell.style.paddingTop = ""
           previewShell.style.paddingLeft = ""
           previewShell.style.paddingRight = ""
         }
@@ -305,21 +317,41 @@ export function DocsPreviewWrapper({
       </div>
 
       {/* Content Area */}
-      <div className={cn(
-        "relative w-full overflow-auto flex bg-white dark:bg-[#121212] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
-        "h-full",
-        !fullWidthPreview && "items-center justify-center"
-      )}>
+      <div
+        className={cn(
+          "relative flex h-full w-full overflow-auto bg-white dark:bg-[#121212] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
+          !isFullWidthLayout && !isScrollableLayout && "items-center justify-center",
+        )}
+      >
         <div
           className={cn(
             "w-full",
-            (resolvedActiveVariant >= 0 && variants[resolvedActiveVariant]?.fullWidth) || fullWidthPreview
-              ? "h-full"
-              : "p-10 flex items-center justify-center"
+            isScrollableLayout &&
+              "min-h-full px-4 pb-8 pt-14 sm:px-6 sm:pt-16",
+            isFullWidthLayout &&
+              !isScrollableLayout &&
+              "h-full",
+            !isFullWidthLayout &&
+              !isScrollableLayout &&
+              "flex items-center justify-center p-10",
           )}
         >
-          <div key={key} className="w-full h-full flex items-center justify-center">
-            {resolvedActiveVariant === -1 ? children : variants[resolvedActiveVariant]?.preview}
+          <div
+            key={key}
+            className={cn(
+              "flex w-full",
+              isScrollableLayout && "min-h-full items-start",
+              isFullWidthLayout &&
+                !isScrollableLayout &&
+                "h-full items-center justify-center",
+              !isFullWidthLayout &&
+                !isScrollableLayout &&
+                "h-full items-center justify-center",
+            )}
+          >
+            {resolvedActiveVariant === -1
+              ? children
+              : variants[resolvedActiveVariant]?.preview}
           </div>
         </div>
       </div>

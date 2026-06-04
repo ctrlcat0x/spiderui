@@ -502,11 +502,11 @@ export function FloatingDocsSidebar() {
                                     <ScrollEdgeFade position="top" variant="sidebar" />
                                     <ScrollEdgeFade position="bottom" variant="sidebar" />
 
-                                    <div ref={navScrollContainerRef} onScroll={handleNavScroll} className="h-full overflow-y-auto pl-0 pr-1 pt-10 pb-5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                                    <div ref={navScrollContainerRef} onScroll={handleNavScroll} className="h-full overflow-y-auto pl-0 pr-1 py-15 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                                         <button
                                             type="button"
                                             onClick={handleViewModeToggle}
-                                            className="mb-4 mt-2 inline-flex items-center gap-1.5 text-[15px] font-semibold text-zinc-500 transition-colors hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+                                            className="px-1 mb-4 mt-2 inline-flex items-center gap-1.5 text-[15px] font-semibold text-zinc-500 transition-colors hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
                                             aria-label={`Switch to ${viewMode === "grouped" ? "collection" : "grouped"} view`}
                                         >
                                             <span>{viewMode === "grouped" ? "Grouped" : "Collection"}</span>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { notFound } from "next/navigation";
-import { getComponent } from "@/registry";
+import { notFound, redirect } from "next/navigation";
+import { getComponent, getComponentDocsHref, isPrimitiveComponent } from "@/registry";
 import { getDocsImporter, getDocsSlugs } from "@/components/docs/lazy-registry";
 import { DocsPageLayout } from "@/components/docs-page-layout";
 
@@ -23,7 +23,7 @@ interface PageProps {
  * This is THE most important optimization - pages are served as static HTML.
  */
 export async function generateStaticParams() {
-    const slugs = getDocsSlugs();
+    const slugs = getDocsSlugs().filter((slug) => !isPrimitiveComponent(slug));
     return slugs.map((slug) => ({ slug }));
 }
 
@@ -128,6 +128,10 @@ export default async function ComponentPage(props: PageProps) {
 
     if (!component) {
         return notFound();
+    }
+
+    if (isPrimitiveComponent(params.slug)) {
+        redirect(getComponentDocsHref(params.slug));
     }
 
     const importer = getDocsImporter(params.slug);

@@ -128,7 +128,6 @@ export type WeeeeeHoverProps = {
   accentColor?: string
   className?: string
   titleClassName?: string
-  showChrome?: boolean
   header?: ReactNode
 }
 
@@ -138,7 +137,6 @@ export function WeeeeeHover({
   accentColor = "#ff2d1f",
   className,
   titleClassName,
-  showChrome = false,
   header,
 }: WeeeeeHoverProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -331,7 +329,7 @@ export function WeeeeeHover({
       )}
       onMouseMove={handleMouseMove}
     >
-      {showChrome && header ? <div className="shrink-0">{header}</div> : null}
+      {header ? <div className="shrink-0">{header}</div> : null}
 
       <div className="flex flex-1 flex-col items-center justify-center gap-4 px-2 pb-6 pt-4">
         <div

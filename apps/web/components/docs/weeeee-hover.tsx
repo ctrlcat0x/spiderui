@@ -88,15 +88,9 @@ export async function WeeeeeHoverDocs() {
           description: "Override headline size (useful in narrow preview panes).",
         },
         {
-          name: "showChrome",
-          type: "boolean",
-          default: "false",
-          description: "Optional header slot above the preview.",
-        },
-        {
           name: "header",
           type: "ReactNode",
-          description: "Custom header when showChrome is true.",
+          description: "Optional slot above the thumbnail strip (e.g. nav or branding).",
         },
         {
           name: "className",

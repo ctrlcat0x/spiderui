@@ -29,6 +29,8 @@ export interface SpotifyCardProps {
   onNext?: () => void
 }
 
+const SPOTIFY_CARD_STYLES = `@keyframes spotify-card-vinyl-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}.spotify-seek{-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;outline:none;cursor:pointer;transition:opacity .15s}.spotify-seek:disabled{cursor:default;opacity:.35}.spotify-seek::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;border-radius:9999px;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.45);transition:transform .15s ease,box-shadow .15s ease}.spotify-seek:not(:disabled):hover::-webkit-slider-thumb{transform:scale(1.12);box-shadow:0 0 10px rgba(255,255,255,.55)}.spotify-seek::-moz-range-thumb{width:10px;height:10px;border:none;border-radius:9999px;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.45)}.spotify-seek::-moz-range-track{height:4px;border-radius:4px;background:transparent}`
+
 const formatTime = (seconds: number) => {
   if (!Number.isFinite(seconds) || seconds < 0) {
     return "0:00"
@@ -131,10 +133,11 @@ function VinylRecord({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 110 110"
-      className="size-full animate-spin"
+      className="size-full"
       style={{
-        animationDuration: "3s",
-        animationPlayState: isPlaying ? "running" : "paused",
+        animation: isPlaying
+          ? "spotify-card-vinyl-spin 3s linear infinite"
+          : "none",
       }}
       aria-hidden
     >
@@ -301,6 +304,7 @@ export function SpotifyCard({
         className,
       )}
     >
+      <style dangerouslySetInnerHTML={{ __html: SPOTIFY_CARD_STYLES }} />
       <div className="pointer-events-none absolute top-1/2 left-1/2 z-0 block aspect-square w-[120%] -translate-x-1/2 -translate-y-1/2">
         <div className="pointer-events-none flex h-full opacity-100 select-none">
           <img

@@ -301,8 +301,8 @@ export function Footer({
       )}
       <div
         className={cn(
-          "animation-section relative shrink-0 overflow-hidden bg-background transition-colors duration-300",
-          isEmbedded ? "h-[min(380px,70vh)]" : "h-screen",
+          "animation-section relative shrink-0 overflow-hidden transition-colors duration-300",
+          isEmbedded ? "min-h-[100svh] bg-transparent" : "h-screen bg-background",
         )}
       >
         <div
@@ -446,7 +446,7 @@ export function Footer({
       </div>
       {isEmbedded && (
         <div
-          className="scroll-tail min-h-[min(120px,20vh)] shrink-0 bg-background transition-colors duration-300"
+          className="scroll-tail min-h-[25svh] shrink-0 bg-transparent"
           aria-hidden
         />
       )}

@@ -76,6 +76,8 @@ function ComponentCard({
 const categoryOrder: ComponentCategory[] = [
   "Primitives",
   "Components",
+  "Text Effects",
+  "Card Interactions",
   "Logo Clouds",
   "Pricing",
   "Visual Effects",

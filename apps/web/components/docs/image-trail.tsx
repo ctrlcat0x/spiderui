@@ -6,9 +6,9 @@ import {
   ImageTrailPreview,
 } from "@/components/docs/previews/image-trail-playground"
 
-const usageCode = `import { ImageTrail } from "@/components/ui/image-trail"
+const importCode = `import { ImageTrail } from "@/components/ui/image-trail"`
 
-const images = [
+const usageCode = `const images = [
   "https://cdn.cosmos.so/your-image.webp",
   "/trail-images/2.jpg",
 ]
@@ -29,7 +29,7 @@ export async function ImageTrailDocs() {
   return (
     <DocsPageLayout
       title="Image Trail"
-      description="Venetian-blind cursor image trail with staggered slice reveals and smoothed pointer tracking."
+      description="Venetian-blind cursor trail with staggered slice reveals and smoothed pointer tracking."
       preview={<ImageTrailPreview />}
       personalizeContent={<ImageTrailPersonalizePanel />}
       previewCode={usageCode}
@@ -37,6 +37,7 @@ export async function ImageTrailDocs() {
       installDependencies="clsx tailwind-merge"
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/image-trail.tsx"
+      usageImportCode={importCode}
       usageCode={usageCode}
       fullWidthPreview
       props={[

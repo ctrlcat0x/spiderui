@@ -1,120 +1,121 @@
-import React from "react";
-import { ScrubInputDemo, ScrubInputMultipleDemo } from "@/components/docs/previews/scrub-input-preview";
-import { DocsPageLayout } from "@/components/docs-page-layout";
-import { readComponentSource } from "@/lib/source-code";
+import React from "react"
+import { ScrubInputDemo, ScrubInputMultipleDemo } from "@/components/docs/previews/scrub-input-preview"
+import { DocsPageLayout } from "@/components/docs-page-layout"
+import { readComponentSource } from "@/lib/source-code"
 
-const basicUsageCode = `import { useState } from "react";
-import { ScrubInput } from "@/components/ui/scrub-input";
+const importCode = `import { ScrubInput } from "@/components/ui/scrub-input"`
+
+const usageCode = `import { useState } from "react"
 
 export function Demo() {
-  const [opacity, setOpacity] = useState(44);
+  const [opacity, setOpacity] = useState(44)
 
   return (
-    <ScrubInput 
-      label="Opacity" 
-      value={opacity} 
-      onChange={setOpacity} 
-      min={0} 
-      max={100} 
+    <ScrubInput
+      label="Opacity"
+      value={opacity}
+      onChange={setOpacity}
+      min={0}
+      max={100}
     />
-  );
-}`;
+  )
+}`
 
-const multipleCode = `import { useState } from "react";
-import { ScrubInput } from "@/components/ui/scrub-input";
+const multipleCode = `import { useState } from "react"
 
 export function SettingsDemo() {
-  const [radius, setRadius] = useState(12);
-  const [blur, setBlur] = useState(24);
+  const [radius, setRadius] = useState(12)
+  const [blur, setBlur] = useState(24)
 
   return (
     <div className="flex flex-col gap-4">
-      <ScrubInput 
-        label="Border Radius" 
-        value={radius} 
-        onChange={setRadius} 
-        min={0} 
-        max={100} 
+      <ScrubInput
+        label="Border Radius"
+        value={radius}
+        onChange={setRadius}
+        min={0}
+        max={100}
       />
-      <ScrubInput 
-        label="Blur" 
-        value={blur} 
-        onChange={setBlur} 
-        min={0} 
-        max={50} 
+      <ScrubInput
+        label="Blur"
+        value={blur}
+        onChange={setBlur}
+        min={0}
+        max={50}
       />
     </div>
-  );
-}`;
+  )
+}`
 
 export async function ScrubInputDocs() {
   const sourceCode =
     (await readComponentSource("scrub-input")) ||
-    "// Unable to load source code";
+    "// Unable to load source code"
 
   return (
     <DocsPageLayout
       title="Scrub Input"
-      description="An interactive inline slider component styled as a pill, allowing users to scrub values smoothly. Modeled after modern design tool interfaces."
+      description="Pill-shaped inline slider for scrubbing numeric values — drag anywhere on the track to adjust, like a design tool property control."
       preview={<ScrubInputDemo />}
-      previewCode={basicUsageCode}
+      previewCode={usageCode}
       installPackageName="scrub-input"
-      installDependencies="lucide-react"
       installSourceCode={sourceCode}
-      usageCode={basicUsageCode}
-      fullWidthPreview={false}
+      installSourceFilename="components/ui/scrub-input.tsx"
+      usageImportCode={importCode}
+      usageCode={usageCode}
       examples={[
         {
           title: "Multiple Inputs",
           preview: <ScrubInputMultipleDemo />,
           code: multipleCode,
-          fullWidth: false,
         },
       ]}
       props={[
         {
           name: "label",
           type: "string",
-          default: '""',
-          description: "Text label displayed inside the component.",
+          description: "Label shown on the left side of the track.",
         },
         {
           name: "value",
           type: "number",
-          default: "undefined",
-          description: "The controlled value of the scrub input.",
+          description: "Controlled value.",
         },
         {
           name: "defaultValue",
           type: "number",
           default: "0",
-          description: "The initial value when uncontrolled.",
+          description: "Initial value when uncontrolled.",
         },
         {
           name: "onChange",
           type: "(value: number) => void",
-          default: "undefined",
-          description: "Callback fired when the value changes.",
+          description: "Called when the scrubbed value changes.",
         },
         {
           name: "min",
           type: "number",
           default: "0",
-          description: "The minimum allowed value.",
+          description: "Minimum allowed value.",
         },
         {
           name: "max",
           type: "number",
           default: "100",
-          description: "The maximum allowed value.",
+          description: "Maximum allowed value.",
         },
         {
           name: "step",
           type: "number",
           default: "1",
-          description: "The granularity of the variable adjustments.",
+          description: "Snap increment while scrubbing.",
+        },
+        {
+          name: "className",
+          type: "string",
+          description: "Additional classes on the root element.",
         },
       ]}
     />
-  );
+  )
 }

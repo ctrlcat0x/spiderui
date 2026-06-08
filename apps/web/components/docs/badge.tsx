@@ -1,39 +1,33 @@
 import React from "react"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
-import { BadgePreview } from "@/components/docs/previews/badge-preview"
 import { BadgeColorsPreview } from "@/components/docs/previews/badge-colors-preview"
 
-const usageCode = `import { Badge } from "@/components/ui/badge"
+const importCode = `import { Badge } from "@/components/ui/badge"`
 
-export default function Page() {
-  return <Badge variant="blue">New</Badge>
+const usageCode = `export default function Page() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Badge variant="red">Red</Badge>
+      <Badge variant="blue">Blue</Badge>
+      <Badge variant="green">Green</Badge>
+      <Badge variant="yellow">Yellow</Badge>
+      <Badge variant="purple">Purple</Badge>
+      <Badge variant="pink">Pink</Badge>
+      <Badge variant="orange">Orange</Badge>
+      <Badge variant="cyan">Cyan</Badge>
+      <Badge variant="indigo">Indigo</Badge>
+      <Badge variant="violet">Violet</Badge>
+      <Badge variant="rose">Rose</Badge>
+      <Badge variant="amber">Amber</Badge>
+      <Badge variant="lime">Lime</Badge>
+      <Badge variant="emerald">Emerald</Badge>
+      <Badge variant="sky">Sky</Badge>
+      <Badge variant="slate">Slate</Badge>
+      <Badge variant="fuchsia">Fuchsia</Badge>
+    </div>
+  )
 }`
-
-const semanticVariantsCode = `<Badge variant="default">Default</Badge>
-<Badge variant="secondary">Secondary</Badge>
-<Badge variant="destructive">Destructive</Badge>
-<Badge variant="outline">Outline</Badge>
-<Badge variant="ghost">Ghost</Badge>
-<Badge variant="link">Link</Badge>`
-
-const colorVariantsCode = `<Badge variant="red">Red</Badge>
-<Badge variant="blue">Blue</Badge>
-<Badge variant="green">Green</Badge>
-<Badge variant="yellow">Yellow</Badge>
-<Badge variant="purple">Purple</Badge>
-<Badge variant="pink">Pink</Badge>
-<Badge variant="orange">Orange</Badge>
-<Badge variant="cyan">Cyan</Badge>
-<Badge variant="indigo">Indigo</Badge>
-<Badge variant="violet">Violet</Badge>
-<Badge variant="rose">Rose</Badge>
-<Badge variant="amber">Amber</Badge>
-<Badge variant="lime">Lime</Badge>
-<Badge variant="emerald">Emerald</Badge>
-<Badge variant="sky">Sky</Badge>
-<Badge variant="slate">Slate</Badge>
-<Badge variant="fuchsia">Fuchsia</Badge>`
 
 export async function BadgeDocs() {
   const sourceCode =
@@ -59,34 +53,23 @@ export async function BadgeDocs() {
   return (
     <DocsPageLayout
       title="Badge"
-      description="A badge component with semantic and full-spectrum color variants built on Base UI."
-      preview={<BadgePreview />}
+      description="Compact label chip with eighteen color presets and utility variants. Built on Base UI."
+      preview={<BadgeColorsPreview />}
       previewCode={usageCode}
       installPackageName="badge"
       installDependencies="@base-ui/react class-variance-authority clsx tailwind-merge"
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/badge.tsx"
       installationNote={installationNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
-      examples={[
-        {
-          title: "Semantic",
-          preview: <BadgePreview />,
-          code: semanticVariantsCode,
-        },
-        {
-          title: "Colors",
-          preview: <BadgeColorsPreview />,
-          code: colorVariantsCode,
-        },
-      ]}
       props={[
         {
           name: "variant",
-          type: 'semantic | color variant union',
+          type: 'variant union',
           default: '"default"',
           description:
-            "Visual style — default, secondary, destructive, outline, ghost, link, or a named color (red, blue, green, …).",
+            "Visual style — secondary, destructive, outline, ghost, link, or a named color (red, blue, green, …).",
         },
         {
           name: "className",

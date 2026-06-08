@@ -1,101 +1,131 @@
 import React from "react"
+import Link from "next/link"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
-import { LiveCodeBlock } from "@/components/live-code-block"
 import { Download } from "lucide-react"
-
 import {
   SignaturePlayground,
   SignaturePersonalizePanel,
+  SignatureColorPreview,
 } from "@/components/docs/previews/signature-playground"
 
-const defaultCode = `import { Signature } from "@/components/ui/signature"
+const importCode = `import { Signature } from "@/components/ui/signature"`
 
-<Signature text="Spider UI" />`
+const usageCode = `export default function Page() {
+  return <Signature text="Spider UI" fontSize={48} />
+}`
+
+const colorExampleCode = `export default function Page() {
+  return <Signature text="Spider UI" fontSize={48} color="#3b82f6" />
+}`
 
 export async function SignatureDocs() {
-  const sourceCode = (await readComponentSource("signature")) || "// Unable to load source code"
+  const sourceCode =
+    (await readComponentSource("signature")) || "// Unable to load source code"
 
   const installationNote = (
-    <div className="flex flex-col gap-2 p-4 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-900 dark:text-orange-200 text-sm mb-4">
+    <div className="flex flex-col gap-2 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
       <p>
-        <strong>Font Requirement:</strong> To enable the hand-written effect accurately, you must download the
-        required font file and place it in your project&apos;s <code className="bg-orange-500/20 px-1 py-0.5 rounded">public</code> directory.
+        Place{" "}
+        <span
+          className="font-medium text-foreground"
+        >
+          LastoriaBoldRegular.otf
+        </span>{" "}
+        in your{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
+          public
+        </code>{" "}
+        directory, or pass a custom path via{" "}
+        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
+          fontUrl
+        </code>
+        .
       </p>
       <a
         href="/LastoriaBoldRegular.otf"
         download="LastoriaBoldRegular.otf"
-        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-orange-500/20 hover:bg-orange-500/30 font-medium w-fit transition-colors mt-1"
+        className="inline-flex w-fit items-center gap-2 rounded-md border border-border/70 px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted/50"
       >
-        <Download className="w-4 h-4" />
+        <Download className="size-3.5" aria-hidden />
         Download LastoriaBoldRegular.otf
       </a>
     </div>
-  );
+  )
 
   return (
     <DocsPageLayout
       title="Signature"
-      description="An animated SVG signature effect using Opentype.js and Framer Motion to draw out text as if hand-written."
-      
+      description="Animated SVG signature that traces text with OpenType.js paths and Motion stroke reveals."
       preview={<SignaturePlayground />}
       personalizeContent={<SignaturePersonalizePanel />}
-      previewCode=""
-      
+      previewCode={usageCode}
       installPackageName="signature"
-      installDependencies="framer-motion opentype.js"
+      installDependencies="motion opentype.js"
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/signature.tsx"
-      
-      usageNote={installationNote}
-      usageCode={<LiveCodeBlock defaultCode={defaultCode} />}
-      
+      installationNote={installationNote}
+      usageImportCode={importCode}
+      usageCode={usageCode}
+      examples={[
+        {
+          title: "Color",
+          preview: <SignatureColorPreview />,
+          code: colorExampleCode,
+        },
+      ]}
       props={[
         {
           name: "text",
           type: "string",
-          description: "Text to generate signature for.",
+          default: '"Signature"',
+          description: "Text converted into handwriting paths.",
         },
         {
           name: "color",
           type: "string",
-          default: '"currentColor"',
-          description: "Color of the signature path.",
+          description:
+            "Stroke and fill color. Omit to inherit theme foreground via currentColor.",
         },
         {
           name: "fontSize",
           type: "number",
-          default: "32",
-          description: "Font size of the signature.",
+          default: "14",
+          description: "Font size used while converting glyphs to paths.",
         },
         {
           name: "duration",
           type: "number",
           default: "1.5",
-          description: "Animation duration in seconds.",
+          description: "Animation duration in seconds for each character.",
         },
         {
           name: "delay",
           type: "number",
           default: "0",
-          description: "Delay before animation starts in seconds.",
+          description: "Delay before the first character starts animating.",
         },
         {
           name: "className",
           type: "string",
-          description: "Additional CSS classes.",
+          description: "Additional classes on the SVG element.",
         },
         {
           name: "inView",
           type: "boolean",
           default: "false",
-          description: "Only animate when in view.",
+          description: "Animate only when the element enters the viewport.",
         },
         {
           name: "once",
           type: "boolean",
           default: "true",
-          description: "Only animate once.",
+          description: "Play the in-view animation only once.",
+        },
+        {
+          name: "fontUrl",
+          type: "string",
+          description: "Custom font URL. Defaults to /LastoriaBoldRegular.otf.",
         },
       ]}
     />

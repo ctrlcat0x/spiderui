@@ -10,6 +10,10 @@
   ],
   "items": [
     {
+      "name": "accordion-reveal",
+      "type": "registry:ui"
+    },
+    {
       "name": "album-cards",
       "type": "registry:ui"
     },
@@ -30,7 +34,19 @@
       "type": "registry:ui"
     },
     {
+      "name": "dia-text-reveal",
+      "type": "registry:ui"
+    },
+    {
+      "name": "fan-cards",
+      "type": "registry:ui"
+    },
+    {
       "name": "footer",
+      "type": "registry:ui"
+    },
+    {
+      "name": "fractal-glass",
       "type": "registry:ui"
     },
     {
@@ -58,6 +74,10 @@
       "type": "registry:ui"
     },
     {
+      "name": "mini-archive",
+      "type": "registry:ui"
+    },
+    {
       "name": "pricing-1",
       "type": "registry:ui"
     },
@@ -75,10 +95,6 @@
     },
     {
       "name": "pricing-5",
-      "type": "registry:ui"
-    },
-    {
-      "name": "scroll-split-card",
       "type": "registry:ui"
     },
     {
@@ -106,7 +122,7 @@
       "type": "registry:ui"
     },
     {
-      "name": "weeeee-hover",
+      "name": "opos-hover",
       "type": "registry:ui"
     }
   ]

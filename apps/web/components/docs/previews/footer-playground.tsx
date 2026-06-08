@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useCallback, useLayoutEffect, useRef, useState } from "react"
 import { ArrowDown } from "lucide-react"
 import {
   Footer,
@@ -33,40 +33,47 @@ export function FooterPlayground({
   copyrightText,
   colors,
 }: FooterPlaygroundProps) {
-  const scrollRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef<HTMLElement | null>(null)
+  const [scrollerReady, setScrollerReady] = useState(false)
   const storeConfig = usePlaygroundStore((state) => state.footerConfig)
   const config = configOverride ?? storeConfig
   const resolvedTheme = theme ?? config.theme
   const resolvedCopy = copyrightText ?? config.copyrightText
   const remountKey = `${resolvedTheme}-${resolvedCopy}-${colors ? "custom" : "preset"}`
 
-  useEffect(() => {
-    const scroller = scrollRef.current
-    if (!scroller) {
+  const handleRootRef = useCallback((node: HTMLDivElement | null) => {
+    if (!node) {
+      setScrollerReady(false)
+      scrollContainerRef.current = null
       return
     }
-    scroller.scrollTop = 0
+
+    const scroller = node.closest<HTMLElement>("[data-docs-preview-scroll]")
+    scrollContainerRef.current = scroller
+    scroller?.scrollTo({ top: 0 })
+    setScrollerReady(Boolean(scroller))
+  }, [])
+
+  useLayoutEffect(() => {
+    scrollContainerRef.current?.scrollTo({ top: 0 })
   }, [remountKey])
 
   return (
-    <div
-      ref={scrollRef}
-      className="relative flex h-full min-h-0 w-full flex-col overflow-x-hidden overflow-y-auto overscroll-contain rounded-lg bg-background transform-[translateZ(0)] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-    >
-      <div className="flex min-h-full w-full shrink-0 flex-col bg-background">
-        <div className="flex flex-1 flex-col items-center justify-center gap-2 px-4 py-10 font-medium text-muted-foreground">
-          <span>Scroll down</span>
-          <ArrowDown className="size-4 animate-bounce" aria-hidden />
-        </div>
+    <div ref={handleRootRef} className="w-full">
+      <div className="flex min-h-[50svh] flex-col items-center justify-center gap-2 px-4 font-serif text-2xl font-medium text-muted-foreground">
+        <span>Scroll to see the footer</span>
+        <ArrowDown className="size-4 animate-bounce" aria-hidden />
       </div>
 
-      <Footer
-        key={remountKey}
-        theme={resolvedTheme}
-        copyrightText={resolvedCopy}
-        colors={colors}
-        scrollContainer={scrollRef}
-      />
+      {scrollerReady ? (
+        <Footer
+          key={remountKey}
+          theme={resolvedTheme}
+          copyrightText={resolvedCopy}
+          colors={colors}
+          scrollContainer={scrollContainerRef}
+        />
+      ) : null}
     </div>
   )
 }
@@ -116,7 +123,8 @@ export function FooterPersonalizePanel() {
       </button>
 
       <p className="text-xs leading-relaxed text-muted-foreground">
-        Scroll the preview to reveal the spectrum animation and copyright text.
+        Scroll the preview panel to reveal the spectrum animation and copyright
+        text.
       </p>
     </div>
   )

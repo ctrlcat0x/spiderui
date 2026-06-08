@@ -255,47 +255,8 @@ export function DocsPreviewWrapper({
       "relative w-full h-full rounded-xl lg:rounded-2xl border border-border/50 overflow-hidden bg-white dark:bg-[#121212] flex flex-col"
     )} ref={previewRef}>
       {/* Toolbar */}
-      <div className="absolute top-4 right-4 z-20">
-        <div className="flex items-center gap-0.5 rounded-lg border border-border/70 bg-white/95 dark:bg-[#121212] px-1 py-1">
-          {/* Search */}
-          <React.Suspense fallback={
-            <button className={iconButtonClass} aria-label="Search"><Search className="w-4 h-4" /></button>
-          }>
-            <CommandMenu trigger={
-              <button className={iconButtonClass} aria-label="Search"><Search className="w-4 h-4" /></button>
-            } />
-          </React.Suspense>
-
-          {/* View Source */}
-          {hasSourceCode && (
-            <button
-              onClick={handleSourceToggle}
-              className={cn(iconButtonClass, showSource && "border-primary/30 bg-primary/90 text-primary-foreground")}
-              aria-label={showSource ? "Close source code" : "View source code"}
-              aria-pressed={showSource}
-            >
-              <CodeXml className="w-4 h-4" />
-            </button>
-          )}
-
-          {/* Personalize */}
-          {personalizeContent && (
-            <button
-              onClick={handlePersonalizeToggle}
-              className={cn(iconButtonClass, showPersonalize && "border-primary/30 bg-primary/90 text-primary-foreground")}
-              aria-label={showPersonalize ? "Close personalize panel" : "Open personalize panel"}
-              aria-pressed={showPersonalize}
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-            </button>
-          )}
-
-          {/* Reload */}
-          <button onClick={() => { playClick(); setKey(k => k + 1) }} className={iconButtonClass} aria-label="Reload preview">
-            <RotateCcw className="w-4 h-4" />
-          </button>
-
-          {/* Expand Preview Pane */}
+      <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+        <div className="flex items-center gap-0.5 rounded-lg border border-border/70 bg-white/95 px-1 py-1 dark:bg-[#121212]">
           <button
             onClick={() => { playClick(); setIsExpanded((prev) => !prev) }}
             disabled={isDrawerOpen}
@@ -309,7 +270,54 @@ export function DocsPreviewWrapper({
             {isExpanded ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
           </button>
 
-          {/* Theme */}
+          <button
+            onClick={() => { playClick(); setKey((k) => k + 1) }}
+            className={iconButtonClass}
+            aria-label="Reload preview"
+          >
+            <RotateCcw className="w-4 h-4" />
+          </button>
+
+          {hasSourceCode && (
+            <button
+              onClick={handleSourceToggle}
+              className={cn(iconButtonClass, showSource && "border-primary/30 bg-primary/90 text-primary-foreground")}
+              aria-label={showSource ? "Close source code" : "View source code"}
+              aria-pressed={showSource}
+            >
+              <CodeXml className="w-4 h-4" />
+            </button>
+          )}
+
+          {personalizeContent && (
+            <button
+              onClick={handlePersonalizeToggle}
+              className={cn(iconButtonClass, showPersonalize && "border-primary/30 bg-primary/90 text-primary-foreground")}
+              aria-label={showPersonalize ? "Close personalize panel" : "Open personalize panel"}
+              aria-pressed={showPersonalize}
+            >
+              <SlidersHorizontal className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+
+        <div className="flex items-center gap-0.5 rounded-lg border border-border/70 bg-white/95 px-1 py-1 dark:bg-[#121212]">
+          <React.Suspense
+            fallback={
+              <button className={iconButtonClass} aria-label="Search">
+                <Search className="w-4 h-4" />
+              </button>
+            }
+          >
+            <CommandMenu
+              trigger={
+                <button className={iconButtonClass} aria-label="Search">
+                  <Search className="w-4 h-4" />
+                </button>
+              }
+            />
+          </React.Suspense>
+
           <div className="[&_button]:h-7 [&_button]:w-7 [&_button]:rounded-md [&_button]:border [&_button]:border-transparent [&_button]:text-foreground/60 [&_button]:transition-all [&_button]:duration-150 hover:[&_button]:border-border/70 hover:[&_button]:bg-muted/70 hover:[&_button]:text-foreground [&_button]:focus-visible:outline-none [&_button]:focus-visible:ring-2 [&_button]:focus-visible:ring-ring/40">
             <ThemeToggle className="inline-flex items-center justify-center" />
           </div>
@@ -318,6 +326,7 @@ export function DocsPreviewWrapper({
 
       {/* Content Area */}
       <div
+        data-docs-preview-scroll
         className={cn(
           "relative flex h-full w-full overflow-auto bg-white dark:bg-[#121212] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]",
           !isFullWidthLayout && !isScrollableLayout && "items-center justify-center",

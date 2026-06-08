@@ -121,6 +121,75 @@ export interface ImageTrailConfig {
   blindDirection: ImageTrailBlindDirection;
 }
 
+export type MiniArchiveAccentColor =
+  | "yellow"
+  | "pink"
+  | "cyan"
+  | "violet"
+  | "orange"
+  | "emerald"
+  | "black";
+
+export interface MiniArchiveConfig {
+  title: string;
+  subtitle: string;
+  accentColor: MiniArchiveAccentColor;
+}
+
+export const MINI_ARCHIVE_DEFAULT_CONFIG: MiniArchiveConfig = {
+  title: "集めたもの",
+  subtitle: "Mini Archive",
+  accentColor: "orange",
+};
+
+export interface FanCardsConfig {
+  spread: number;
+  rotateStep: number;
+  springStiffness: number;
+  springDamping: number;
+}
+
+export const FAN_CARDS_DEFAULT_CONFIG: FanCardsConfig = {
+  spread: 95,
+  rotateStep: 8,
+  springStiffness: 260,
+  springDamping: 26,
+};
+
+export type DiaTextRevealMode = "single" | "rotate";
+
+export type DiaTextRevealColorPreset = "dia" | "warm" | "cool";
+
+export interface DiaTextRevealConfig {
+  text: string;
+  mode: DiaTextRevealMode;
+  rotatePhrases: string[];
+  colorPreset: DiaTextRevealColorPreset;
+  duration: number;
+  delay: number;
+  repeatDelay: number;
+}
+
+export const DIA_TEXT_REVEAL_DEFAULT_CONFIG: DiaTextRevealConfig = {
+  text: "Spider UI",
+  mode: "single",
+  rotatePhrases: ["build faster", "ship smarter", "scale easier"],
+  colorPreset: "dia",
+  duration: 1.5,
+  delay: 0,
+  repeatDelay: 1.2,
+};
+
+export interface AccordionRevealConfig {
+  collapsedHeight: number;
+  expandedHeight: number;
+}
+
+export const ACCORDION_REVEAL_DEFAULT_CONFIG: AccordionRevealConfig = {
+  collapsedHeight: 68,
+  expandedHeight: 320,
+};
+
 export const IMAGE_TRAIL_DEFAULT_CONFIG: ImageTrailConfig = {
   imageLifespan: 1000,
   minDistance: 45,
@@ -334,6 +403,20 @@ interface PlaygroundStore {
   updateImageTrailConfig: (updates: Partial<ImageTrailConfig>) => void;
   resetImageTrailConfig: () => void;
   resetImageTrailPreview: () => void;
+  miniArchiveConfig: MiniArchiveConfig;
+  updateMiniArchiveConfig: (updates: Partial<MiniArchiveConfig>) => void;
+  resetMiniArchiveConfig: () => void;
+  fanCardsConfig: FanCardsConfig;
+  updateFanCardsConfig: (updates: Partial<FanCardsConfig>) => void;
+  resetFanCardsConfig: () => void;
+  diaTextRevealConfig: DiaTextRevealConfig;
+  diaTextRevealRemountVersion: number;
+  updateDiaTextRevealConfig: (updates: Partial<DiaTextRevealConfig>) => void;
+  resetDiaTextRevealConfig: () => void;
+  resetDiaTextRevealPreview: () => void;
+  accordionRevealConfig: AccordionRevealConfig;
+  updateAccordionRevealConfig: (updates: Partial<AccordionRevealConfig>) => void;
+  resetAccordionRevealConfig: () => void;
 }
 
 export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
@@ -537,4 +620,40 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
     set((state) => ({
       imageTrailRemountVersion: state.imageTrailRemountVersion + 1,
     })),
+  miniArchiveConfig: MINI_ARCHIVE_DEFAULT_CONFIG,
+  updateMiniArchiveConfig: (updates) =>
+    set((state) => ({
+      miniArchiveConfig: { ...state.miniArchiveConfig, ...updates },
+    })),
+  resetMiniArchiveConfig: () =>
+    set({ miniArchiveConfig: MINI_ARCHIVE_DEFAULT_CONFIG }),
+  fanCardsConfig: FAN_CARDS_DEFAULT_CONFIG,
+  updateFanCardsConfig: (updates) =>
+    set((state) => ({
+      fanCardsConfig: { ...state.fanCardsConfig, ...updates },
+    })),
+  resetFanCardsConfig: () =>
+    set({ fanCardsConfig: FAN_CARDS_DEFAULT_CONFIG }),
+  diaTextRevealConfig: DIA_TEXT_REVEAL_DEFAULT_CONFIG,
+  diaTextRevealRemountVersion: 0,
+  updateDiaTextRevealConfig: (updates) =>
+    set((state) => ({
+      diaTextRevealConfig: { ...state.diaTextRevealConfig, ...updates },
+    })),
+  resetDiaTextRevealConfig: () =>
+    set((state) => ({
+      diaTextRevealConfig: DIA_TEXT_REVEAL_DEFAULT_CONFIG,
+      diaTextRevealRemountVersion: state.diaTextRevealRemountVersion + 1,
+    })),
+  resetDiaTextRevealPreview: () =>
+    set((state) => ({
+      diaTextRevealRemountVersion: state.diaTextRevealRemountVersion + 1,
+    })),
+  accordionRevealConfig: ACCORDION_REVEAL_DEFAULT_CONFIG,
+  updateAccordionRevealConfig: (updates) =>
+    set((state) => ({
+      accordionRevealConfig: { ...state.accordionRevealConfig, ...updates },
+    })),
+  resetAccordionRevealConfig: () =>
+    set({ accordionRevealConfig: ACCORDION_REVEAL_DEFAULT_CONFIG }),
 }));

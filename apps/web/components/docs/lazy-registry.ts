@@ -7,13 +7,9 @@ const docsImportMap: Record<
     | { [key: string]: React.ComponentType<Record<string, unknown>> }
   >
 > = {
-  "weeeee-hover": () =>
-    import("@/components/docs/weeeee-hover").then((m) => ({
-      default: m.WeeeeeHoverDocs,
-    })),
-  "scroll-split-card": () =>
-    import("@/components/docs/scroll-split-card").then((m) => ({
-      default: m.ScrollSplitCardDocs,
+  "opos-hover": () =>
+    import("@/components/docs/opos-hover").then((m) => ({
+      default: m.OposHoverDocs,
     })),
   "scrub-input": () =>
     import("@/components/docs/scrub-input").then((m) => ({
@@ -62,6 +58,22 @@ const docsImportMap: Record<
   "album-cards": () =>
     import("@/components/docs/album-cards").then((m) => ({
       default: m.AlbumCardsDocs,
+    })),
+  "mini-archive": () =>
+    import("@/components/docs/mini-archive").then((m) => ({
+      default: m.MiniArchiveDocs,
+    })),
+  "fan-cards": () =>
+    import("@/components/docs/fan-cards").then((m) => ({
+      default: m.FanCardsDocs,
+    })),
+  "dia-text-reveal": () =>
+    import("@/components/docs/dia-text-reveal").then((m) => ({
+      default: m.DiaTextRevealDocs,
+    })),
+  "accordion-reveal": () =>
+    import("@/components/docs/accordion-reveal").then((m) => ({
+      default: m.AccordionRevealDocs,
     })),
   "logo-cloud-1": () =>
     import("@/components/docs/logo-cloud-1").then((m) => ({

@@ -23,6 +23,8 @@ export interface AlbumCardsProps {
   apiPath?: string
 }
 
+const ALBUM_CARDS_SPIN_CSS = `@keyframes album-cards-vinyl-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}`
+
 function VinylDisc({ isSpinning, uid }: { isSpinning: boolean; uid: string }) {
   const grooves: ReactNode[] = []
   for (let i = 0; i < 36; i++) {
@@ -51,7 +53,11 @@ function VinylDisc({ isSpinning, uid }: { isSpinning: boolean; uid: string }) {
     <svg
       viewBox="0 0 110 110"
       className="size-full drop-shadow-[0_8px_24px_rgba(0,0,0,0.8)]"
-      style={{ animation: isSpinning ? "spin 3.4s linear infinite" : "none" }}
+      style={{
+        animation: isSpinning
+          ? "album-cards-vinyl-spin 3.4s linear infinite"
+          : "none",
+      }}
       aria-hidden
     >
       <circle cx="55" cy="55" r="55" fill="#0c0c0c" />
@@ -319,6 +325,7 @@ export function AlbumCards({
 
   return (
     <div className={cn("relative w-full", className)}>
+      <style dangerouslySetInnerHTML={{ __html: ALBUM_CARDS_SPIN_CSS }} />
       <div className="flex justify-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="flex shrink-0 items-start pt-24 pb-4">
           {albums.map((album, i) => (

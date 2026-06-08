@@ -1,6 +1,8 @@
 export type ComponentCategory =
   | "Primitives"
   | "Components"
+  | "Text Effects"
+  | "Card Interactions"
   | "Visual Effects"
   | "Logo Clouds"
   | "Pricing";
@@ -25,21 +27,14 @@ export function isNewComponent(component: ComponentMetadata): boolean {
 }
 
 export const components: Record<string, ComponentMetadata> = {
-  "weeeee-hover": {
-    title: "Weeee Hover",
+  "opos-hover": {
+    title: "OPOS Hover",
     description:
       "Quote-word thumbnails with a giant headline swap on hover, per-character GSAP reveals, and a cursor dot that expands into a bubble.",
     category: "Components",
-    slug: "weeeee-hover",
+    slug: "opos-hover",
     addedAt: "2026-06-04",
-  },
-  "scroll-split-card": {
-    title: "Scroll Split Card",
-    description: "A scroll-driven interactive card that splits into three panels and flips.",
-    category: "Components",
-    slug: "scroll-split-card",
-    addedAt: "2026-04-03",
-    previewImage: "/previews/scroll-split-card.png",
+    previewImage: "/previews/opos-hover.png",
   },
   "scrub-input": {
     title: "Scrub Input",
@@ -73,14 +68,16 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Visual Effects",
     slug: "sticker-trail",
     addedAt: "2026-06-01",
+    previewImage: "/previews/sticker-trail.png",
   },
   "card-stroke": {
     title: "Card Stroke",
     description:
       "A card with animated SVG strokes and word-by-word text reveal on hover.",
-    category: "Components",
+    category: "Card Interactions",
     slug: "card-stroke",
     addedAt: "2026-06-01",
+    previewImage: "/previews/card-stroke.png",
   },
   avatar: {
     title: "Avatar",
@@ -89,6 +86,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Primitives",
     slug: "avatar",
     addedAt: "2026-06-01",
+    previewImage: "/previews/avatar.png",
   },
   badge: {
     title: "Badge",
@@ -97,6 +95,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Primitives",
     slug: "badge",
     addedAt: "2026-06-01",
+    previewImage: "/previews/badge.png",
   },
   footer: {
     title: "Footer",
@@ -105,6 +104,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Components",
     slug: "footer",
     addedAt: "2026-06-01",
+    previewImage: "/previews/footer.png",
   },
   "greeting-preloader": {
     title: "Greetings Preloader",
@@ -121,6 +121,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Components",
     slug: "spotify-card",
     addedAt: "2026-06-01",
+    previewImage: "/previews/spotify-card.png",
   },
   "vertical-spotify-card": {
     title: "Vertical Spotify Card",
@@ -129,6 +130,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Components",
     slug: "vertical-spotify-card",
     addedAt: "2026-06-01",
+    previewImage: "/previews/vertical-spotify-card.png",
   },
   "album-cards": {
     title: "Album Cards",
@@ -137,6 +139,43 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Components",
     slug: "album-cards",
     addedAt: "2026-06-01",
+    previewImage: "/previews/album-cards.png",
+  },
+  "mini-archive": {
+    title: "Mini Archive",
+    description:
+      "A 3D glass folder with hinged cover, frosted blur, and stamp cards that fan out on open.",
+    category: "Components",
+    slug: "mini-archive",
+    addedAt: "2026-06-05",
+    previewImage: "/previews/mini-archive.png",
+  },
+  "fan-cards": {
+    title: "Fan Cards",
+    description:
+      "A fan-out card stack with hover lift, spring focus, and receding background cards.",
+    category: "Card Interactions",
+    slug: "fan-cards",
+    addedAt: "2026-06-05",
+    previewImage: "/previews/fan-cards.png",
+  },
+  "accordion-reveal": {
+    title: "Accordion Reveal",
+    description:
+      "Hover-expand rows with full-bleed imagery, indexed labels, and dimmed siblings.",
+    category: "Card Interactions",
+    slug: "accordion-reveal",
+    addedAt: "2026-06-06",
+    previewImage: "/previews/accordion-reveal.png",
+  },
+  "dia-text-reveal": {
+    title: "Dia Text Reveal",
+    description:
+      "A sweeping gradient band reveals text, then settles on your theme foreground color.",
+    category: "Text Effects",
+    slug: "dia-text-reveal",
+    addedAt: "2026-06-06",
+    previewImage: "/previews/dia-text-reveal.png",
   },
   "logo-cloud-1": {
     title: "Logo Cloud 1",

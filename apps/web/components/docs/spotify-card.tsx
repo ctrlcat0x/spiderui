@@ -3,12 +3,11 @@ import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { SPOTIFY_API_ROUTE_CODE } from "@/lib/spotify-api-route"
 import { SpotifyCardPlayground } from "@/components/docs/previews/spotify-card-playground"
-import { SpotifyGlobalsUsageNote } from "@/components/docs/spotify-globals-styles-note"
 import { CodeBlock } from "@/components/code-block"
 
-const usageCode = `import { SpotifyCard } from "@/components/ui/spotify-card"
+const importCode = `import { SpotifyCard } from "@/components/ui/spotify-card"`
 
-export default function Page() {
+const usageCode = `export default function Page() {
   return (
     <SpotifyCard
       url="https://open.spotify.com/track/0DTSnA1bcVI5niJzoyBPyZ"
@@ -18,7 +17,6 @@ export default function Page() {
 }`
 
 const playlistCode = `import { useState } from "react"
-import { SpotifyCard } from "@/components/ui/spotify-card"
 
 const TRACKS = [
   "https://open.spotify.com/track/0DTSnA1bcVI5niJzoyBPyZ",
@@ -56,8 +54,6 @@ export async function SpotifyCardDocs() {
     </p>
   )
 
-  const usageNote = <SpotifyGlobalsUsageNote />
-
   const afterApiReference = (
     <section className="space-y-4 pt-10">
       <h2 className="text-lg font-semibold tracking-tight text-foreground">
@@ -80,7 +76,7 @@ export async function SpotifyCardDocs() {
   return (
     <DocsPageLayout
       title="Spotify Card"
-      description="A horizontal Spotify music card with blurred album art, animated vinyl, seek bar, and playback controls."
+      description="Horizontal Spotify card with blurred album art, spinning vinyl, seek bar, and playback controls."
       preview={<SpotifyCardPlayground />}
       previewCode={usageCode}
       installPackageName="spotify-card"
@@ -88,7 +84,7 @@ export async function SpotifyCardDocs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/spotify-card.tsx"
       installationNote={installationNote}
-      usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
       afterApiReference={afterApiReference}
       examples={[

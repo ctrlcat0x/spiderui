@@ -18,11 +18,7 @@ const SPOTIFY_MUSIC_CSS_PATH = path.join(
   '../packages/ui/src/styles/spotify-music.css',
 );
 const SPOTIFY_MUSIC_REGISTRY_NAME = 'spotify-music';
-const SPOTIFY_MUSIC_COMPONENTS = new Set([
-  'spotify-card',
-  'vertical-spotify-card',
-  'album-cards',
-]);
+const SPOTIFY_MUSIC_COMPONENTS = new Set([]);
 
 const args = process.argv.slice(2);
 
@@ -239,6 +235,10 @@ if (SPOTIFY_MUSIC_COMPONENTS.has(componentName)) {
   if (!registryData.registryDependencies.includes(SPOTIFY_MUSIC_REGISTRY_NAME)) {
     registryData.registryDependencies.push(SPOTIFY_MUSIC_REGISTRY_NAME);
   }
+} else {
+  registryData.registryDependencies = registryData.registryDependencies.filter(
+    (dependency) => dependency !== SPOTIFY_MUSIC_REGISTRY_NAME,
+  );
 }
 
 // Write back to registry file

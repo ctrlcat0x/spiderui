@@ -7,9 +7,9 @@ import {
   AvatarPersonalizePanel,
 } from "@/components/docs/previews/avatar-playground"
 
-const usageCode = `import { Avatar } from "@/components/ui/avatar"
+const importCode = `import { Avatar } from "@/components/ui/avatar"`
 
-export default function Page() {
+const usageCode = `export default function Page() {
   return <Avatar color="blue" size="md" shape="circle" />
 }`
 
@@ -60,21 +60,12 @@ export async function AvatarDocs() {
     </p>
   )
 
-  const usageNote = (
-    <div className="flex gap-3 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
-      <p>
-        The orb uses <strong className="text-foreground">Motion</strong>{" "}
-        for squash-and-stretch on tap, CSS keyframes for blinking eyes, and SVG{" "}
-        <code className="text-foreground">feTurbulence</code> filters for noise and
-        grain. No image assets required.
-      </p>
-    </div>
-  )
+
 
   return (
     <DocsPageLayout
       title="Avatar"
-      description="An animated AI orb avatar with blinking eyes, 12 color presets, 3 sizes, and 3 shapes."
+      description="Animated AI orb with blinking eyes, twelve color presets, three sizes, and circle, square, or squircle shapes. Inspired by Kimi AI."
       preview={<AvatarPlayground />}
       personalizeContent={<AvatarPersonalizePanel />}
       previewCode={usageCode}
@@ -83,7 +74,7 @@ export async function AvatarDocs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/avatar.tsx"
       installationNote={installationNote}
-      usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
       examples={[
         {
@@ -123,25 +114,25 @@ export async function AvatarDocs() {
           type: "AvatarColor",
           default: '"blue"',
           description:
-            'Colour theme: blue, orange, red, green, purple, yellow, cyan, pink, indigo, lime, turquoise, violet.',
+            "Orb color — blue, orange, red, green, purple, yellow, cyan, pink, indigo, lime, turquoise, or violet.",
         },
         {
           name: "size",
           type: '"sm" | "md" | "lg"',
           default: '"md"',
-          description: "Orb size.",
+          description: 'Size preset — "sm", "md", or "lg".',
         },
         {
           name: "shape",
           type: '"circle" | "square" | "squircle"',
           default: '"circle"',
-          description: "Border-radius shape of the orb.",
+          description: 'Shape — "circle", "square", or "squircle".',
         },
         {
           name: "blinking",
           type: "boolean",
           default: "true",
-          description: "Whether the eyes use the blink animation loop.",
+          description: "Enable the looping eye-blink animation.",
         },
         {
           name: "className",

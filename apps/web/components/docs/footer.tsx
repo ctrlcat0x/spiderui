@@ -6,9 +6,9 @@ import {
   FooterPersonalizePanel,
 } from "@/components/docs/previews/footer-playground"
 
-const usageCode = `import { Footer } from "@/components/ui/footer"
+const importCode = `import { Footer } from "@/components/ui/footer"`
 
-export default function Page() {
+const usageCode = `export default function Page() {
   return (
     <Footer
       theme="dia-browser"
@@ -17,15 +17,11 @@ export default function Page() {
   )
 }`
 
-const themeExampleCode = `import { Footer } from "@/components/ui/footer"
-
-export default function Page() {
+const themeExampleCode = `export default function Page() {
   return <Footer theme="ocean" />
 }`
 
-const customColorsCode = `import { Footer } from "@/components/ui/footer"
-
-export default function Page() {
+const customColorsCode = `export default function Page() {
   return (
     <Footer
       colors={{
@@ -45,9 +41,7 @@ export default function Page() {
   )
 }`
 
-const customTextCode = `import { Footer } from "@/components/ui/footer"
-
-export default function Page() {
+const customTextCode = `export default function Page() {
   return (
     <Footer
       theme="emerald"
@@ -109,14 +103,14 @@ export async function FooterDocs() {
       installSourceFilename="components/ui/footer.tsx"
       installationNote={installationNote}
       usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
-      fullWidthPreview
+      scrollablePreview
       examples={[
         {
           title: "Ocean Theme",
           preview: <FooterPlayground theme="ocean" />,
           code: themeExampleCode,
-          fullWidth: true,
         },
         {
           title: "Custom Colors",
@@ -138,7 +132,6 @@ export async function FooterDocs() {
             />
           ),
           code: customColorsCode,
-          fullWidth: true,
         },
         {
           title: "Custom Text",
@@ -149,7 +142,6 @@ export async function FooterDocs() {
             />
           ),
           code: customTextCode,
-          fullWidth: true,
         },
       ]}
       props={[

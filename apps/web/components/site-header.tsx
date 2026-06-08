@@ -29,7 +29,7 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
 export function SiteHeader({ sidebarToggle }: SiteHeaderProps) {
     return (
         <header className="fixed top-0 left-0 right-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-[#111]/60 border-b border-border/40">
-            <div className="flex items-center h-14 px-4 sm:px-6 lg:px-8 max-w-[95rem] mx-auto w-full">
+            <div className="flex items-center h-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
                 <div className="flex flex-1 items-center gap-2 sm:gap-4">
                     {sidebarToggle && (
                         <div className="md:hidden">

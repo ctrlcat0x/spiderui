@@ -197,6 +197,19 @@ function generateCode(config: SignatureConfig) {
 
 import { useTheme } from "next-themes";
 
+export function SignatureColorPreview() {
+  return (
+    <div className="relative flex h-full w-full items-center justify-center p-8">
+      <Signature
+        text="Spider UI"
+        color="#3b82f6"
+        fontSize={48}
+        duration={1.5}
+      />
+    </div>
+  )
+}
+
 export function SignaturePlayground() {
   const config = usePlaygroundStore((state) => state.signatureConfig);
   const renderVersion = usePlaygroundStore(

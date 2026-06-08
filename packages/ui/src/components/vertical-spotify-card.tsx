@@ -25,6 +25,8 @@ export interface VerticalSpotifyCardProps {
   onNext?: () => void
 }
 
+const VERTICAL_SPOTIFY_CARD_STYLES = `.spotify-seek{-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;outline:none;cursor:pointer;transition:opacity .15s}.spotify-seek:disabled{cursor:default;opacity:.35}.spotify-seek::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;border-radius:9999px;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.45);transition:transform .15s ease,box-shadow .15s ease}.spotify-seek:not(:disabled):hover::-webkit-slider-thumb{transform:scale(1.12);box-shadow:0 0 10px rgba(255,255,255,.55)}.spotify-seek::-moz-range-thumb{width:10px;height:10px;border:none;border-radius:9999px;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.45)}.spotify-seek::-moz-range-track{height:4px;border-radius:4px;background:transparent}`
+
 const SpotifyIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 256 256" preserveAspectRatio="xMidYMid" aria-hidden>
     <path
@@ -182,6 +184,7 @@ export function VerticalSpotifyCard({
         className,
       )}
     >
+      <style dangerouslySetInnerHTML={{ __html: VERTICAL_SPOTIFY_CARD_STYLES }} />
       <img
         src={data.image}
         alt=""

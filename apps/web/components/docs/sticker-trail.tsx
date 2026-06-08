@@ -6,9 +6,9 @@ import {
   StickerTrailPreview,
 } from "@/components/docs/previews/sticker-trail-playground"
 
-const usageCode = `import { StickerTrail } from "@/components/ui/sticker-trail"
+const importCode = `import { StickerTrail } from "@/components/ui/sticker-trail"`
 
-const stickers = ["/svgStickers/1.svg", "/svgStickers/2.svg", "/svgStickers/3.svg"]
+const usageCode = `const stickers = ["/svgStickers/1.svg", "/svgStickers/2.svg", "/svgStickers/3.svg"]
 
 export default function Page() {
   return (
@@ -61,14 +61,14 @@ export async function StickerTrailDocs() {
       >
         Skiper UI
       </a>
-      . The demo uses the same sticker SVGs from their showcase.
+      . Stickers spawn, drift, and fade as the pointer moves.
     </p>
   )
 
   return (
     <DocsPageLayout
       title="Sticker Trail"
-      description="A cursor trail of stickers that spawn, drift, and fade as you move the pointer. Inspired by the Image cursor trail by Skiper UI."
+      description="Cursor trail of stickers that spawn, drift, and fade on pointer movement."
       preview={<StickerTrailPreview />}
       personalizeContent={<StickerTrailPersonalizePanel />}
       previewCode={usageCode}
@@ -78,6 +78,7 @@ export async function StickerTrailDocs() {
       installSourceFilename="components/ui/sticker-trail.tsx"
       installationNote={installationNote}
       usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
       fullWidthPreview
       props={[

@@ -10,6 +10,7 @@ import { Signature } from "@workspace/ui/components/signature"
 import { ScrubInputDemo } from "@/components/docs/previews/scrub-input-preview"
 import { ImageTrailDemo } from "@/components/docs/previews/image-trail-playground"
 import { StickerTrailPreview } from "@/components/docs/previews/sticker-trail-playground"
+import { FanCardsPlayground } from "@/components/docs/previews/fan-cards-playground"
 
 const showcaseCardClass =
   "relative flex flex-col rounded-2xl border border-border bg-white dark:bg-[#1a1a1a] p-2 shadow-card transition-all duration-300 hover:border-input hover:shadow-card-hover"
@@ -114,14 +115,12 @@ export default function Home() {
             </div>
           </Link>
 
-          <Link href="/docs/components/scroll-split-card" className={`md:col-span-2 md:row-span-1 ${showcaseCardClass}`}>
-            <div className={`${showcasePreviewClass} flex items-center justify-center p-8 bg-zinc-100 dark:bg-zinc-900`}>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center max-w-xs">
-                Scroll-driven card that splits into three panels and flips on scroll.
-              </p>
+          <Link href="/docs/components/fan-cards" className={`md:col-span-2 md:row-span-1 ${showcaseCardClass}`}>
+            <div className={`${showcasePreviewClass} min-h-[280px]`}>
+              <FanCardsPlayground />
             </div>
             <div className="shrink-0 pt-3 pb-1 px-3 text-sm font-medium text-zinc-700 dark:text-zinc-400">
-              Scroll split card
+              Fan cards
             </div>
           </Link>
         </motion.div>

@@ -1,11 +1,11 @@
 import Link from "next/link"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
-import { WeeeeeHoverPreview } from "@/components/docs/previews/weeeee-hover-preview"
+import { OposHoverPreview } from "@/components/docs/previews/opos-hover-preview"
 
-const usageCode = `import { WeeeeeHover } from "@/components/ui/weeeee-hover"
+const importCode = `import { OposHover } from "@/components/ui/opos-hover"`
 
-const quoteWords = [
+const usageCode = `const quoteWords = [
   { id: 1, name: "SHOW", image: "/quotes/show.jpg" },
   { id: 2, name: "ME", image: "/quotes/me.jpg" },
   { id: 3, name: "THE", image: "/quotes/the.jpg" },
@@ -13,12 +13,12 @@ const quoteWords = [
 ]
 
 export default function Page() {
-  return <WeeeeeHover items={quoteWords} title="Weeeeeeeee!" />
+  return <OposHover items={quoteWords} title="Weeeeeeeee!" />
 }`
 
-export async function WeeeeeHoverDocs() {
+export async function OposHoverDocs() {
   const sourceCode =
-    (await readComponentSource("weeeee-hover")) ||
+    (await readComponentSource("opos-hover")) ||
     "// Unable to load source code"
 
   const installationNote = (
@@ -51,16 +51,17 @@ export async function WeeeeeHoverDocs() {
 
   return (
     <DocsPageLayout
-      title="Weeee Hover"
+      title="OPOS Hover"
       description="Thumbnail strip with a giant headline that swaps to each quote word on hover, plus a lagging cursor dot and bubble."
-      preview={<WeeeeeHoverPreview />}
+      preview={<OposHoverPreview />}
       previewCode={usageCode}
-      installPackageName="weeeee-hover"
+      installPackageName="opos-hover"
       installDependencies="gsap clsx tailwind-merge"
       installSourceCode={sourceCode}
-      installSourceFilename="components/ui/weeeee-hover.tsx"
+      installSourceFilename="components/ui/opos-hover.tsx"
       installationNote={installationNote}
       usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
       fullWidthPreview
       props={[
@@ -73,7 +74,7 @@ export async function WeeeeeHoverDocs() {
         {
           name: "title",
           type: "string",
-          default: "Weeeee!",
+          default: "Weee!",
           description: "Default headline shown when nothing is hovered.",
         },
         {

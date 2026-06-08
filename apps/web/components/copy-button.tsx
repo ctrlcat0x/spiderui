@@ -8,9 +8,16 @@ interface CopyButtonProps {
   code: string
   className?: string
   absolute?: boolean
+  /** Vertically center when the code block is a single line. */
+  compact?: boolean
 }
 
-export function CopyButton({ code, className, absolute = true }: CopyButtonProps) {
+export function CopyButton({
+  code,
+  className,
+  absolute = true,
+  compact = false,
+}: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
   const playClick = useClickSound()
 
@@ -24,7 +31,7 @@ export function CopyButton({ code, className, absolute = true }: CopyButtonProps
   return (
     <button
       onClick={handleCopy}
-      className={`${absolute ? "absolute top-3 right-3" : ""} p-2 rounded-lg border border-border/40 bg-white/60 text-zinc-500 shadow-sm backdrop-blur-md transition-all duration-200 z-10 dark:bg-zinc-900/60 dark:text-zinc-400 ${copied
+      className={`${absolute ? (compact ? "absolute top-1/2 right-3 -translate-y-1/2" : "absolute top-3 right-3") : ""} p-2 rounded-lg border border-border/40 bg-white/60 text-zinc-500 shadow-sm backdrop-blur-md transition-all duration-200 z-10 dark:bg-zinc-900/60 dark:text-zinc-400 ${copied
         ? "text-emerald-600 dark:text-emerald-400"
         : "hover:bg-white/80 hover:text-zinc-950 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-50"
         } ${className || ""}`}

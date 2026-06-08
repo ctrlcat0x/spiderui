@@ -3,18 +3,16 @@ import Link from "next/link"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { VerticalSpotifyCardPlayground } from "@/components/docs/previews/vertical-spotify-card-playground"
-import { SpotifyGlobalsUsageNote } from "@/components/docs/spotify-globals-styles-note"
 
-const usageCode = `import { VerticalSpotifyCard } from "@/components/ui/vertical-spotify-card"
+const importCode = `import { VerticalSpotifyCard } from "@/components/ui/vertical-spotify-card"`
 
-export default function Page() {
+const usageCode = `export default function Page() {
   return (
     <VerticalSpotifyCard url="https://open.spotify.com/track/0DTSnA1bcVI5niJzoyBPyZ" />
   )
 }`
 
 const playlistCode = `import { useState } from "react"
-import { VerticalSpotifyCard } from "@/components/ui/vertical-spotify-card"
 
 const TRACKS = [
   "https://open.spotify.com/track/0DTSnA1bcVI5niJzoyBPyZ",
@@ -57,7 +55,7 @@ export async function VerticalSpotifyCardDocs() {
   return (
     <DocsPageLayout
       title="Vertical Spotify Card"
-      description="A tall vertical Spotify card with progressive blur album art, seek bar, and transport controls."
+      description="Tall vertical Spotify card with progressive blur album art, seek bar, and transport controls."
       preview={<VerticalSpotifyCardPlayground />}
       previewCode={usageCode}
       installPackageName="vertical-spotify-card"
@@ -65,7 +63,7 @@ export async function VerticalSpotifyCardDocs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/vertical-spotify-card.tsx"
       installationNote={installationNote}
-      usageNote={<SpotifyGlobalsUsageNote />}
+      usageImportCode={importCode}
       usageCode={usageCode}
       examples={[
         {

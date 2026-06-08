@@ -10,9 +10,9 @@ import {
 const defaultImage =
   "https://images.unsplash.com/photo-1773058373644-74e4120bfc77?q=80&w=1200&auto=format&fit=crop"
 
-const usageCode = `import { CardStroke } from "@/components/ui/card-stroke"
+const importCode = `import { CardStroke } from "@/components/ui/card-stroke"`
 
-export default function Page() {
+const usageCode = `export default function Page() {
   return (
     <CardStroke
       title="Card Title"
@@ -26,9 +26,7 @@ export default function Page() {
   )
 }`
 
-const customColorsCode = `import { CardStroke } from "@/components/ui/card-stroke"
-
-export default function Page() {
+const customColorsCode = `export default function Page() {
   return (
     <CardStroke
       title="Dark Accent"
@@ -40,9 +38,7 @@ export default function Page() {
   )
 }`
 
-const customStylingCode = `import { CardStroke } from "@/components/ui/card-stroke"
-
-export default function Page() {
+const customStylingCode = `export default function Page() {
   return (
     <CardStroke
       title="Rounded Card"
@@ -73,9 +69,8 @@ export async function CardStrokeDocs() {
   const usageNote = (
     <div className="flex gap-3 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
       <p>
-        This component uses <strong className="text-foreground">GSAP</strong> with the{" "}
-        <strong className="text-foreground">SplitText</strong> plugin for word-based
-        animations. Hover the card to trigger the stroke and text reveal. Inspired by{" "}
+        Uses <strong className="text-foreground">GSAP SplitText</strong> for
+        word-by-word reveals on hover. Inspired by{" "}
         <a
           href="https://x.com/joaopaulots/status/2019123435310596275"
           target="_blank"
@@ -92,7 +87,7 @@ export async function CardStrokeDocs() {
   return (
     <DocsPageLayout
       title="Card Stroke"
-      description="A card component with an animated SVG stroke and word-by-word text reveal on hover."
+      description="Card with animated SVG strokes and word-by-word text reveal on hover."
       preview={<CardStrokePlayground />}
       personalizeContent={<CardStrokePersonalizePanel />}
       previewCode={usageCode}
@@ -102,6 +97,7 @@ export async function CardStrokeDocs() {
       installSourceFilename="components/ui/card-stroke.tsx"
       installationNote={installationNote}
       usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
       examples={[
         {

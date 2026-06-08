@@ -3,11 +3,10 @@ import Link from "next/link"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { AlbumCardsPlayground } from "@/components/docs/previews/album-cards-playground"
-import { SpotifyGlobalsUsageNote } from "@/components/docs/spotify-globals-styles-note"
 
-const usageCode = `import { AlbumCards } from "@/components/ui/album-cards"
+const importCode = `import { AlbumCards } from "@/components/ui/album-cards"`
 
-const albums = [
+const usageCode = `const albums = [
   { id: "1", url: "https://open.spotify.com/track/0DTSnA1bcVI5niJzoyBPyZ" },
   { id: "2", url: "https://open.spotify.com/track/4iZ4pt7kvcaH6Yo8UoZ4s2" },
   { id: "3", url: "https://open.spotify.com/track/2374M0fQpWi3dLnB54qaLX" },
@@ -39,7 +38,7 @@ export async function AlbumCardsDocs() {
   return (
     <DocsPageLayout
       title="Album Cards"
-      description="A stacked row of Spotify album covers that eject a spinning vinyl disc on click, with hover lift, neighbor dimming, and reflections."
+      description="Stacked Spotify album covers that eject a spinning vinyl on click."
       preview={<AlbumCardsPlayground />}
       previewCode={usageCode}
       installPackageName="album-cards"
@@ -47,7 +46,7 @@ export async function AlbumCardsDocs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/album-cards.tsx"
       installationNote={installationNote}
-      usageNote={<SpotifyGlobalsUsageNote />}
+      usageImportCode={importCode}
       usageCode={usageCode}
       props={[
         {

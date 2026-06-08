@@ -44,7 +44,7 @@ export async function CodeBlock({
       )}
 
       <div className={`relative group ${className?.includes('h-full') ? 'flex-1 min-h-0 flex flex-col' : 'h-full'}`}>
-        <CopyButton code={code.trim()} />
+        <CopyButton code={code.trim()} compact={!lineNumbers} />
         <div
           className={`[&_pre]:p-4 [&_pre]:overflow-x-auto overflow-auto ${className?.includes('max-h-none') ? (className?.includes('h-full') ? 'flex-1 min-h-0' : 'h-full') : 'max-h-[500px]'}`}
           dangerouslySetInnerHTML={{ __html: html }}

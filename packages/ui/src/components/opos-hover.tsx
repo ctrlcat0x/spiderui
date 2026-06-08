@@ -22,7 +22,7 @@ export const DEFAULT_QUOTE_WORDS: QuoteWordItem[] = [
 ]
 
 const headingClass =
-  "weeeee-hover-heading m-0 whitespace-nowrap text-center font-black uppercase leading-none tracking-tighter"
+  "opos-hover-heading m-0 whitespace-nowrap text-center font-black uppercase leading-none tracking-tighter"
 
 const CHAR_STAGGER = { each: 0.025, from: "center" as const }
 const CHAR_EASE = "power4.out"
@@ -122,7 +122,7 @@ const CursorFollower = ({
   )
 }
 
-export type WeeeeeHoverProps = {
+export type OposHoverProps = {
   items?: QuoteWordItem[]
   title?: string
   accentColor?: string
@@ -131,14 +131,14 @@ export type WeeeeeHoverProps = {
   header?: ReactNode
 }
 
-export function WeeeeeHover({
+export function OposHover({
   items = DEFAULT_QUOTE_WORDS,
   title = "Weee!",
   accentColor = "#ff2d1f",
   className,
   titleClassName,
   header,
-}: WeeeeeHoverProps) {
+}: OposHoverProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const titleStageRef = useRef<HTMLDivElement>(null)
   const defaultLayerRef = useRef<HTMLDivElement>(null)
@@ -159,9 +159,9 @@ export function WeeeeeHover({
     const splits: SplitText[] = []
     let activeIndex: number | null = null
 
-    const defaultChars = ".name-default .weeeee-hover-char"
+    const defaultChars = ".name-default .opos-hover-char"
     const memberChars = (index: number) =>
-      `.name-member-${index} .weeeee-hover-char`
+      `.name-member-${index} .opos-hover-char`
 
     const lockDefaultHidden = () => {
       gsap.killTweensOf(defaultChars)
@@ -227,12 +227,12 @@ export function WeeeeeHover({
 
     const ctx = gsap.context(() => {
       titleStage
-        .querySelectorAll<HTMLElement>(".weeeee-hover-heading")
+        .querySelectorAll<HTMLElement>(".opos-hover-heading")
         .forEach((heading) => {
           splits.push(
             SplitText.create(heading, {
               type: "chars",
-              charsClass: "weeeee-hover-char inline-block",
+              charsClass: "opos-hover-char inline-block",
             }),
           )
         })

@@ -51,6 +51,10 @@ export interface DocsPageLayoutProps {
   hideDefaultPreviewVariant?: boolean
   installationNote?: React.ReactNode
   usageNote?: React.ReactNode
+  /** Compact import-only snippet shown above the usage block. */
+  usageImportCode?: string
+  /** Attribution or notes rendered below the usage block. */
+  usageCredits?: React.ReactNode
   afterApiReference?: React.ReactNode
 }
 
@@ -78,6 +82,8 @@ export async function DocsPageLayout({
   hideDefaultPreviewVariant = false,
   installationNote,
   usageNote,
+  usageImportCode,
+  usageCredits,
   afterApiReference,
 }: DocsPageLayoutProps) {
 
@@ -169,21 +175,52 @@ export async function DocsPageLayout({
                 </div>
               )}
               <div className="space-y-4 usage-code-scrollbar-none">
-                <div className="relative rounded-xl border border-border overflow-hidden bg-zinc-100 dark:bg-zinc-900/50">
-                  <Suspense fallback={<CodeBlockSkeleton />}>
-                    {typeof usageCode === "string" ? (
-                      <DynamicCodeBlock
-                        originalCode={usageCode}
-                        defaultHtml={usageHtml}
-                        variantTitles={variantTitles}
-                        variantCodes={variantCodes}
-                        className="border-none !bg-transparent shadow-none !rounded-none [&_pre]:!overflow-x-auto [&_pre]:!overflow-y-hidden"
-                      />
-                    ) : (
-                      usageCode
+                {usageImportCode && typeof usageCode === "string" ? (
+                  <>
+                    <div className="relative rounded-xl border border-border overflow-hidden bg-zinc-100 dark:bg-zinc-900/50">
+                      <Suspense fallback={<CodeBlockSkeleton className="!h-14" />}>
+                        <CodeBlock
+                          code={usageImportCode}
+                          lang="tsx"
+                          lineNumbers={false}
+                          className="border-none !bg-transparent shadow-none !rounded-none [&_pre]:!overflow-x-auto [&_pre]:!overflow-y-hidden [&_pre]:!py-3"
+                        />
+                      </Suspense>
+                    </div>
+                    <div className="relative rounded-xl border border-border overflow-hidden bg-zinc-100 dark:bg-zinc-900/50">
+                      <Suspense fallback={<CodeBlockSkeleton />}>
+                        <DynamicCodeBlock
+                          originalCode={usageCode}
+                          defaultHtml={usageHtml}
+                          variantTitles={variantTitles}
+                          variantCodes={variantCodes}
+                          className="border-none !bg-transparent shadow-none !rounded-none [&_pre]:!overflow-x-auto [&_pre]:!overflow-y-hidden"
+                        />
+                      </Suspense>
+                    </div>
+                    {usageCredits && (
+                      <div className="text-sm text-muted-foreground">
+                        {usageCredits}
+                      </div>
                     )}
-                  </Suspense>
-                </div>
+                  </>
+                ) : (
+                  <div className="relative rounded-xl border border-border overflow-hidden bg-zinc-100 dark:bg-zinc-900/50">
+                    <Suspense fallback={<CodeBlockSkeleton />}>
+                      {typeof usageCode === "string" ? (
+                        <DynamicCodeBlock
+                          originalCode={usageCode}
+                          defaultHtml={usageHtml}
+                          variantTitles={variantTitles}
+                          variantCodes={variantCodes}
+                          className="border-none !bg-transparent shadow-none !rounded-none [&_pre]:!overflow-x-auto [&_pre]:!overflow-y-hidden"
+                        />
+                      ) : (
+                        usageCode
+                      )}
+                    </Suspense>
+                  </div>
+                )}
               </div>
             </Section>
 

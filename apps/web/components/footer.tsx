@@ -22,7 +22,7 @@ const links = {
 export function Footer() {
   return (
     <footer className="w-full border-t border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-[#111]">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Main footer content */}
         <div className="py-12 grid grid-cols-2 md:grid-cols-4 gap-8">

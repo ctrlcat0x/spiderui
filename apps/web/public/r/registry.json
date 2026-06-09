@@ -34,15 +34,19 @@
       "type": "registry:ui"
     },
     {
+      "name": "carousel-001",
+      "type": "registry:ui"
+    },
+    {
+      "name": "dia-footer",
+      "type": "registry:ui"
+    },
+    {
       "name": "dia-text-reveal",
       "type": "registry:ui"
     },
     {
       "name": "fan-cards",
-      "type": "registry:ui"
-    },
-    {
-      "name": "footer",
       "type": "registry:ui"
     },
     {
@@ -54,23 +58,27 @@
       "type": "registry:ui"
     },
     {
+      "name": "image-2-gif",
+      "type": "registry:ui"
+    },
+    {
       "name": "image-trail",
       "type": "registry:ui"
     },
     {
-      "name": "logo-cloud-1",
+      "name": "logo-cloud-001",
       "type": "registry:ui"
     },
     {
-      "name": "logo-cloud-2",
+      "name": "logo-cloud-002",
       "type": "registry:ui"
     },
     {
-      "name": "logo-cloud-3",
+      "name": "logo-cloud-003",
       "type": "registry:ui"
     },
     {
-      "name": "logo-cloud-4",
+      "name": "logo-cloud-004",
       "type": "registry:ui"
     },
     {
@@ -78,23 +86,27 @@
       "type": "registry:ui"
     },
     {
-      "name": "pricing-1",
+      "name": "opos-hover",
       "type": "registry:ui"
     },
     {
-      "name": "pricing-2",
+      "name": "pricing-001",
       "type": "registry:ui"
     },
     {
-      "name": "pricing-3",
+      "name": "pricing-002",
       "type": "registry:ui"
     },
     {
-      "name": "pricing-4",
+      "name": "pricing-003",
       "type": "registry:ui"
     },
     {
-      "name": "pricing-5",
+      "name": "pricing-004",
+      "type": "registry:ui"
+    },
+    {
+      "name": "pricing-005",
       "type": "registry:ui"
     },
     {
@@ -118,11 +130,11 @@
       "type": "registry:ui"
     },
     {
-      "name": "vertical-spotify-card",
+      "name": "switch",
       "type": "registry:ui"
     },
     {
-      "name": "opos-hover",
+      "name": "vertical-spotify-card",
       "type": "registry:ui"
     }
   ]

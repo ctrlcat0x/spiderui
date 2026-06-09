@@ -69,7 +69,7 @@ export const AVATAR_DEFAULT_CONFIG: AvatarConfig = {
   blinking: true,
 };
 
-export interface FooterConfig {
+export interface DiaFooterConfig {
   theme:
     | "dia-browser"
     | "ocean"
@@ -80,7 +80,7 @@ export interface FooterConfig {
   copyrightText: string;
 }
 
-export const FOOTER_DEFAULT_CONFIG: FooterConfig = {
+export const DIA_FOOTER_DEFAULT_CONFIG: DiaFooterConfig = {
   theme: "dia-browser",
   copyrightText: `copyright © ${new Date().getFullYear()} — Spider UI`,
 };
@@ -385,9 +385,9 @@ interface PlaygroundStore {
   avatarConfig: AvatarConfig;
   updateAvatarConfig: (updates: Partial<AvatarConfig>) => void;
   resetAvatarConfig: () => void;
-  footerConfig: FooterConfig;
-  updateFooterConfig: (updates: Partial<FooterConfig>) => void;
-  resetFooterConfig: () => void;
+  diaFooterConfig: DiaFooterConfig;
+  updateDiaFooterConfig: (updates: Partial<DiaFooterConfig>) => void;
+  resetDiaFooterConfig: () => void;
   greetingPreloaderConfig: GreetingPreloaderConfig;
   greetingPreloaderRemountVersion: number;
   updateGreetingPreloaderConfig: (updates: Partial<GreetingPreloaderConfig>) => void;
@@ -566,12 +566,13 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
       avatarConfig: { ...state.avatarConfig, ...updates },
     })),
   resetAvatarConfig: () => set({ avatarConfig: AVATAR_DEFAULT_CONFIG }),
-  footerConfig: FOOTER_DEFAULT_CONFIG,
-  updateFooterConfig: (updates) =>
+  diaFooterConfig: DIA_FOOTER_DEFAULT_CONFIG,
+  updateDiaFooterConfig: (updates) =>
     set((state) => ({
-      footerConfig: { ...state.footerConfig, ...updates },
+      diaFooterConfig: { ...state.diaFooterConfig, ...updates },
     })),
-  resetFooterConfig: () => set({ footerConfig: FOOTER_DEFAULT_CONFIG }),
+  resetDiaFooterConfig: () =>
+    set({ diaFooterConfig: DIA_FOOTER_DEFAULT_CONFIG }),
   greetingPreloaderConfig: GREETING_PRELOADER_DEFAULT_CONFIG,
   greetingPreloaderRemountVersion: 0,
   updateGreetingPreloaderConfig: (updates) =>

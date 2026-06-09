@@ -32,6 +32,7 @@ const gettingStarted: NavGroup = {
 const categoryOrder = [
   "Primitives",
   "Components",
+  "Carousels",
   "Text Effects",
   "Card Interactions",
   "Logo Clouds",

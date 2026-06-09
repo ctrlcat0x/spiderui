@@ -5,9 +5,10 @@ export type ComponentCategory =
   | "Card Interactions"
   | "Visual Effects"
   | "Logo Clouds"
-  | "Pricing";
+  | "Pricing"
+  | "Carousels";
 
-const PRIMITIVE_SLUG_ORDER = ["avatar", "badge"] as const;
+const PRIMITIVE_SLUG_ORDER = ["avatar", "badge", "switch"] as const;
 
 export interface ComponentMetadata {
   title: string;
@@ -97,14 +98,32 @@ export const components: Record<string, ComponentMetadata> = {
     addedAt: "2026-06-01",
     previewImage: "/previews/badge.png",
   },
-  footer: {
-    title: "Footer",
+  switch: {
+    title: "Switch",
+    description:
+      "Liquid-glass toggle with spring thumb motion, drag scrubbing, and grab-to-morph interaction inspired by Apple.",
+    category: "Primitives",
+    slug: "switch",
+    addedAt: "2026-06-09",
+    previewImage: "/previews/switch.png",
+  },
+  "dia-footer": {
+    title: "Dia Footer",
     description:
       "A scroll-driven footer with animated spectrum bars, inspired by Dia browser.",
     category: "Components",
-    slug: "footer",
+    slug: "dia-footer",
     addedAt: "2026-06-01",
-    previewImage: "/previews/footer.png",
+    previewImage: "/previews/dia-footer.png",
+  },
+  "image-2-gif": {
+    title: "Image 2 Gif",
+    description:
+      "Frame-sequence player that cycles still images into a GIF-like loop with preload and custom renderers.",
+    category: "Visual Effects",
+    slug: "image-2-gif",
+    addedAt: "2026-06-09",
+    previewImage: "/previews/image-2-gif.png",
   },
   "greeting-preloader": {
     title: "Greetings Preloader",
@@ -177,86 +196,95 @@ export const components: Record<string, ComponentMetadata> = {
     addedAt: "2026-06-06",
     previewImage: "/previews/dia-text-reveal.png",
   },
-  "logo-cloud-1": {
-    title: "Logo Cloud 1",
+  "logo-cloud-001": {
+    title: "Logo Cloud 001",
     description:
       "Animated logo cloud with staggered fade-in and group cycling.",
     category: "Logo Clouds",
-    slug: "logo-cloud-1",
+    slug: "logo-cloud-001",
     addedAt: "2026-06-01",
-    previewImage: "/previews/logo-cloud-1.png",
+    previewImage: "/previews/logo-cloud-001.png",
   },
-  "logo-cloud-2": {
-    title: "Logo Cloud 2",
+  "logo-cloud-002": {
+    title: "Logo Cloud 002",
     description:
       "Animated logo cloud that cycles groups of 3 logos with spring blur transitions.",
     category: "Logo Clouds",
-    slug: "logo-cloud-2",
+    slug: "logo-cloud-002",
     addedAt: "2026-06-01",
-    previewImage: "/previews/logo-cloud-2.png",
+    previewImage: "/previews/logo-cloud-002.png",
   },
-  "logo-cloud-3": {
-    title: "Logo Cloud 3",
+  "logo-cloud-003": {
+    title: "Logo Cloud 003",
     description:
       "CSS-animated logo carousel that cycles groups with vertical blur and slide transitions.",
     category: "Logo Clouds",
-    slug: "logo-cloud-3",
+    slug: "logo-cloud-003",
     addedAt: "2026-06-01",
-    previewImage: "/previews/logo-cloud-3.png",
+    previewImage: "/previews/logo-cloud-003.png",
   },
-  "logo-cloud-4": {
-    title: "Logo Cloud 4",
+  "logo-cloud-004": {
+    title: "Logo Cloud 004",
     description:
       "CSS marquee logo cloud with configurable direction, speed, gap, and gradient fade edges.",
     category: "Logo Clouds",
-    slug: "logo-cloud-4",
+    slug: "logo-cloud-004",
     addedAt: "2026-06-01",
-    previewImage: "/previews/logo-cloud-4.png",
+    previewImage: "/previews/logo-cloud-004.png",
   },
-  "pricing-1": {
-    title: "Pricing 1",
+  "pricing-001": {
+    title: "Pricing 001",
     description:
       "Modern pricing grid with animated sliding numbers, yearly billing toggle, and featured plan corner decorations.",
     category: "Pricing",
-    slug: "pricing-1",
+    slug: "pricing-001",
     addedAt: "2026-06-01",
-    previewImage: "/previews/pricing-1.png",
+    previewImage: "/previews/pricing-001.png",
   },
-  "pricing-2": {
-    title: "Pricing 2",
+  "pricing-002": {
+    title: "Pricing 002",
     description:
       "Three-column pricing with a gradient featured card and illustrated cursor decoration.",
     category: "Pricing",
-    slug: "pricing-2",
+    slug: "pricing-002",
     addedAt: "2026-06-01",
-    previewImage: "/previews/pricing-2.png",
+    previewImage: "/previews/pricing-002.png",
   },
-  "pricing-3": {
-    title: "Pricing 3",
+  "pricing-003": {
+    title: "Pricing 003",
     description:
       "Asymmetric three-column pricing with an elevated featured plan, amber badge, and security footer note.",
     category: "Pricing",
-    slug: "pricing-3",
+    slug: "pricing-003",
     addedAt: "2026-06-01",
-    previewImage: "/previews/pricing-3.png",
+    previewImage: "/previews/pricing-003.png",
   },
-  "pricing-4": {
-    title: "Pricing 4",
+  "pricing-004": {
+    title: "Pricing 004",
     description:
       "Horizontal list-style pricing with accent blobs, strikethrough prices, and optional recommended badge.",
     category: "Pricing",
-    slug: "pricing-4",
+    slug: "pricing-004",
     addedAt: "2026-06-01",
-    previewImage: "/previews/pricing-4.png",
+    previewImage: "/previews/pricing-004.png",
   },
-  "pricing-5": {
-    title: "Pricing 5",
+  "pricing-005": {
+    title: "Pricing 005",
     description:
       "Tabbed individuals/teams pricing grid with coloured card backdrops, Avatar orbs, grain overlays, and feature checklists.",
     category: "Pricing",
-    slug: "pricing-5",
+    slug: "pricing-005",
     addedAt: "2026-06-01",
-    previewImage: "/previews/pricing-5.png",
+    previewImage: "/previews/pricing-005.png",
+  },
+  "carousel-001": {
+    title: "Carousel 001",
+    description:
+      "Hero carousel with pill timer pagination, arrow controls, and blur-fade slide transitions.",
+    category: "Carousels",
+    slug: "carousel-001",
+    addedAt: "2026-06-09",
+    previewImage: "/previews/carousel-001.png",
   },
 };
 

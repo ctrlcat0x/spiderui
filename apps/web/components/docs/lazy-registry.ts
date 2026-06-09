@@ -39,9 +39,17 @@ const docsImportMap: Record<
     import("@/components/docs/badge").then((m) => ({
       default: m.BadgeDocs,
     })),
-  footer: () =>
-    import("@/components/docs/footer").then((m) => ({
-      default: m.FooterDocs,
+  switch: () =>
+    import("@/components/docs/switch").then((m) => ({
+      default: m.SwitchDocs,
+    })),
+  "dia-footer": () =>
+    import("@/components/docs/dia-footer").then((m) => ({
+      default: m.DiaFooterDocs,
+    })),
+  "image-2-gif": () =>
+    import("@/components/docs/image-2-gif").then((m) => ({
+      default: m.Image2GifDocs,
     })),
   "greeting-preloader": () =>
     import("@/components/docs/greeting-preloader").then((m) => ({
@@ -75,41 +83,45 @@ const docsImportMap: Record<
     import("@/components/docs/accordion-reveal").then((m) => ({
       default: m.AccordionRevealDocs,
     })),
-  "logo-cloud-1": () =>
-    import("@/components/docs/logo-cloud-1").then((m) => ({
-      default: m.LogoCloud1Docs,
+  "logo-cloud-001": () =>
+    import("@/components/docs/logo-cloud-001").then((m) => ({
+      default: m.LogoCloud001Docs,
     })),
-  "logo-cloud-2": () =>
-    import("@/components/docs/logo-cloud-2").then((m) => ({
-      default: m.LogoCloud2Docs,
+  "logo-cloud-002": () =>
+    import("@/components/docs/logo-cloud-002").then((m) => ({
+      default: m.LogoCloud002Docs,
     })),
-  "logo-cloud-3": () =>
-    import("@/components/docs/logo-cloud-3").then((m) => ({
-      default: m.LogoCloud3Docs,
+  "logo-cloud-003": () =>
+    import("@/components/docs/logo-cloud-003").then((m) => ({
+      default: m.LogoCloud003Docs,
     })),
-  "logo-cloud-4": () =>
-    import("@/components/docs/logo-cloud-4").then((m) => ({
-      default: m.LogoCloud4Docs,
+  "logo-cloud-004": () =>
+    import("@/components/docs/logo-cloud-004").then((m) => ({
+      default: m.LogoCloud004Docs,
     })),
-  "pricing-1": () =>
-    import("@/components/docs/pricing-1").then((m) => ({
-      default: m.Pricing1Docs,
+  "pricing-001": () =>
+    import("@/components/docs/pricing-001").then((m) => ({
+      default: m.Pricing001Docs,
     })),
-  "pricing-2": () =>
-    import("@/components/docs/pricing-2").then((m) => ({
-      default: m.Pricing2Docs,
+  "pricing-002": () =>
+    import("@/components/docs/pricing-002").then((m) => ({
+      default: m.Pricing002Docs,
     })),
-  "pricing-3": () =>
-    import("@/components/docs/pricing-3").then((m) => ({
-      default: m.Pricing3Docs,
+  "pricing-003": () =>
+    import("@/components/docs/pricing-003").then((m) => ({
+      default: m.Pricing003Docs,
     })),
-  "pricing-4": () =>
-    import("@/components/docs/pricing-4").then((m) => ({
-      default: m.Pricing4Docs,
+  "pricing-004": () =>
+    import("@/components/docs/pricing-004").then((m) => ({
+      default: m.Pricing004Docs,
     })),
-  "pricing-5": () =>
-    import("@/components/docs/pricing-5").then((m) => ({
-      default: m.Pricing5Docs,
+  "pricing-005": () =>
+    import("@/components/docs/pricing-005").then((m) => ({
+      default: m.Pricing005Docs,
+    })),
+  "carousel-001": () =>
+    import("@/components/docs/carousel-001").then((m) => ({
+      default: m.Carousel001Docs,
     })),
 };
 

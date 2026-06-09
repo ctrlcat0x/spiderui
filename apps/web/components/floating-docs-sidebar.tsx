@@ -20,14 +20,33 @@ type NavViewMode = "grouped" | "collection"
 
 const HOVER_SOUND_MS = 70
 const TOGGLE_IN_SIDEBAR_DELAY_MS = 50
+const DIAL_SCROLL_STEP_PX = 7
+const MAIN_LINE_WIDTH = 18
+const ACCENT_LINE_WIDTH = 30
+const MAIN_LINE_SCALE = MAIN_LINE_WIDTH / ACCENT_LINE_WIDTH
+const NAV_SPRING = { type: "spring" as const, stiffness: 520, damping: 19, mass: 0.45 }
+const NAV_COLOR_TRANSITION = "color 220ms ease-out"
 
-const DIAL_ROW_CLASS = "flex h-[7px] items-center pl-0.5"
+/** Static micro line at top — no hover interaction */
+function MicroRulerLine({ width }: { width: number }) {
+    return (
+        <span
+            className="pointer-events-none absolute left-0 top-0 h-px bg-foreground/30"
+            style={{ width }}
+        />
+    )
+}
 
-const dialBaseClassName =
-    "h-px w-7 shrink-0 rounded-none bg-foreground/30 transition-[width,background-color] duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]"
-
-const navTextClassName =
-    "nav-text truncate text-[14px] font-medium text-[#9ca3af] transition-colors duration-150 ease-in-out group-[.active]/nav-item:text-[#e8470a] group-hover/nav-item:text-[#e8470a]"
+function SectionHeader({ title, count }: { title: string; count: number }) {
+    return (
+        <span className="flex items-baseline gap-2 px-0 py-4 text-base font-medium text-foreground/35">
+            {title}
+            <span className="text-xs font-normal tabular-nums text-foreground/25">
+                {count}
+            </span>
+        </span>
+    )
+}
 
 function SidebarToggleIcon() {
     return (
@@ -66,85 +85,89 @@ function SidebarToggleButton({
     )
 }
 
-function GroupSeparator({ title }: { title: string }) {
-    return (
-        <div className="flex items-center gap-2 py-1.5 mt-3 mb-0.5">
-            <div className="flex w-4 shrink-0 items-center pl-0.5" aria-hidden>
-                <span className="h-px w-4 shrink-0 bg-foreground/50" />
-            </div>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/60 whitespace-nowrap">
-                {title}
-            </span>
-        </div>
-    )
-}
-
-function DialLine({
-    variant,
-    highlighted,
-}: {
-    variant: "micro" | "companion" | "main"
-    highlighted: boolean
-}) {
-    const isMain = variant === "main"
-
-    const className = cn(
-        dialBaseClassName,
-        highlighted && isMain && "!w-9 !bg-[#e8470a]",
-        highlighted && !isMain && "!w-6 !bg-[#e8470a]"
-    )
-
-    return (
-        <div className={DIAL_ROW_CLASS}>
-            <span className={className} />
-        </div>
-    )
-}
-
-function NavItemLink({
+function NavItemRow({
     item,
     isActive,
-    isHighlighted,
-    textTop,
+    isHovered,
     onNavigate,
     onHoverEnter,
     onHoverMove,
 }: {
     item: { title: string; href: string }
     isActive: boolean
-    isHighlighted: boolean
-    textTop: number
+    isHovered: boolean
     onNavigate: () => void
     onHoverEnter: (event: React.MouseEvent<HTMLAnchorElement>) => void
     onHoverMove: (event: React.MouseEvent<HTMLAnchorElement>) => void
 }) {
+    const emphasized = isActive || isHovered
     const slug = item.href.split("/").pop()
     const comp = slug ? components[slug] : undefined
     const isNew = comp ? isNewComponent(comp) : false
 
     return (
-        <>
-            <div
-                className="absolute left-7 right-0 flex min-w-0 items-center gap-2 pr-1"
-                style={{ top: textTop, height: 7 }}
-            >
-                <span className={cn(navTextClassName, (isActive || isHighlighted) && "text-[#e8470a]")}>{item.title}</span>
-                {isNew && (
-                    <span className="ml-auto inline-flex shrink-0 items-center rounded-full bg-blue-500/10 px-1.5 py-0.5 text-[9px] font-bold text-blue-600 dark:text-blue-400">
-                        NEW
-                    </span>
+        <div className="relative">
+            {/* 1 & 2 — static micro / companion lines (no hover) */}
+            <MicroRulerLine width={16} />
+            <span className="pointer-events-none absolute left-0 top-1/4 h-px w-[13px] bg-foreground/30" />
+            <span className="pointer-events-none absolute left-0 top-3/4 h-px w-[13px] bg-foreground/30" />
+
+            {/* Main line — grows 18px → 30px from origin-left with spring overshoot */}
+            <motion.span
+                aria-hidden
+                className={cn(
+                    "pointer-events-none absolute left-0 top-1/2 z-40 w-[30px] rounded-full",
+                    isActive && emphasized
+                        ? "bg-[#e8470a]"
+                        : emphasized
+                          ? "bg-foreground/55"
+                          : "bg-foreground/50"
                 )}
-            </div>
+                initial={false}
+                animate={{
+                    scaleX: emphasized ? 1 : MAIN_LINE_SCALE,
+                    height: emphasized ? 1.8 : 1,
+                    y: "-50%",
+                }}
+                style={{ transformOrigin: "left center" }}
+                transition={NAV_SPRING}
+            />
+
             <Link
                 href={item.href}
                 onMouseEnter={onHoverEnter}
                 onMouseMove={onHoverMove}
                 onClick={onNavigate}
-                className="nav-item absolute inset-x-0 z-10"
-                style={{ top: Math.max(0, textTop - 14), height: 35 }}
+                className="group/nav-item relative block pl-8 pr-3 py-0.5 select-none"
                 aria-current={isActive ? "page" : undefined}
-            />
-        </>
+            >
+                <motion.span
+                    className="flex items-center gap-2"
+                    initial={false}
+                    animate={{
+                        x: emphasized ? 8 : 0,
+                        opacity: emphasized ? 1 : 0.45,
+                    }}
+                    style={{ transformOrigin: "left center" }}
+                    transition={NAV_SPRING}
+                >
+                    <span
+                        className={cn(
+                            "truncate text-base",
+                            emphasized ? "text-[#e8470a]" : "text-foreground/55"
+                        )}
+                        style={{ transition: NAV_COLOR_TRANSITION }}
+                    >
+                        {item.title}
+                    </span>
+                    {isNew && (
+                        <span className="ml-auto inline-flex shrink-0 items-center rounded-full bg-blue-500/10 px-1.5 py-0.5 text-[9px] font-bold text-blue-600 dark:text-blue-400">
+                            NEW
+                        </span>
+                    )}
+                </motion.span>
+            </Link>
+        </div>
     )
 }
 
@@ -165,72 +188,28 @@ function NavItemList({
 }) {
     const [hoveredHref, setHoveredHref] = React.useState<string | null>(null)
 
-    const itemLayouts = React.useMemo(() => {
-        let rowOffset = 0
-        return items.map((item, index) => {
-            const rowsBeforeMain = index === 0 ? 2 : 0
-            const textTop = rowOffset + rowsBeforeMain * 7
-            const rowCount = index === 0 ? 5 : 3
-            rowOffset += rowCount * 7
-            return { item, textTop }
-        })
-    }, [items])
-
-    const totalHeight = items.length === 0 ? 0 : 35 + (items.length - 1) * 21
-
-    const isItemHighlighted = (href: string) => pathname === href || hoveredHref === href
-
     return (
         <div
-            className="relative flex"
+            className="flex flex-col gap-0"
             onMouseLeave={() => {
                 setHoveredHref(null)
                 onHoverLeave()
             }}
         >
-            <div className="pointer-events-none flex w-7 shrink-0 flex-col" aria-hidden>
-                {items.map((item, index) => {
-                    const highlighted = isItemHighlighted(item.href)
-                    const prevHighlighted =
-                        index > 0 ? isItemHighlighted(items[index - 1]!.href) : false
-                    const nextHighlighted =
-                        index < items.length - 1 ? isItemHighlighted(items[index + 1]!.href) : false
-                    const boundaryHighlighted = highlighted || nextHighlighted
-                    const leadingBoundaryHighlighted = highlighted || prevHighlighted
-
-                    return (
-                        <React.Fragment key={`dial-${item.href}`}>
-                            {index === 0 && (
-                                <>
-                                    <DialLine variant="micro" highlighted={leadingBoundaryHighlighted} />
-                                    <DialLine variant="companion" highlighted={leadingBoundaryHighlighted} />
-                                </>
-                            )}
-                            <DialLine variant="main" highlighted={highlighted} />
-                            <DialLine variant="companion" highlighted={boundaryHighlighted} />
-                            <DialLine variant="micro" highlighted={boundaryHighlighted} />
-                        </React.Fragment>
-                    )
-                })}
-            </div>
-
-            <div className="relative min-w-0 flex-1" style={{ minHeight: totalHeight }}>
-                {itemLayouts.map(({ item, textTop }) => (
-                    <NavItemLink
-                        key={item.href}
-                        item={item}
-                        isActive={pathname === item.href}
-                        isHighlighted={isItemHighlighted(item.href)}
-                        textTop={textTop}
-                        onNavigate={onNavigate}
-                        onHoverEnter={(e) => {
-                            setHoveredHref(item.href)
-                            onHoverEnter(item, e)
-                        }}
-                        onHoverMove={onHoverMove}
-                    />
-                ))}
-            </div>
+            {items.map((item) => (
+                <NavItemRow
+                    key={item.href}
+                    item={item}
+                    isActive={pathname === item.href}
+                    isHovered={hoveredHref === item.href}
+                    onNavigate={onNavigate}
+                    onHoverEnter={(event) => {
+                        setHoveredHref(item.href)
+                        onHoverEnter(item, event)
+                    }}
+                    onHoverMove={onHoverMove}
+                />
+            ))}
         </div>
     )
 }
@@ -253,21 +232,25 @@ export function FloatingDocsSidebar() {
     const sidebarPanelRef = React.useRef<HTMLDivElement>(null)
     const navScrollContainerRef = React.useRef<HTMLDivElement>(null)
     const navScrollStepRef = React.useRef<number>(0)
+    const lastDialTickStepRef = React.useRef<number>(0)
 
     const playDialTick = React.useCallback(() => {
-        void playSound(clickSoftSound.dataUri, { volume: 0.1, playbackRate: 2.0 })
+        void playSound(clickSoftSound.dataUri, { volume: 0.11, playbackRate: 1.85 })
     }, [])
 
     const handleNavScroll = React.useCallback(() => {
         const container = navScrollContainerRef.current
         if (!container) return
-        const stepSizePx = 7
-        const nextStep = Math.floor(container.scrollTop / stepSizePx)
-        if (nextStep !== navScrollStepRef.current) {
-            navScrollStepRef.current = nextStep
-            if (nextStep % 3 === 0) {
-                playDialTick()
-            }
+
+        const nextStep = Math.round(container.scrollTop / DIAL_SCROLL_STEP_PX)
+        if (nextStep === navScrollStepRef.current) return
+
+        navScrollStepRef.current = nextStep
+
+        // Tick every ~14px — aligns with passing pairs of ruler marks
+        if (Math.abs(nextStep - lastDialTickStepRef.current) >= 2) {
+            lastDialTickStepRef.current = nextStep
+            playDialTick()
         }
     }, [playDialTick])
 
@@ -300,7 +283,7 @@ export function FloatingDocsSidebar() {
 
     const startScrollSound = React.useCallback(() => {
         stopScrollSound()
-        void playSound(impactGenericLight002Sound.dataUri, { volume: 0.07, playbackRate: 2.2 }).then((playback) => {
+        void playSound(impactGenericLight002Sound.dataUri, { volume: 0.075, playbackRate: 2.0 }).then((playback) => {
             scrollPlaybackRef.current = playback
             scrollSoundTimerRef.current = window.setTimeout(() => {
                 playback.stop()
@@ -416,6 +399,8 @@ export function FloatingDocsSidebar() {
             setHoverPreview(null)
             setHoverPosition(null)
             setIsHoverImageReady(false)
+            navScrollStepRef.current = 0
+            lastDialTickStepRef.current = 0
         }
     }, [isOpen, stopScrollSound])
 
@@ -499,14 +484,24 @@ export function FloatingDocsSidebar() {
                                 </div>
 
                                 <div className="relative min-h-0 flex-1">
+                                    <div
+                                        aria-hidden
+                                        className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-white via-white/70 to-transparent dark:from-[#121212] dark:via-[#121212]/70"
+                                    />
+
                                     <ScrollEdgeFade position="top" variant="sidebar" />
                                     <ScrollEdgeFade position="bottom" variant="sidebar" />
 
-                                    <div ref={navScrollContainerRef} onScroll={handleNavScroll} className="h-full overflow-y-auto pl-0 pr-1 py-15 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                                    <nav
+                                        ref={navScrollContainerRef}
+                                        data-scroll-viewport
+                                        onScroll={handleNavScroll}
+                                        className="relative z-10 flex h-full flex-col gap-1 overflow-y-auto px-3 py-20 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                                    >
                                         <button
                                             type="button"
                                             onClick={handleViewModeToggle}
-                                            className="px-1 mb-4 mt-2 inline-flex items-center gap-1.5 text-[15px] font-semibold text-zinc-500 transition-colors hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+                                            className="mb-2 inline-flex items-center gap-1.5 px-0 text-[15px] font-semibold text-zinc-500 transition-colors hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
                                             aria-label={`Switch to ${viewMode === "grouped" ? "collection" : "grouped"} view`}
                                         >
                                             <span>{viewMode === "grouped" ? "Grouped" : "Collection"}</span>
@@ -514,8 +509,11 @@ export function FloatingDocsSidebar() {
                                         </button>
 
                                         {gettingStartedGroup && (
-                                            <div className="mb-4">
-                                                <GroupSeparator title={gettingStartedGroup.title} />
+                                            <div className="mb-2 flex flex-col gap-0">
+                                                <SectionHeader
+                                                    title={gettingStartedGroup.title}
+                                                    count={gettingStartedGroup.items.length}
+                                                />
                                                 <NavItemList
                                                     items={gettingStartedGroup.items}
                                                     pathname={pathname}
@@ -529,8 +527,11 @@ export function FloatingDocsSidebar() {
 
                                         {viewMode === "grouped" ? (
                                             componentGroups.map((group, index) => (
-                                                <div key={index} className="mb-3 last:mb-0">
-                                                    <GroupSeparator title={group.title} />
+                                                <div key={index} className="mb-2 flex flex-col gap-0 last:mb-0">
+                                                    <SectionHeader
+                                                        title={group.title}
+                                                        count={group.items.length}
+                                                    />
                                                     <NavItemList
                                                         items={group.items}
                                                         pathname={pathname}
@@ -542,8 +543,11 @@ export function FloatingDocsSidebar() {
                                                 </div>
                                             ))
                                         ) : (
-                                            <div className="mb-3 last:mb-0">
-                                                <GroupSeparator title="Collection" />
+                                            <div className="mb-2 flex flex-col gap-0 last:mb-0">
+                                                <SectionHeader
+                                                    title="Collection"
+                                                    count={collectionItems.length}
+                                                />
                                                 <NavItemList
                                                     items={collectionItems}
                                                     pathname={pathname}
@@ -554,7 +558,7 @@ export function FloatingDocsSidebar() {
                                                 />
                                             </div>
                                         )}
-                                    </div>
+                                    </nav>
                                 </div>
                             </div>
 

@@ -1,34 +1,12 @@
-import React from "react"
 import Link from "next/link"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { Pricing5Preview } from "@/components/docs/previews/pricing-5-preview"
 
-const usageCode = `import { Pricing5 } from "@/components/ui/pricing-5"
+const importCode = `import { Pricing5 } from "@/components/ui/pricing-5"`
 
-export default function Page() {
+const usageCode = `export default function Page() {
   return <Pricing5 />
-}`
-
-const customizeCode = `import { Pricing5, type Plan5 } from "@/components/ui/pricing-5"
-
-const myPlans: Plan5[] = [
-  {
-    id: "starter",
-    name: "Starter",
-    description: "Everything you need to get started.",
-    palette: "blue",
-    originalPrice: "$199",
-    price: "$99",
-    priceNote: "One-time payment",
-    ctaLabel: "Buy now",
-    ctaHref: "/checkout/starter",
-    features: ["5 projects", "Email support", "Access to all components"],
-  },
-]
-
-export default function Page() {
-  return <Pricing5 individualPlans={myPlans} teamsPlans={myPlans} />
 }`
 
 export async function Pricing5Docs() {
@@ -38,7 +16,7 @@ export async function Pricing5Docs() {
 
   const installationNote = (
     <p className="text-sm leading-relaxed text-muted-foreground">
-      Depends on shadcn{" "}
+      Requires shadcn{" "}
       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
         button
       </code>
@@ -49,29 +27,27 @@ export async function Pricing5Docs() {
       >
         Avatar
       </Link>{" "}
-      component (installed automatically as a registry dependency), and Hugeicons.
+      component (installed as a registry dependency), and Hugeicons.
     </p>
   )
 
   const usageNote = (
-    <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-      <li>
-        A pill tab switcher toggles between <code className="text-foreground">individualPlans</code> and <code className="text-foreground">teamsPlans</code>.
-      </li>
-      <li>
-        Each card header uses coloured blobs, an SVG grain overlay, and an <code className="text-foreground">Avatar</code> orb matched to the palette.
-      </li>
-      <li>
-        <code className="text-foreground">featuredLabel</code> renders as a frosted pill beside the avatar; <code className="text-foreground">ctaDark</code> uses a foreground-filled CTA.
-      </li>
-      <li>Features render with a tick icon from Hugeicons.</li>
-    </ul>
+    <div className="rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
+      <p>
+        Pill tab switcher toggles <code className="text-foreground">individualPlans</code>{" "}
+        vs <code className="text-foreground">teamsPlans</code>. Each card uses coloured
+        blobs, SVG grain, and an <code className="text-foreground">Avatar</code> orb
+        matched to the palette. Set <code className="text-foreground">featuredLabel</code>{" "}
+        for a frosted pill and <code className="text-foreground">ctaDark</code> for a
+        filled CTA.
+      </p>
+    </div>
   )
 
   return (
     <DocsPageLayout
       title="Pricing 5"
-      description="Tabbed individuals/teams pricing grid with coloured card backdrops, Avatar orbs, grain texture overlays, and feature checklists."
+      description="Tabbed individuals/teams pricing with coloured card backdrops, Avatar orbs, and grain texture overlays."
       preview={<Pricing5Preview />}
       previewCode={usageCode}
       installPackageName="pricing-5"
@@ -79,14 +55,8 @@ export async function Pricing5Docs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/pricing-5.tsx"
       installationNote={installationNote}
-      usageNote={
-        <div className="space-y-4">
-          {usageNote}
-          <pre className="overflow-x-auto rounded-lg border border-border bg-muted/40 p-4 text-xs">
-            <code>{customizeCode}</code>
-          </pre>
-        </div>
-      }
+      usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
       fullWidthPreview
       scrollablePreview
@@ -107,19 +77,19 @@ export async function Pricing5Docs() {
           name: "individualsLabel",
           type: "string",
           default: '"Individuals"',
-          description: "Label for the individuals tab button.",
+          description: "Label for the individuals tab.",
         },
         {
           name: "teamsLabel",
           type: "string",
           default: '"Teams & Enterprise"',
-          description: "Label for the teams tab button.",
+          description: "Label for the teams tab.",
         },
         {
           name: "defaultTab",
           type: '"individuals" | "teams"',
           default: '"individuals"',
-          description: "Which tab is active on first render.",
+          description: "Active tab on first render.",
         },
         {
           name: "title",
@@ -136,7 +106,7 @@ export async function Pricing5Docs() {
         {
           name: "className",
           type: "string",
-          description: "Extra classes applied to the root container.",
+          description: "Classes on the root container.",
         },
       ]}
     />

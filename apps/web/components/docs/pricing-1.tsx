@@ -3,9 +3,9 @@ import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { Pricing1Preview } from "@/components/docs/previews/pricing-1-preview"
 
-const usageCode = `import { Pricing1 } from "@/components/ui/pricing-1"
+const importCode = `import { Pricing1 } from "@/components/ui/pricing-1"`
 
-export default function Page() {
+const usageCode = `export default function Page() {
   return <Pricing1 />
 }`
 
@@ -16,7 +16,7 @@ export async function Pricing1Docs() {
 
   const installationNote = (
     <p className="text-sm leading-relaxed text-muted-foreground">
-      This component depends on the shadcn{" "}
+      Requires the shadcn{" "}
       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
         button
       </code>{" "}
@@ -24,46 +24,35 @@ export async function Pricing1Docs() {
       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
         react-use-measure
       </code>{" "}
-      automatically.
+      for the sliding price digits.
     </p>
   )
 
   const usageNote = (
-    <div className="space-y-4">
-      <p className="text-sm text-muted-foreground">
+    <div className="rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
+      <p>
+        Three-column grid with a monthly/yearly toggle. Prices animate through{" "}
+        <code className="text-foreground">SlidingNumber</code> (motion springs +{" "}
+        <code className="text-foreground">react-use-measure</code>). Featured plans get{" "}
+        <code className="text-foreground">CornerPlus</code> border decorations.
         Inspired by{" "}
         <a
           href="https://efferd.com/view/pricing-7"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="font-medium text-foreground underline underline-offset-2"
         >
           Efferd Pricing 7
         </a>
         .
       </p>
-      <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-        <li>
-          <code className="text-foreground">motion/react</code> springs and{" "}
-          <code className="text-foreground">react-use-measure</code> animate digit slots in{" "}
-          <code className="text-foreground">SlidingNumber</code> when toggling billing.
-        </li>
-        <li>
-          The yearly switch updates each plan&apos;s <code className="text-foreground">monthly</code> vs{" "}
-          <code className="text-foreground">yearly</code> price.
-        </li>
-        <li>
-          Featured plans show <code className="text-foreground">CornerPlus</code> decorations on the shared border grid.
-        </li>
-        <li>Feature rows use Hugeicons check badges.</li>
-      </ul>
     </div>
   )
 
   return (
     <DocsPageLayout
       title="Pricing 1"
-      description="Modern pricing grid with animated sliding numbers, yearly billing toggle, and featured plan corner decorations."
+      description="Animated pricing grid with sliding digit prices, yearly billing toggle, and featured plan corner accents."
       preview={<Pricing1Preview />}
       previewCode={usageCode}
       installPackageName="pricing-1"
@@ -72,18 +61,21 @@ export async function Pricing1Docs() {
       installSourceFilename="components/ui/pricing-1.tsx"
       installationNote={installationNote}
       usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
+      scrollablePreview
       props={[
         {
           name: "plans",
           type: "Plan[]",
           default: "DEFAULT_PLANS",
-          description: "Array of pricing plans to display.",
+          description:
+            "Plan objects with monthly/yearly prices, features, credits label, and featured flag.",
         },
         {
           name: "className",
           type: "string",
-          description: "Extra classes applied to the root container.",
+          description: "Classes on the root container.",
         },
       ]}
     />

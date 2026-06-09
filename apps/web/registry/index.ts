@@ -184,6 +184,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Logo Clouds",
     slug: "logo-cloud-1",
     addedAt: "2026-06-01",
+    previewImage: "/previews/logo-cloud-1.png",
   },
   "logo-cloud-2": {
     title: "Logo Cloud 2",
@@ -192,6 +193,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Logo Clouds",
     slug: "logo-cloud-2",
     addedAt: "2026-06-01",
+    previewImage: "/previews/logo-cloud-2.png",
   },
   "logo-cloud-3": {
     title: "Logo Cloud 3",
@@ -200,6 +202,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Logo Clouds",
     slug: "logo-cloud-3",
     addedAt: "2026-06-01",
+    previewImage: "/previews/logo-cloud-3.png",
   },
   "logo-cloud-4": {
     title: "Logo Cloud 4",
@@ -208,6 +211,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Logo Clouds",
     slug: "logo-cloud-4",
     addedAt: "2026-06-01",
+    previewImage: "/previews/logo-cloud-4.png",
   },
   "pricing-1": {
     title: "Pricing 1",
@@ -216,6 +220,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Pricing",
     slug: "pricing-1",
     addedAt: "2026-06-01",
+    previewImage: "/previews/pricing-1.png",
   },
   "pricing-2": {
     title: "Pricing 2",
@@ -224,6 +229,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Pricing",
     slug: "pricing-2",
     addedAt: "2026-06-01",
+    previewImage: "/previews/pricing-2.png",
   },
   "pricing-3": {
     title: "Pricing 3",
@@ -232,6 +238,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Pricing",
     slug: "pricing-3",
     addedAt: "2026-06-01",
+    previewImage: "/previews/pricing-3.png",
   },
   "pricing-4": {
     title: "Pricing 4",
@@ -240,6 +247,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Pricing",
     slug: "pricing-4",
     addedAt: "2026-06-01",
+    previewImage: "/previews/pricing-4.png",
   },
   "pricing-5": {
     title: "Pricing 5",
@@ -248,6 +256,7 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Pricing",
     slug: "pricing-5",
     addedAt: "2026-06-01",
+    previewImage: "/previews/pricing-5.png",
   },
 };
 

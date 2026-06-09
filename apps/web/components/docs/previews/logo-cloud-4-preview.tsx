@@ -1,6 +1,6 @@
 "use client"
 
-import { LogoMarquee } from "@workspace/ui/components/logo-cloud-4"
+import { LogoMarquee, Marquee } from "@workspace/ui/components/logo-cloud-4"
 import {
   BoltLogo,
   ClaudeLogo,
@@ -29,5 +29,17 @@ export function LogoCloud4Preview() {
       duration={40}
       gap={200}
     />
+  )
+}
+
+export function MarqueePrimitivePreview() {
+  return (
+    <Marquee direction="left" duration={30} gap={64} pauseOnHover fade>
+      {logos.slice(0, 5).map(({ name, svg }) => (
+        <span key={name} aria-label={name} className="flex items-center opacity-80">
+          {svg}
+        </span>
+      ))}
+    </Marquee>
   )
 }

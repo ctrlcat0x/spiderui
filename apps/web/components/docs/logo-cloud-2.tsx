@@ -3,12 +3,13 @@ import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { LogoCloud2Preview } from "@/components/docs/previews/logo-cloud-2-preview"
 
-const usageCode = `import { LogoCloud2 } from "@/components/ui/logo-cloud-2"
+const importCode = `import { LogoCloud2 } from "@/components/ui/logo-cloud-2"`
 
-const logos = [
+const usageCode = `const logos = [
   { name: "Vercel", svg: <VercelLogo /> },
   { name: "Stripe", svg: <StripeLogo /> },
   { name: "Clerk", svg: <ClerkLogo /> },
+  { name: "Bolt", svg: <BoltLogo /> },
 ]
 
 export default function Page() {
@@ -21,24 +22,19 @@ export async function LogoCloud2Docs() {
     "// Unable to load source code"
 
   const usageNote = (
-    <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-      <li>Logos are split into groups of 3 automatically.</li>
-      <li>
-        Each group cycles on a timer with a spring blur/scale exit and staggered
-        blur entrance.
-      </li>
-      <li>
-        Uses{" "}
-        <code className="text-foreground">AnimatePresence mode=&quot;popLayout&quot;</code>{" "}
-        for smooth cross-fade between groups.
-      </li>
-    </ul>
+    <div className="rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
+      <p>
+        Pass a flat <code className="text-foreground">logos</code> array — the
+        component chunks it into groups of three and cycles with spring blur/scale
+        transitions via <code className="text-foreground">AnimatePresence</code>.
+      </p>
+    </div>
   )
 
   return (
     <DocsPageLayout
       title="Logo Cloud 2"
-      description="Animated logo cloud that cycles groups of 3 logos with spring blur transitions."
+      description="Data-driven logo cloud that auto-groups logos and cycles them with spring blur transitions."
       preview={<LogoCloud2Preview />}
       previewCode={usageCode}
       installPackageName="logo-cloud-2"
@@ -46,29 +42,29 @@ export async function LogoCloud2Docs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/logo-cloud-2.tsx"
       usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
       props={[
         {
           name: "logos",
           type: "LogoCloud2Item[]",
-          description: "Array of logo items to display.",
+          description: "Logo entries with a display name and SVG node.",
         },
         {
           name: "label",
           type: "string",
-          description: "Optional heading rendered above the logo row.",
+          description: "Optional uppercase heading above the row.",
         },
         {
           name: "duration",
           type: "number",
           default: "2.5",
-          description:
-            "Seconds each group of logos stays visible before cycling.",
+          description: "Seconds each group stays visible before cycling.",
         },
         {
           name: "className",
           type: "string",
-          description: "Extra classes applied to the outer section element.",
+          description: "Classes on the outer section.",
         },
       ]}
     />

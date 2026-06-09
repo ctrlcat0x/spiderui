@@ -1,11 +1,14 @@
 import React from "react"
 import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
-import { LogoCloud4Preview } from "@/components/docs/previews/logo-cloud-4-preview"
+import {
+  LogoCloud4Preview,
+  MarqueePrimitivePreview,
+} from "@/components/docs/previews/logo-cloud-4-preview"
 
-const usageCode = `import { LogoMarquee } from "@/components/ui/logo-cloud-4"
+const importCode = `import { LogoMarquee } from "@/components/ui/logo-cloud-4"`
 
-const logos = [
+const usageCode = `const logos = [
   { name: "Vercel", svg: <VercelLogo /> },
   { name: "Stripe", svg: <StripeLogo /> },
   { name: "Clerk", svg: <ClerkLogo /> },
@@ -22,12 +25,16 @@ export default function Page() {
   )
 }`
 
-const marqueePrimitiveCode = `import { Marquee } from "@/components/ui/logo-cloud-4"
+const marqueeExampleCode = `export default function Page() {
+  return (
+    <Marquee direction="left" duration={30} gap={64} pauseOnHover fade>
+      <img src="/logo-a.svg" alt="Brand A" className="h-8" />
+      <img src="/logo-b.svg" alt="Brand B" className="h-8" />
+    </Marquee>
+  )
+}`
 
-<Marquee direction="left" duration={30} gap={64} pauseOnHover fade>
-  <img src="/logo-a.svg" alt="Brand A" />
-  <img src="/logo-b.svg" alt="Brand B" />
-</Marquee>`
+const marqueeImportCode = `import { Marquee } from "@/components/ui/logo-cloud-4"`
 
 export async function LogoCloud4Docs() {
   const sourceCode =
@@ -35,44 +42,33 @@ export async function LogoCloud4Docs() {
     "// Unable to load source code"
 
   const usageNote = (
-    <div className="space-y-4">
-      <div className="flex gap-3 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
-        <p>
-          For provider icons, use{" "}
-          <a
-            href="https://svgl.app/"
-            target="_blank"
-            rel="noreferrer"
-            className="font-medium text-foreground underline underline-offset-2"
-          >
-            svgl
-          </a>{" "}
-          — a library of SVG logos for popular brands and services.
-        </p>
-      </div>
-      <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-        <li>
-          <code className="text-foreground">Marquee</code> renders each logo twice for a seamless CSS loop.
-        </li>
-        <li>Four directional keyframes support horizontal and vertical scrolling.</li>
-        <li>
-          A <code className="text-foreground">mask-image</code> gradient fades the leading and trailing edges.
-        </li>
-        <li>Hover pauses the animation via <code className="text-foreground">animation-play-state</code>.</li>
-      </ul>
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-foreground">Marquee primitive</p>
-        <pre className="overflow-x-auto rounded-lg border border-border bg-muted/40 p-4 text-xs">
-          <code>{marqueePrimitiveCode}</code>
-        </pre>
-      </div>
+    <div className="flex flex-col gap-3 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
+      <p>
+        <code className="text-foreground">LogoMarquee</code> wraps the lower-level{" "}
+        <code className="text-foreground">Marquee</code> primitive with a label and logo
+        list. The track duplicates children for a seamless CSS loop, supports four
+        scroll directions, and optional edge fades via{" "}
+        <code className="text-foreground">mask-image</code>.
+      </p>
+      <p>
+        Brand SVGs:{" "}
+        <a
+          href="https://svgl.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-foreground underline underline-offset-2"
+        >
+          svgl
+        </a>
+        .
+      </p>
     </div>
   )
 
   return (
     <DocsPageLayout
       title="Logo Cloud 4"
-      description="CSS marquee logo cloud with configurable direction, speed, gap, and gradient fade edges."
+      description="Infinite CSS marquee for logos with gradient edge fades, hover pause, and a reusable Marquee primitive."
       preview={<LogoCloud4Preview />}
       previewCode={usageCode}
       installPackageName="logo-cloud-4"
@@ -80,59 +76,72 @@ export async function LogoCloud4Docs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/logo-cloud-4.tsx"
       usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
+      examples={[
+        {
+          title: "Marquee primitive",
+          preview: <MarqueePrimitivePreview />,
+          code: `${marqueeImportCode}\n\n${marqueeExampleCode}`,
+        },
+      ]}
       props={[
         {
           name: "logos",
           type: "LogoCloud4Item[]",
-          description: "Array of logo items to display.",
+          description: "Logo entries for LogoMarquee.",
         },
         {
           name: "label",
           type: "string",
-          description: "Optional heading displayed above the marquee.",
+          description: "Optional heading above the marquee (LogoMarquee).",
         },
         {
           name: "duration",
           type: "number",
           default: "20",
-          description: "Duration of one full scroll cycle in seconds.",
+          description: "Full scroll cycle duration in seconds.",
         },
         {
           name: "gap",
           type: "number",
           default: "80",
-          description: "Pixel gap between each logo.",
+          description: "Pixel gap between logos (LogoMarquee default 80, Marquee default 32).",
         },
         {
           name: "reverse",
           type: "boolean",
           default: "false",
-          description: "Scroll right instead of left.",
+          description: "Scroll right instead of left (LogoMarquee).",
         },
         {
           name: "pauseOnHover",
           type: "boolean",
           default: "true",
-          description: "Pause the marquee when the user hovers over it.",
+          description: "Pause on hover (LogoMarquee). Marquee primitive defaults to false.",
         },
         {
           name: "fade",
           type: "boolean",
           default: "true",
-          description: "Apply gradient fade masks on the leading and trailing edges.",
+          description: "Gradient fade on leading/trailing edges.",
         },
         {
           name: "fadeAmount",
           type: "number",
           default: "10",
-          description:
-            "Percentage of the container width/height used for each fade edge.",
+          description: "Percentage of container used for each fade edge.",
+        },
+        {
+          name: "direction",
+          type: '"left" | "right" | "up" | "down"',
+          default: '"left"',
+          description: "Scroll direction (Marquee).",
         },
         {
           name: "className",
           type: "string",
-          description: "Extra classes applied to the outer section element.",
+          description: "Classes on the outer section or marquee container.",
         },
       ]}
     />

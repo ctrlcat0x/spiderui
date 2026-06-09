@@ -3,9 +3,9 @@ import { DocsPageLayout } from "@/components/docs-page-layout"
 import { readComponentSource } from "@/lib/source-code"
 import { LogoCloud3Preview } from "@/components/docs/previews/logo-cloud-3-preview"
 
-const usageCode = `import { LogosCarousel } from "@/components/ui/logo-cloud-3"
+const importCode = `import { LogosCarousel } from "@/components/ui/logo-cloud-3"`
 
-const logos = [
+const usageCode = `const logos = [
   { name: "Vercel", svg: <VercelLogo /> },
   { name: "Stripe", svg: <StripeLogo /> },
   { name: "Clerk", svg: <ClerkLogo /> },
@@ -29,41 +29,31 @@ export async function LogoCloud3Docs() {
     "// Unable to load source code"
 
   const usageNote = (
-    <div className="space-y-4">
-      <div className="flex gap-3 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
-        <p>
-          For provider icons, use{" "}
-          <a
-            href="https://svgl.app/"
-            target="_blank"
-            rel="noreferrer"
-            className="font-medium text-foreground underline underline-offset-2"
-          >
-            svgl
-          </a>{" "}
-          — a library of SVG logos for popular brands and services.
-        </p>
-      </div>
-      <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-        <li>Logos are split into groups of <code className="text-foreground">count</code> automatically.</li>
-        <li>
-          After <code className="text-foreground">initialDelay</code> ms the carousel activates and cycles every{" "}
-          <code className="text-foreground">interval</code> ms.
-        </li>
-        <li>
-          The outgoing group animates up with blur exit while the incoming group slides in from below.
-        </li>
-        <li>
-          Pure CSS <code className="text-foreground">@keyframes</code> — no animation library required.
-        </li>
-      </ul>
+    <div className="flex flex-col gap-3 rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
+      <p>
+        Pure CSS <code className="text-foreground">@keyframes</code> — no animation
+        library. Logos split into groups of <code className="text-foreground">count</code>;
+        outgoing groups slide up with blur while incoming groups rise from below.
+      </p>
+      <p>
+        SVG logos:{" "}
+        <a
+          href="https://svgl.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-foreground underline underline-offset-2"
+        >
+          svgl
+        </a>
+        .
+      </p>
     </div>
   )
 
   return (
     <DocsPageLayout
       title="Logo Cloud 3"
-      description="CSS-animated logo carousel that cycles groups with vertical blur and slide transitions."
+      description="CSS-only logo carousel with vertical slide, blur enter/exit, and configurable group size."
       preview={<LogoCloud3Preview />}
       previewCode={usageCode}
       installPackageName="logo-cloud-3"
@@ -71,52 +61,53 @@ export async function LogoCloud3Docs() {
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/logo-cloud-3.tsx"
       usageNote={usageNote}
+      usageImportCode={importCode}
       usageCode={usageCode}
       props={[
         {
           name: "logos",
           type: "LogoCloud3Item[]",
-          description: "Array of logo items to display.",
+          description: "Logo entries with a display name and SVG node.",
         },
         {
           name: "label",
           type: "string",
-          description: "Optional heading displayed above the carousel.",
+          description: "Optional heading above the carousel.",
         },
         {
           name: "count",
           type: "number",
           default: "4",
-          description: "Number of logos to show per group.",
+          description: "Logos shown per group.",
         },
         {
           name: "stagger",
           type: "number",
           default: "0.1",
-          description: "Per-item animation stagger delay in seconds.",
+          description: "Per-item animation stagger in seconds.",
         },
         {
           name: "duration",
           type: "number",
           default: "500",
-          description: "Duration of each enter/exit animation in milliseconds.",
+          description: "Enter/exit animation duration in milliseconds.",
         },
         {
           name: "interval",
           type: "number",
           default: "2500",
-          description: "Time in milliseconds between group cycles.",
+          description: "Milliseconds between group cycles.",
         },
         {
           name: "initialDelay",
           type: "number",
           default: "800",
-          description: "Delay in milliseconds before the carousel starts animating.",
+          description: "Milliseconds before the carousel starts cycling.",
         },
         {
           name: "className",
           type: "string",
-          description: "Extra classes applied to the outer section element.",
+          description: "Classes on the outer section.",
         },
       ]}
     />

@@ -190,6 +190,47 @@ export const ACCORDION_REVEAL_DEFAULT_CONFIG: AccordionRevealConfig = {
   expandedHeight: 320,
 };
 
+export type ContributionGraphTheme =
+  | "green"
+  | "orange"
+  | "sakura"
+  | "autumn"
+  | "winter"
+  | "forest"
+  | "grayscale";
+
+export type ContributionGraphVariant = "default" | "city-lights" | "minimal";
+
+export type ContributionGraphAnimation =
+  | "left-to-right"
+  | "top-to-bottom"
+  | "random"
+  | "none";
+
+export type ContributionGraphShape =
+  | "square"
+  | "rounded"
+  | "circle"
+  | "squircle";
+
+export interface ContributionGraphConfig {
+  theme: ContributionGraphTheme;
+  variant: ContributionGraphVariant;
+  animation: ContributionGraphAnimation;
+  shape: ContributionGraphShape;
+  glowIntensity: number;
+  username: string;
+}
+
+export const CONTRIBUTION_GRAPH_DEFAULT_CONFIG: ContributionGraphConfig = {
+  theme: "green",
+  variant: "city-lights",
+  animation: "left-to-right",
+  shape: "rounded",
+  glowIntensity: 6,
+  username: "torvalds",
+};
+
 export const IMAGE_TRAIL_DEFAULT_CONFIG: ImageTrailConfig = {
   imageLifespan: 1000,
   minDistance: 45,
@@ -417,6 +458,13 @@ interface PlaygroundStore {
   accordionRevealConfig: AccordionRevealConfig;
   updateAccordionRevealConfig: (updates: Partial<AccordionRevealConfig>) => void;
   resetAccordionRevealConfig: () => void;
+  contributionGraphConfig: ContributionGraphConfig;
+  contributionGraphRemountVersion: number;
+  updateContributionGraphConfig: (
+    updates: Partial<ContributionGraphConfig>,
+  ) => void;
+  resetContributionGraphConfig: () => void;
+  resetContributionGraphPreview: () => void;
 }
 
 export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
@@ -657,4 +705,19 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
     })),
   resetAccordionRevealConfig: () =>
     set({ accordionRevealConfig: ACCORDION_REVEAL_DEFAULT_CONFIG }),
+  contributionGraphConfig: CONTRIBUTION_GRAPH_DEFAULT_CONFIG,
+  contributionGraphRemountVersion: 0,
+  updateContributionGraphConfig: (updates) =>
+    set((state) => ({
+      contributionGraphConfig: { ...state.contributionGraphConfig, ...updates },
+    })),
+  resetContributionGraphConfig: () =>
+    set((state) => ({
+      contributionGraphConfig: CONTRIBUTION_GRAPH_DEFAULT_CONFIG,
+      contributionGraphRemountVersion: state.contributionGraphRemountVersion + 1,
+    })),
+  resetContributionGraphPreview: () =>
+    set((state) => ({
+      contributionGraphRemountVersion: state.contributionGraphRemountVersion + 1,
+    })),
 }));

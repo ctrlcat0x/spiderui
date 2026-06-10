@@ -24,7 +24,15 @@ export async function readComponentSource(
     let content: string | null = null;
 
     if (registry.files && registry.files.length > 0) {
-      content = registry.files[0].content;
+      const matchingFile = registry.files.find(
+        (file: { path: string }) =>
+          file.path.endsWith(`/${componentName}.tsx`) ||
+          file.path.endsWith(`${componentName}.tsx`),
+      );
+      content =
+        matchingFile?.content ??
+        registry.files[registry.files.length - 1]?.content ??
+        registry.files[0].content;
     } else if (
       registry.default &&
       registry.default.files &&

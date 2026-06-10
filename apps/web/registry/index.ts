@@ -3,7 +3,7 @@ export type ComponentCategory =
   | "Components"
   | "Text Effects"
   | "Card Interactions"
-  | "Visual Effects"
+  | "Visual Interactions"
   | "Logo Clouds"
   | "Pricing"
   | "Carousels";
@@ -57,7 +57,7 @@ export const components: Record<string, ComponentMetadata> = {
     title: "Image Trail",
     description:
       "Venetian-blind cursor image trail with staggered slice reveals and smoothed pointer tracking.",
-    category: "Visual Effects",
+    category: "Visual Interactions",
     slug: "image-trail",
     addedAt: "2026-03-09",
     previewImage: "/previews/image-trail.png",
@@ -66,7 +66,7 @@ export const components: Record<string, ComponentMetadata> = {
     title: "Sticker Trail",
     description:
       "Motion-powered cursor trail of drifting stickers that spawn and fade as you move the pointer.",
-    category: "Visual Effects",
+    category: "Visual Interactions",
     slug: "sticker-trail",
     addedAt: "2026-06-01",
     previewImage: "/previews/sticker-trail.png",
@@ -120,7 +120,7 @@ export const components: Record<string, ComponentMetadata> = {
     title: "Image 2 Gif",
     description:
       "Frame-sequence player that cycles still images into a GIF-like loop with preload and custom renderers.",
-    category: "Visual Effects",
+    category: "Visual Interactions",
     slug: "image-2-gif",
     addedAt: "2026-06-09",
     previewImage: "/previews/image-2-gif.png",
@@ -232,6 +232,24 @@ export const components: Record<string, ComponentMetadata> = {
     addedAt: "2026-06-01",
     previewImage: "/previews/logo-cloud-004.png",
   },
+  "logo-cloud-005": {
+    title: "Logo Cloud 005",
+    description:
+      "Bordered logo grid with grayscale hover reveal, dimmed siblings, and company metadata.",
+    category: "Logo Clouds",
+    slug: "logo-cloud-005",
+    addedAt: "2026-06-10",
+    previewImage: "/previews/logo-cloud-005.png",
+  },
+  "logo-cloud-006": {
+    title: "Logo Cloud 006",
+    description:
+      "Case-study logo grid with multi-line title and hover-to-reveal study links.",
+    category: "Logo Clouds",
+    slug: "logo-cloud-006",
+    addedAt: "2026-06-10",
+    previewImage: "/previews/logo-cloud-006.png",
+  },
   "pricing-001": {
     title: "Pricing 001",
     description:
@@ -277,6 +295,15 @@ export const components: Record<string, ComponentMetadata> = {
     addedAt: "2026-06-01",
     previewImage: "/previews/pricing-005.png",
   },
+  "pricing-006": {
+    title: "Pricing 006",
+    description:
+      "Split two-plan pricing with header label, icon feature rows, and a most-popular badge.",
+    category: "Pricing",
+    slug: "pricing-006",
+    addedAt: "2026-06-10",
+    previewImage: "/previews/pricing-006.png",
+  },
   "carousel-001": {
     title: "Carousel 001",
     description:
@@ -285,6 +312,42 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "carousel-001",
     addedAt: "2026-06-09",
     previewImage: "/previews/carousel-001.png",
+  },
+  "carousel-002": {
+    title: "Carousel 002",
+    description:
+      "Split editorial carousel with large arrows, timed progress pills, and blur-fade image transitions.",
+    category: "Carousels",
+    slug: "carousel-002",
+    addedAt: "2026-06-10",
+    previewImage: "/previews/carousel-002.png",
+  },
+  "contribution-graph": {
+    title: "Contribution Graph",
+    description:
+      "GitHub activity heatmap with seven themes, city-lights glow, axis labels, and staggered load-in animations.",
+    category: "Components",
+    slug: "contribution-graph",
+    addedAt: "2026-06-10",
+    previewImage: "/previews/contribution-graph.png",
+  },
+  "video-player-001": {
+    title: "Video Player 001",
+    description:
+      "Cursor-following play control with blur-fade thumbnails and YouTube-style ambient glow.",
+    category: "Visual Interactions",
+    slug: "video-player-001",
+    addedAt: "2026-06-10",
+    previewImage: "/previews/video-player-001.png",
+  },
+  "video-player-002": {
+    title: "Video Player 002",
+    description:
+      "Inline player with centered play, sliding controls, scrubber, volume, and optional ambient glow.",
+    category: "Visual Interactions",
+    slug: "video-player-002",
+    addedAt: "2026-06-10",
+    previewImage: "/previews/video-player-002.png",
   },
 };
 

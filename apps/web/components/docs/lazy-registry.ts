@@ -99,6 +99,14 @@ const docsImportMap: Record<
     import("@/components/docs/logo-cloud-004").then((m) => ({
       default: m.LogoCloud004Docs,
     })),
+  "logo-cloud-005": () =>
+    import("@/components/docs/logo-cloud-005").then((m) => ({
+      default: m.LogoCloud005Docs,
+    })),
+  "logo-cloud-006": () =>
+    import("@/components/docs/logo-cloud-006").then((m) => ({
+      default: m.LogoCloud006Docs,
+    })),
   "pricing-001": () =>
     import("@/components/docs/pricing-001").then((m) => ({
       default: m.Pricing001Docs,
@@ -119,9 +127,29 @@ const docsImportMap: Record<
     import("@/components/docs/pricing-005").then((m) => ({
       default: m.Pricing005Docs,
     })),
+  "pricing-006": () =>
+    import("@/components/docs/pricing-006").then((m) => ({
+      default: m.Pricing006Docs,
+    })),
   "carousel-001": () =>
     import("@/components/docs/carousel-001").then((m) => ({
       default: m.Carousel001Docs,
+    })),
+  "carousel-002": () =>
+    import("@/components/docs/carousel-002").then((m) => ({
+      default: m.Carousel002Docs,
+    })),
+  "contribution-graph": () =>
+    import("@/components/docs/contribution-graph").then((m) => ({
+      default: m.ContributionGraphDocs,
+    })),
+  "video-player-001": () =>
+    import("@/components/docs/video-player-001").then((m) => ({
+      default: m.VideoPlayer001Docs,
+    })),
+  "video-player-002": () =>
+    import("@/components/docs/video-player-002").then((m) => ({
+      default: m.VideoPlayer002Docs,
     })),
 };
 

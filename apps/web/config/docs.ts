@@ -37,7 +37,7 @@ const categoryOrder = [
   "Card Interactions",
   "Logo Clouds",
   "Pricing",
-  "Visual Effects",
+  "Visual Interactions",
 ];
 
 const getComponentNav = (): NavGroup[] => {
@@ -79,7 +79,7 @@ const getLlmsText = () => {
   const baseUrl = "https://spiderui.dev";
   let text = `# Spider UI
 
-> Spider UI is a collection of beautifully-designed, accessible components and visual effects. It is built with TypeScript, Tailwind CSS, and Framer Motion. Open Source. Copy and paste into your apps.
+> Spider UI is a collection of beautifully-designed, accessible components and visual interactions. It is built with TypeScript, Tailwind CSS, and Framer Motion. Open Source. Copy and paste into your apps.
 
 ## Overview`;
 

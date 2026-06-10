@@ -81,7 +81,7 @@ const categoryOrder: ComponentCategory[] = [
   "Card Interactions",
   "Logo Clouds",
   "Pricing",
-  "Visual Effects",
+  "Visual Interactions",
 ]
 
 export default function DocsPage() {

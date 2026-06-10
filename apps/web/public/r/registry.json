@@ -42,6 +42,10 @@
       "type": "registry:ui"
     },
     {
+      "name": "carousel-003",
+      "type": "registry:ui"
+    },
+    {
       "name": "contribution-graph",
       "type": "registry:ui"
     },

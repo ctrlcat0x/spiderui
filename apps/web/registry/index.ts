@@ -322,6 +322,15 @@ export const components: Record<string, ComponentMetadata> = {
     addedAt: "2026-06-10",
     previewImage: "/previews/carousel-002.png",
   },
+  "carousel-003": {
+    title: "Carousel 003",
+    description:
+      "Gallery carousel with floating pill controls, expanding dot timer, pause/replay, and horizontal blur-slide transitions.",
+    category: "Carousels",
+    slug: "carousel-003",
+    addedAt: "2026-06-10",
+    previewImage: "/previews/carousel-003.png",
+  },
   "contribution-graph": {
     title: "Contribution Graph",
     description:

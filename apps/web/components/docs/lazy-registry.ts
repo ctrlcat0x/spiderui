@@ -139,6 +139,10 @@ const docsImportMap: Record<
     import("@/components/docs/carousel-002").then((m) => ({
       default: m.Carousel002Docs,
     })),
+  "carousel-003": () =>
+    import("@/components/docs/carousel-003").then((m) => ({
+      default: m.Carousel003Docs,
+    })),
   "contribution-graph": () =>
     import("@/components/docs/contribution-graph").then((m) => ({
       default: m.ContributionGraphDocs,

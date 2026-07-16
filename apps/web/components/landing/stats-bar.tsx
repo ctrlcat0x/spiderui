@@ -3,18 +3,19 @@
 import { motion } from "framer-motion"
 
 const stats = [
-  { label: "Components", value: "40+" },
-  { label: "Open Source", value: "MIT" },
-  { label: "TypeScript", value: "First" },
-  { label: "Zero Config", value: "Drop-in" },
+  { label: "Components", value: "35+" },
+  { label: "License", value: "MIT" },
+  { label: "Stack", value: "React" },
+  { label: "Install", value: "CLI" },
 ]
 
 export function StatsBar() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
       className="mt-12 w-full max-w-2xl mx-auto"
     >
       <div className="relative flex items-center justify-center gap-0 rounded-2xl border border-zinc-200/60 dark:border-zinc-800/60 bg-white/60 dark:bg-zinc-900/30 backdrop-blur-sm px-2 py-3 shadow-sm">

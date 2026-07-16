@@ -7,7 +7,7 @@ import "@workspace/ui/globals.css"
 import { Providers } from "@/components/providers"
 import { JsonLd } from "@/components/seo/json-ld"
 import { RouteScrollbarController } from "@/components/route-scrollbar-controller"
-import { openGraphImages, ogImage, ogImageUrl, siteUrl } from "@/lib/site"
+import { openGraphImages, ogImage, siteUrl } from "@/lib/site"
 
 const fontSans = Albert_Sans({
   subsets: ["latin"],
@@ -111,14 +111,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Spider UI - Premium React UI Component Library",
     description: "Free, open-source React UI components by ctrlcat0X. Beautiful, animated, copy-paste components.",
-    images: [
-      {
-        url: ogImageUrl,
-        width: ogImage.width,
-        height: ogImage.height,
-        alt: ogImage.alt,
-      },
-    ],
+    images: [ogImage.path],
     creator: "@ctrlcat0x",
     site: "@ctrlcat0x",
   },

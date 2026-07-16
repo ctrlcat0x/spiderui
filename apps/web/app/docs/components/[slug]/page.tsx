@@ -4,7 +4,7 @@ import { notFound, redirect } from "next/navigation"
 import { getComponent, getComponentDocsHref, isPrimitiveComponent } from "@/registry"
 import { getDocsImporter, getDocsSlugs } from "@/components/docs/lazy-registry"
 import { DocsPageLayout } from "@/components/docs-page-layout"
-import { openGraphImages, ogImageUrl } from "@/lib/site"
+import { openGraphImages, ogImage } from "@/lib/site"
 
 // -----------------------------------------------------------------------------
 // PERFORMANCE OPTIMIZATIONS:
@@ -51,7 +51,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
             card: "summary_large_image",
             title: `${component.title} Component`,
             description: component.description,
-            images: [ogImageUrl],
+            images: [ogImage.path],
         },
     };
 }

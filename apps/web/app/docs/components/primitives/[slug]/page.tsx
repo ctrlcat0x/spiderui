@@ -9,7 +9,7 @@ import {
 } from "@/registry"
 import { getDocsImporter } from "@/components/docs/lazy-registry"
 import { DocsPageLayout } from "@/components/docs-page-layout"
-import { openGraphImages, ogImageUrl } from "@/lib/site"
+import { openGraphImages, ogImage } from "@/lib/site"
 
 interface PageProps {
   params: Promise<{
@@ -46,7 +46,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       card: "summary_large_image",
       title: `${component.title} Component`,
       description: component.description,
-      images: [ogImageUrl],
+      images: [ogImage.path],
     },
   }
 }

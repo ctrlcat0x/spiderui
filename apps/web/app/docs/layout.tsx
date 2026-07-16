@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import { openGraphImages } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Components Documentation",
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "UI Components Documentation | Spider UI by ctrlcat0X",
     description: "Browse all React UI components. Copy-paste ready code with Tailwind CSS and Framer Motion.",
+    images: [...openGraphImages],
   },
   alternates: {
     canonical: "https://spiderui.dev/docs",

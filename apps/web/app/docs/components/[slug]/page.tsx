@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import { notFound, redirect } from "next/navigation";
-import { getComponent, getComponentDocsHref, isPrimitiveComponent } from "@/registry";
-import { getDocsImporter, getDocsSlugs } from "@/components/docs/lazy-registry";
-import { DocsPageLayout } from "@/components/docs-page-layout";
+import type { Metadata } from "next"
+import { Suspense } from "react"
+import { notFound, redirect } from "next/navigation"
+import { getComponent, getComponentDocsHref, isPrimitiveComponent } from "@/registry"
+import { getDocsImporter, getDocsSlugs } from "@/components/docs/lazy-registry"
+import { DocsPageLayout } from "@/components/docs-page-layout"
+import { openGraphImages, ogImageUrl } from "@/lib/site"
 
 // -----------------------------------------------------------------------------
 // PERFORMANCE OPTIMIZATIONS:
@@ -35,8 +36,6 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
         return {};
     }
 
-    const ogImageUrl = `https://spiderui.dev/docs/components/${component.slug}/opengraph-image`;
-
     return {
         title: `${component.title} Component`,
         description: component.description,
@@ -46,10 +45,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
         openGraph: {
             title: `${component.title} Component`,
             description: component.description,
-            images: [{ url: ogImageUrl, width: 1200, height: 630, alt: `${component.title} Component` }],
+            images: [...openGraphImages],
         },
         twitter: {
-            card: 'summary_large_image',
+            card: "summary_large_image",
             title: `${component.title} Component`,
             description: component.description,
             images: [ogImageUrl],

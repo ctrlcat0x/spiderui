@@ -9,6 +9,7 @@ import {
 } from "@/registry"
 import { getDocsImporter } from "@/components/docs/lazy-registry"
 import { DocsPageLayout } from "@/components/docs-page-layout"
+import { openGraphImages, ogImageUrl } from "@/lib/site"
 
 interface PageProps {
   params: Promise<{
@@ -29,7 +30,6 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   }
 
   const docsHref = getComponentDocsHref(component.slug)
-  const ogImageUrl = `https://spiderui.dev${docsHref}/opengraph-image`
 
   return {
     title: `${component.title} Component`,
@@ -40,14 +40,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     openGraph: {
       title: `${component.title} Component`,
       description: component.description,
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: `${component.title} Component`,
-        },
-      ],
+      images: [...openGraphImages],
     },
     twitter: {
       card: "summary_large_image",

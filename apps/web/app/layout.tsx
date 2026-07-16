@@ -7,6 +7,7 @@ import "@workspace/ui/globals.css"
 import { Providers } from "@/components/providers"
 import { JsonLd } from "@/components/seo/json-ld"
 import { RouteScrollbarController } from "@/components/route-scrollbar-controller"
+import { openGraphImages, ogImage, ogImageUrl, siteUrl } from "@/lib/site"
 
 const fontSans = Albert_Sans({
   subsets: ["latin"],
@@ -32,8 +33,6 @@ const fontDisplay = Albert_Sans({
   variable: "--font-display",
   display: "swap",
 })
-
-const siteUrl = "https://spiderui.dev"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -106,15 +105,7 @@ export const metadata: Metadata = {
     title: "Spider UI - Premium React UI Component Library by ctrlcat0X",
     description: "Free, open-source React UI components. Beautiful, animated, copy-paste components built with Tailwind CSS, TypeScript & Framer Motion by ctrlcat0X.",
     siteName: "Spider UI",
-    images: [
-      {
-        url: `${siteUrl}/og.png`,
-        width: 1200,
-        height: 630,
-        alt: "Spider UI - Premium React UI Component Library",
-        type: "image/png",
-      },
-    ],
+    images: [...openGraphImages],
   },
   twitter: {
     card: "summary_large_image",
@@ -122,10 +113,10 @@ export const metadata: Metadata = {
     description: "Free, open-source React UI components by ctrlcat0X. Beautiful, animated, copy-paste components.",
     images: [
       {
-        url: `${siteUrl}/og.png`,
-        width: 1200,
-        height: 630,
-        alt: "Spider UI - Premium React UI Component Library",
+        url: ogImageUrl,
+        width: ogImage.width,
+        height: ogImage.height,
+        alt: ogImage.alt,
       },
     ],
     creator: "@ctrlcat0x",

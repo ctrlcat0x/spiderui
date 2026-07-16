@@ -2,7 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
-import { SpiderUILogomark } from "@/components/logos/spider-logomark"
+import { SpiderLogo } from "@/components/logos/spider-logo"
 import { CommandMenu } from "@/components/command-menu"
 import { ThemeToggle } from "@/components/theme-toggle"
 
@@ -37,7 +37,7 @@ export function SiteHeader({ sidebarToggle }: SiteHeaderProps) {
                         </div>
                     )}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <SpiderUILogomark className="size-6 text-zinc-900 dark:text-white transition-opacity group-hover:opacity-80" />
+                        <SpiderLogo size={24} decorative className="transition-opacity group-hover:opacity-80" />
                         <span className="text-sm font-bold tracking-wide text-zinc-900 dark:text-white">SPIDER UI</span>
                     </Link>
                     <nav className="hidden sm:flex items-center gap-4 text-sm font-medium ml-4">

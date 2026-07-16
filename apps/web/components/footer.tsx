@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import { SpiderUILogomark } from "@/components/logos/spider-logomark"
+import { SpiderLogo } from "@/components/logos/spider-logo"
 
 const links = {
   product: [
@@ -29,7 +29,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2 group w-fit">
-              <SpiderUILogomark className="size-5 text-zinc-900 dark:text-white" />
+              <SpiderLogo size={20} decorative />
               <span className="text-sm font-bold tracking-wide text-zinc-900 dark:text-white">
                 SPIDER UI
               </span>

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Github, Search } from "lucide-react"
-import { SpiderUILogomark } from "@/components/logos/spider-logomark"
+import { SpiderLogo } from "@/components/logos/spider-logo"
 import { CommandMenu } from "@/components/command-menu"
 import { cn } from "@/lib/utils"
 
@@ -18,7 +18,7 @@ export function FloatingNavbar() {
                 {/* Logo & Brand */}
                 <div className="flex items-center gap-3">
                     <Link href="/" className="flex items-center gap-2 group">
-                        <SpiderUILogomark className="size-6 text-zinc-900 dark:text-white transition-opacity group-hover:opacity-80" />
+                        <SpiderLogo size={24} decorative className="transition-opacity group-hover:opacity-80" />
                         <span className="text-sm font-bold tracking-wide text-zinc-900 dark:text-white">SPIDER UI</span>
                     </Link>
                 </div>

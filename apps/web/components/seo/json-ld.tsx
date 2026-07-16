@@ -6,7 +6,7 @@ export function JsonLd() {
     "@type": "Organization",
     name: "Spider UI",
     url: siteUrl,
-    logo: `${siteUrl}/icon.svg`,
+    logo: `${siteUrl}/logo_normal.png`,
     sameAs: [
       "https://github.com/ctrlcat0x/spiderui",
       "https://twitter.com/ctrlcat0x",

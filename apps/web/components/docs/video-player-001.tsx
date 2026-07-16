@@ -11,7 +11,7 @@ const usageCode = `import { VideoPlayer001 } from "@/components/ui/video-player-
 export default function Page() {
   return (
     <VideoPlayer001
-      src="/example.mov"
+      src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
       thumbnailSrc="/posters/hero.jpg"
       defaultVolume={0.8}
       ambientIntensity={0.85}
@@ -83,9 +83,16 @@ export async function VideoPlayer001Docs() {
 
   const usageCredits = (
     <p>
-      Demo video served from{" "}
-      <code className="text-foreground">/public/example.mov</code>. Poster
-      image from{" "}
+      Demo video from{" "}
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-medium text-foreground underline underline-offset-2"
+      >
+        MDN sample media
+      </a>
+      . Poster image from{" "}
       <a
         href="https://www.cosmos.so/"
         target="_blank"

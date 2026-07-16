@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { SpiderUILogomark } from "@/components/logos/spider-logomark"
+import { SpiderLogo } from "@/components/logos/spider-logo"
 
 export default function PreviewPage() {
   return (
@@ -21,7 +21,9 @@ export default function PreviewPage() {
         </div>
 
         <div className="flex flex-row items-center justify-center gap-10 md:gap-16">
-          <SpiderUILogomark className="relative h-32 w-32 md:h-48 md:w-48 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]" />
+          <div className="relative h-32 w-32 md:h-48 md:w-48 drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+            <SpiderLogo variant="transparent" size={192} className="size-full" priority />
+          </div>
           <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl lg:text-[8rem] leading-none pb-2 pr-2">
             <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent block pb-4 pr-2">
               Spider UI

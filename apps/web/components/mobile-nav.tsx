@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { docsConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
-import { Logomark } from "@/components/logos/logomark"
+import { SpiderLogo } from "@/components/logos/spider-logo"
 
 // Pre-compute nav groups at module level
 const navGroups = docsConfig.nav
@@ -162,7 +162,7 @@ export function MobileNav() {
                                         className="flex items-center gap-2 text-xs uppercase tracking-widest text-foreground transition-colors"
                                         onClick={handleClose}
                                     >
-                                        <Logomark className="h-5 w-5" />
+                                        <SpiderLogo size={20} decorative />
                                         <span>Spider UI</span>
                                     </Link>
                                     <button

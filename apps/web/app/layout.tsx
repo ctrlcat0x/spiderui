@@ -145,15 +145,15 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
   category: "technology",
   classification: "UI Component Library",
   other: {
-    "msapplication-TileImage": "/og.png",
+    "msapplication-TileImage": "/android-chrome-192x192.png",
     ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && {
       "google-site-verification": process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
     }),

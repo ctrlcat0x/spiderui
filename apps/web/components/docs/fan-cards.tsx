@@ -8,8 +8,17 @@ import {
 
 const importCode = `import { FanCards } from "@/components/ui/fan-cards"`
 
-const usageCode = `export default function Page() {
-  return <FanCards />
+const usageCode = `import { FanCards } from "@/components/ui/fan-cards"
+
+export default function Page() {
+  return (
+    <FanCards
+      spread={100}
+      rotateStep={10}
+      springStiffness={260}
+      springDamping={26}
+    />
+  )
 }`
 
 export async function FanCardsDocs() {

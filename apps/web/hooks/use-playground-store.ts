@@ -150,8 +150,8 @@ export interface FanCardsConfig {
 }
 
 export const FAN_CARDS_DEFAULT_CONFIG: FanCardsConfig = {
-  spread: 95,
-  rotateStep: 8,
+  spread: 100,
+  rotateStep: 10,
   springStiffness: 260,
   springDamping: 26,
 };

@@ -3,7 +3,7 @@
 import React from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Logomark } from "@/components/logos/logomark"
+import { SpiderLogo } from "@/components/logos/spider-logo"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function ChangelogPage() {
@@ -17,7 +17,7 @@ export default function ChangelogPage() {
                             href="/"
                             className="flex items-center gap-2.5 text-sm font-medium text-slate-950 hover:text-slate-950/90 transition-colors"
                         >
-                            <Logomark className="h-5 w-5" />
+                            <SpiderLogo size={20} decorative />
                             <span className="font-semibold">SPIDER UI</span>
                         </Link>
                     </div>

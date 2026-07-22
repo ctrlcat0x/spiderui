@@ -43,6 +43,10 @@ const docsImportMap: Record<
     import("@/components/docs/switch").then((m) => ({
       default: m.SwitchDocs,
     })),
+  "otp-input": () =>
+    import("@/components/docs/otp-input").then((m) => ({
+      default: m.OTPInputDocs,
+    })),
   "dia-footer": () =>
     import("@/components/docs/dia-footer").then((m) => ({
       default: m.DiaFooterDocs,
@@ -78,6 +82,38 @@ const docsImportMap: Record<
   "dia-text-reveal": () =>
     import("@/components/docs/dia-text-reveal").then((m) => ({
       default: m.DiaTextRevealDocs,
+    })),
+  "encrypted-text": () =>
+    import("@/components/docs/encrypted-text").then((m) => ({
+      default: m.EncryptedTextDocs,
+    })),
+  "scramble-text": () =>
+    import("@/components/docs/scramble-text").then((m) => ({
+      default: m.ScrambleTextDocs,
+    })),
+  "text-roll": () =>
+    import("@/components/docs/text-roll").then((m) => ({
+      default: m.TextRollDocs,
+    })),
+  "underline-hover": () =>
+    import("@/components/docs/underline-hover").then((m) => ({
+      default: m.UnderlineHoverDocs,
+    })),
+  "wave-text": () =>
+    import("@/components/docs/wave-text").then((m) => ({
+      default: m.WaveTextDocs,
+    })),
+  "progressive-blur": () =>
+    import("@/components/docs/progressive-blur").then((m) => ({
+      default: m.ProgressiveBlurDocs,
+    })),
+  "cloud-background": () =>
+    import("@/components/docs/cloud-background").then((m) => ({
+      default: m.CloudBackgroundDocs,
+    })),
+  "curtain-background": () =>
+    import("@/components/docs/curtain-background").then((m) => ({
+      default: m.CurtainBackgroundDocs,
     })),
   "accordion-reveal": () =>
     import("@/components/docs/accordion-reveal").then((m) => ({
@@ -146,6 +182,42 @@ const docsImportMap: Record<
   "contribution-graph": () =>
     import("@/components/docs/contribution-graph").then((m) => ({
       default: m.ContributionGraphDocs,
+    })),
+  "github-repo-card": () =>
+    import("@/components/docs/github-repo-card").then((m) => ({
+      default: m.GitHubRepoCardDocs,
+    })),
+  "phone-mockup": () =>
+    import("@/components/docs/phone-mockup").then((m) => ({
+      default: m.PhoneMockupDocs,
+    })),
+  "wheel-date-picker": () =>
+    import("@/components/docs/wheel-date-picker").then((m) => ({
+      default: m.WheelDatePickerDocs,
+    })),
+  "wheel-time-picker": () =>
+    import("@/components/docs/wheel-time-picker").then((m) => ({
+      default: m.WheelTimePickerDocs,
+    })),
+  vestaboard: () =>
+    import("@/components/docs/vestaboard").then((m) => ({
+      default: m.VestaboardDocs,
+    })),
+  "preview-rail": () =>
+    import("@/components/docs/preview-rail").then((m) => ({
+      default: m.PreviewRailDocs,
+    })),
+  "motion-accordion": () =>
+    import("@/components/docs/motion-accordion").then((m) => ({
+      default: m.MotionAccordionDocs,
+    })),
+  "bouncy-accordion": () =>
+    import("@/components/docs/bouncy-accordion").then((m) => ({
+      default: m.BouncyAccordionDocs,
+    })),
+  "line-accordion": () =>
+    import("@/components/docs/line-accordion").then((m) => ({
+      default: m.LineAccordionDocs,
     })),
   "video-player-001": () =>
     import("@/components/docs/video-player-001").then((m) => ({

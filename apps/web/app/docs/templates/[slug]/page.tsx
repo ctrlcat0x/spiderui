@@ -53,7 +53,7 @@ export default async function TemplateDetailPage({ params }: PageProps) {
           </p>
         </header>
 
-        <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-zinc-50 dark:bg-zinc-900/50">
+        <div className="mb-8 overflow-hidden rounded-2xl">
           <div className="relative aspect-[16/10] w-full">
             <Image
               src={template.heroImage}

@@ -34,10 +34,12 @@ const categoryOrder = [
   "Components",
   "Carousels",
   "Text Effects",
+  "Backgrounds",
   "Card Interactions",
   "Logo Clouds",
   "Pricing",
   "Visual Interactions",
+  "FAQ",
 ];
 
 const getComponentNav = (): NavGroup[] => {

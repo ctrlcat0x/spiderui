@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 import {
   ContributionGraphPlayground,
   ContributionGraphPersonalizePanel,
-} from "@/components/docs/previews/contribution-graph-preview"
-import { DocsPageLayout } from "@/components/docs-page-layout"
-import { readComponentSource } from "@/lib/source-code"
+} from "@/components/docs/previews/contribution-graph-preview";
+import { DocsPageLayout } from "@/components/docs-page-layout";
+import { readComponentSource } from "@/lib/source-code";
 
-const importCode = `import { ContributionGraph } from "@/components/ui/contribution-graph"`
+const importCode = `import { ContributionGraph } from "@/components/ui/contribution-graph"`;
 
 const usageCode = `export function Demo() {
   return (
@@ -15,15 +15,18 @@ const usageCode = `export function Demo() {
       theme="sakura"
       variant="city-lights"
       animation="left-to-right"
+      animationSpeed={1.25}
+      ambientEffect="twinkle"
+      ambientIntensity={0.65}
       glowIntensity={6}
     />
   )
-}`
+}`;
 
 export async function ContributionGraphDocs() {
   const sourceCode =
     (await readComponentSource("contribution-graph")) ||
-    "// Unable to load source code"
+    "// Unable to load source code";
 
   const installationNote = (
     <p className="text-sm leading-relaxed text-muted-foreground">
@@ -40,12 +43,12 @@ export async function ContributionGraphDocs() {
         pnpm add motion radix-ui
       </code>
     </p>
-  )
+  );
 
   return (
     <DocsPageLayout
       title="Contribution Graph"
-      description="GitHub-style activity heatmap with month/day labels, seven color themes, city-lights glow, and staggered load-in animations."
+      description="Interactive GitHub activity heatmap with seven themes, responsive sizing, hover ripples, ambient motion, accessible tooltips, and abortable account loading."
       preview={<ContributionGraphPlayground />}
       personalizeContent={<ContributionGraphPersonalizePanel />}
       fullWidthPreview
@@ -90,6 +93,26 @@ export async function ContributionGraphDocs() {
           description: "Staggered load-in animation pattern for grid cells.",
         },
         {
+          name: "animationSpeed",
+          type: "number",
+          default: "1",
+          description:
+            "Entrance speed multiplier. Higher values reveal cells faster.",
+        },
+        {
+          name: "ambientEffect",
+          type: '"none" | "twinkle" | "tide" | "drift"',
+          default: '"twinkle"',
+          description:
+            "Persistent low-motion pattern applied after the entrance animation.",
+        },
+        {
+          name: "ambientIntensity",
+          type: "number",
+          default: "0.65",
+          description: "Ambient motion strength, clamped between 0 and 1.",
+        },
+        {
           name: "shape",
           type: '"square" | "rounded" | "circle" | "squircle"',
           default: '"rounded"',
@@ -104,7 +127,14 @@ export async function ContributionGraphDocs() {
         {
           name: "blockSize",
           type: "number",
-          description: "Fixed cell size in px. Omit to auto-fit container width.",
+          description:
+            "Fixed cell size in px. Omit to auto-fit container width.",
+        },
+        {
+          name: "blockGap",
+          type: "number",
+          default: "2",
+          description: "Gap between contribution cells in pixels.",
         },
         {
           name: "showHeader",
@@ -126,5 +156,5 @@ export async function ContributionGraphDocs() {
         },
       ]}
     />
-  )
+  );
 }

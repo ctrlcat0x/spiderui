@@ -1,36 +1,47 @@
-"use client"
+"use client";
 
-import type { ReactNode } from "react"
+import type { ReactNode } from "react";
 import {
   ContributionGraph,
   CONTRIBUTION_THEMES,
   type ContributionAnimation,
+  type ContributionAmbientEffect,
   type ContributionShape,
   type ContributionTheme,
   type ContributionVariant,
-} from "@workspace/ui/components/contribution-graph"
-import { cn } from "@/lib/utils"
-import { usePlaygroundStore } from "@/hooks/use-playground-store"
+} from "@workspace/ui/components/contribution-graph";
+import { cn } from "@/lib/utils";
+import { usePlaygroundStore } from "@/hooks/use-playground-store";
 
 const VARIANTS: { id: ContributionVariant; label: string }[] = [
   { id: "default", label: "Default" },
   { id: "city-lights", label: "City Lights" },
   { id: "minimal", label: "Minimal" },
-]
+];
 
 const ANIMATIONS: { id: ContributionAnimation; label: string }[] = [
   { id: "left-to-right", label: "Left → Right" },
   { id: "top-to-bottom", label: "Top → Bottom" },
   { id: "random", label: "Random" },
   { id: "none", label: "None" },
-]
+];
 
 const SHAPES: { id: ContributionShape; label: string }[] = [
   { id: "rounded", label: "Rounded" },
   { id: "square", label: "Square" },
   { id: "circle", label: "Circle" },
   { id: "squircle", label: "Squircle" },
-]
+];
+
+const AMBIENT_EFFECTS: {
+  id: ContributionAmbientEffect;
+  label: string;
+}[] = [
+  { id: "none", label: "None" },
+  { id: "twinkle", label: "Twinkle" },
+  { id: "tide", label: "Tide" },
+  { id: "drift", label: "Drift" },
+];
 
 const THEME_SWATCH: Record<ContributionTheme, string> = {
   green: "bg-emerald-500",
@@ -40,7 +51,7 @@ const THEME_SWATCH: Record<ContributionTheme, string> = {
   forest: "bg-green-600",
   grayscale: "bg-zinc-500",
   orange: "bg-orange-500",
-}
+};
 
 const THEME_LABEL: Record<ContributionTheme, string> = {
   green: "Green",
@@ -50,19 +61,19 @@ const THEME_LABEL: Record<ContributionTheme, string> = {
   forest: "Forest",
   grayscale: "Grayscale",
   orange: "Orange",
-}
+};
 
 const SectionTitle = ({ children }: { children: ReactNode }) => (
   <div className="mb-3 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
     {children}
   </div>
-)
+);
 
 export function ContributionGraphPlayground() {
-  const config = usePlaygroundStore((state) => state.contributionGraphConfig)
+  const config = usePlaygroundStore((state) => state.contributionGraphConfig);
   const remountVersion = usePlaygroundStore(
     (state) => state.contributionGraphRemountVersion,
-  )
+  );
 
   const graphKey = [
     remountVersion,
@@ -70,9 +81,12 @@ export function ContributionGraphPlayground() {
     config.variant,
     config.animation,
     config.shape,
+    config.ambientEffect,
+    config.ambientIntensity,
+    config.animationSpeed,
     config.glowIntensity,
     config.username,
-  ].join("-")
+  ].join("-");
 
   return (
     <div className="flex h-full w-full items-center justify-center p-6 sm:p-10">
@@ -83,31 +97,38 @@ export function ContributionGraphPlayground() {
         variant={config.variant}
         animation={config.animation}
         shape={config.shape}
+        ambientEffect={config.ambientEffect}
+        ambientIntensity={config.ambientIntensity}
+        animationSpeed={config.animationSpeed}
         glowIntensity={config.glowIntensity}
         className="w-full max-w-2xl"
       />
     </div>
-  )
+  );
 }
 
 export function ContributionGraphPersonalizePanel() {
-  const config = usePlaygroundStore((state) => state.contributionGraphConfig)
+  const config = usePlaygroundStore((state) => state.contributionGraphConfig);
   const updateConfig = usePlaygroundStore(
     (state) => state.updateContributionGraphConfig,
-  )
+  );
   const resetConfig = usePlaygroundStore(
     (state) => state.resetContributionGraphConfig,
-  )
+  );
   const resetPreview = usePlaygroundStore(
     (state) => state.resetContributionGraphPreview,
-  )
+  );
 
   const update = (updates: Partial<typeof config>) => {
-    updateConfig(updates)
-    if ("animation" in updates || "variant" in updates || "username" in updates) {
-      resetPreview()
+    updateConfig(updates);
+    if (
+      "animation" in updates ||
+      "variant" in updates ||
+      "username" in updates
+    ) {
+      resetPreview();
     }
-  }
+  };
 
   return (
     <div className="flex flex-col gap-6 px-4 pb-2">
@@ -195,6 +216,76 @@ export function ContributionGraphPersonalizePanel() {
         ))}
       </div>
 
+      <SectionTitle>Ambient motion</SectionTitle>
+      <div className="flex flex-wrap gap-2">
+        {AMBIENT_EFFECTS.map((effect) => (
+          <button
+            key={effect.id}
+            type="button"
+            onClick={() => update({ ambientEffect: effect.id })}
+            className={cn(
+              "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
+              config.ambientEffect === effect.id
+                ? "border-foreground bg-foreground text-background"
+                : "border-border/70 text-muted-foreground hover:text-foreground",
+            )}
+            aria-pressed={config.ambientEffect === effect.id}
+          >
+            {effect.label}
+          </button>
+        ))}
+      </div>
+
+      {config.ambientEffect !== "none" && (
+        <>
+          <SectionTitle>Ambient intensity</SectionTitle>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-foreground/90">Strength</span>
+              <span className="font-mono text-muted-foreground">
+                {config.ambientIntensity.toFixed(2)}
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.05}
+              value={config.ambientIntensity}
+              onChange={(event) =>
+                updateConfig({
+                  ambientIntensity: Number(event.target.value),
+                })
+              }
+              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-muted accent-foreground"
+              aria-label="Ambient intensity"
+            />
+          </div>
+        </>
+      )}
+
+      <SectionTitle>Animation speed</SectionTitle>
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-foreground/90">Multiplier</span>
+          <span className="font-mono text-muted-foreground">
+            {config.animationSpeed.toFixed(1)}×
+          </span>
+        </div>
+        <input
+          type="range"
+          min={0.25}
+          max={3}
+          step={0.25}
+          value={config.animationSpeed}
+          onChange={(event) =>
+            update({ animationSpeed: Number(event.target.value) })
+          }
+          className="h-2 w-full cursor-pointer appearance-none rounded-full bg-muted accent-foreground"
+          aria-label="Animation speed"
+        />
+      </div>
+
       {config.variant === "city-lights" && (
         <>
           <SectionTitle>Glow intensity</SectionTitle>
@@ -236,13 +327,13 @@ export function ContributionGraphPersonalizePanel() {
       <button
         type="button"
         onClick={() => {
-          resetConfig()
-          resetPreview()
+          resetConfig();
+          resetPreview();
         }}
         className="mt-auto rounded-md border border-border/70 px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         Reset to defaults
       </button>
     </div>
-  )
+  );
 }

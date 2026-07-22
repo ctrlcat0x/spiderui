@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { components, getComponentDocsHref } from "@/registry";
+import { getAllTemplates } from "@/registry/templates";
 
 const baseUrl = "https://spiderui.dev";
 
@@ -18,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/docs/templates`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/changelog`,
@@ -42,5 +49,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  return [...staticPages, ...componentSitemap];
+  const templateSitemap: MetadataRoute.Sitemap = getAllTemplates().flatMap(
+    (template) => [
+      {
+        url: `${baseUrl}/docs/templates/${template.slug}`,
+        lastModified: currentDate,
+        changeFrequency: "weekly" as const,
+        priority: 0.75,
+      },
+    ],
+  );
+
+  return [...staticPages, ...componentSitemap, ...templateSitemap];
 }

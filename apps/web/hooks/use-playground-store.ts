@@ -70,13 +70,7 @@ export const AVATAR_DEFAULT_CONFIG: AvatarConfig = {
 };
 
 export interface DiaFooterConfig {
-  theme:
-    | "dia-browser"
-    | "ocean"
-    | "amber"
-    | "emerald"
-    | "violet"
-    | "rose";
+  theme: "dia-browser" | "ocean" | "amber" | "emerald" | "violet" | "rose";
   copyrightText: string;
 }
 
@@ -180,6 +174,64 @@ export const DIA_TEXT_REVEAL_DEFAULT_CONFIG: DiaTextRevealConfig = {
   repeatDelay: 1.2,
 };
 
+export interface EncryptedTextConfig {
+  text: string;
+  revealDelayMs: number;
+  flipDelayMs: number;
+  encryptedColor: string;
+  revealedColor: string;
+}
+
+export const ENCRYPTED_TEXT_DEFAULT_CONFIG: EncryptedTextConfig = {
+  text: "Welcome to the Matrix",
+  revealDelayMs: 55,
+  flipDelayMs: 40,
+  encryptedColor: "#737373",
+  revealedColor: "#fafafa",
+};
+
+export type ScrambleTextCaretPreset =
+  | "line"
+  | "block"
+  | "underscore"
+  | "none";
+
+export interface ScrambleTextConfig {
+  text: string;
+  scrambleSpeed: number;
+  scrambledLetterCount: number;
+  caretVariant: ScrambleTextCaretPreset;
+  blinkCaret: boolean;
+  hideCaretOnComplete: boolean;
+}
+
+export const SCRAMBLE_TEXT_DEFAULT_CONFIG: ScrambleTextConfig = {
+  text: "Ignoring all bugs",
+  scrambleSpeed: 70,
+  scrambledLetterCount: 2,
+  caretVariant: "line",
+  blinkCaret: true,
+  hideCaretOnComplete: false,
+};
+
+export type WaveTextPreset = "letters" | "symbols" | "blocks";
+
+export interface WaveTextConfig {
+  text: string;
+  preset: WaveTextPreset;
+  duration: number;
+  spread: number;
+  preserveSpaces: boolean;
+}
+
+export const WAVE_TEXT_DEFAULT_CONFIG: WaveTextConfig = {
+  text: "Signal in the noise",
+  preset: "symbols",
+  duration: 900,
+  spread: 1,
+  preserveSpaces: true,
+};
+
 export interface AccordionRevealConfig {
   collapsedHeight: number;
   expandedHeight: number;
@@ -212,12 +264,20 @@ export type ContributionGraphShape =
   | "rounded"
   | "circle"
   | "squircle";
+export type ContributionGraphAmbientEffect =
+  | "none"
+  | "tide"
+  | "drift"
+  | "twinkle";
 
 export interface ContributionGraphConfig {
   theme: ContributionGraphTheme;
   variant: ContributionGraphVariant;
   animation: ContributionGraphAnimation;
   shape: ContributionGraphShape;
+  ambientEffect: ContributionGraphAmbientEffect;
+  ambientIntensity: number;
+  animationSpeed: number;
   glowIntensity: number;
   username: string;
 }
@@ -227,6 +287,9 @@ export const CONTRIBUTION_GRAPH_DEFAULT_CONFIG: ContributionGraphConfig = {
   variant: "city-lights",
   animation: "left-to-right",
   shape: "rounded",
+  ambientEffect: "twinkle",
+  ambientIntensity: 0.65,
+  animationSpeed: 1,
   glowIntensity: 6,
   username: "torvalds",
 };
@@ -243,24 +306,36 @@ export const IMAGE_TRAIL_DEFAULT_CONFIG: ImageTrailConfig = {
   blindDirection: "vertical",
 };
 
-export interface SplitFlapDisplayConfig {
+export interface VestaboardConfig {
   text: string;
+  rows: number;
   columns: number;
-  size: "sm" | "md" | "lg";
-  accentColor: string;
-  showIndicators: boolean;
-  staggerDelay: number;
   flipSpeed: number;
+  enableColorTiles: boolean;
+  colorTileColors: Record<string, string>;
+  boardColor: string;
+  flapColor: string;
+  textColor: string;
 }
 
-export const SPLIT_FLAP_DISPLAY_DEFAULT_CONFIG: SplitFlapDisplayConfig = {
-  text: "SPIDER UI",
-  columns: 11,
-  size: "md",
-  accentColor: "#22c55e",
-  showIndicators: true,
-  staggerDelay: 30,
-  flipSpeed: 35,
+export const VESTABOARD_DEFAULT_CONFIG: VestaboardConfig = {
+  text: "WHAT DID YOU GET DONE\nTHIS WEEK?",
+  rows: 6,
+  columns: 22,
+  flipSpeed: 160,
+  enableColorTiles: false,
+  colorTileColors: {
+    red: "#d94b3d",
+    orange: "#ed7b2d",
+    yellow: "#e8b33d",
+    green: "#3f9b62",
+    blue: "#3e78c7",
+    violet: "#7d5ab5",
+    white: "#f2f0e8",
+  },
+  boardColor: "#171717",
+  flapColor: "#262626",
+  textColor: "#fafafa",
 };
 
 export const DITHER_PRISM_HERO_DEFAULT_CONFIG: DitherPrismHeroConfig = {
@@ -407,14 +482,11 @@ interface PlaygroundStore {
   setActiveSignaturePreset: (preset: string) => void;
   resetSignaturePreview: () => void;
   resetSignatureConfig: () => void;
-  splitFlapDisplayConfig: SplitFlapDisplayConfig;
-  activeSplitFlapDisplayPreset: string;
-  splitFlapDisplayRenderVersion: number;
-  setSplitFlapDisplayConfig: (config: SplitFlapDisplayConfig) => void;
-  updateSplitFlapDisplayConfig: (updates: Partial<SplitFlapDisplayConfig>) => void;
-  setActiveSplitFlapDisplayPreset: (preset: string) => void;
-  resetSplitFlapDisplayPreview: () => void;
-  resetSplitFlapDisplayConfig: () => void;
+  vestaboardConfig: VestaboardConfig;
+  vestaboardRenderVersion: number;
+  updateVestaboardConfig: (updates: Partial<VestaboardConfig>) => void;
+  resetVestaboardPreview: () => void;
+  resetVestaboardConfig: () => void;
   cardStrokeConfig: CardStrokeConfig;
   activeCardStrokePreset: string;
   cardStrokeRenderVersion: number;
@@ -431,7 +503,9 @@ interface PlaygroundStore {
   resetDiaFooterConfig: () => void;
   greetingPreloaderConfig: GreetingPreloaderConfig;
   greetingPreloaderRemountVersion: number;
-  updateGreetingPreloaderConfig: (updates: Partial<GreetingPreloaderConfig>) => void;
+  updateGreetingPreloaderConfig: (
+    updates: Partial<GreetingPreloaderConfig>,
+  ) => void;
   resetGreetingPreloaderConfig: () => void;
   resetGreetingPreloaderPreview: () => void;
   stickerTrailConfig: StickerTrailConfig;
@@ -455,8 +529,25 @@ interface PlaygroundStore {
   updateDiaTextRevealConfig: (updates: Partial<DiaTextRevealConfig>) => void;
   resetDiaTextRevealConfig: () => void;
   resetDiaTextRevealPreview: () => void;
+  encryptedTextConfig: EncryptedTextConfig;
+  encryptedTextRemountVersion: number;
+  updateEncryptedTextConfig: (updates: Partial<EncryptedTextConfig>) => void;
+  resetEncryptedTextConfig: () => void;
+  resetEncryptedTextPreview: () => void;
+  scrambleTextConfig: ScrambleTextConfig;
+  scrambleTextRemountVersion: number;
+  updateScrambleTextConfig: (updates: Partial<ScrambleTextConfig>) => void;
+  resetScrambleTextConfig: () => void;
+  resetScrambleTextPreview: () => void;
+  waveTextConfig: WaveTextConfig;
+  waveTextRemountVersion: number;
+  updateWaveTextConfig: (updates: Partial<WaveTextConfig>) => void;
+  resetWaveTextConfig: () => void;
+  resetWaveTextPreview: () => void;
   accordionRevealConfig: AccordionRevealConfig;
-  updateAccordionRevealConfig: (updates: Partial<AccordionRevealConfig>) => void;
+  updateAccordionRevealConfig: (
+    updates: Partial<AccordionRevealConfig>,
+  ) => void;
   resetAccordionRevealConfig: () => void;
   contributionGraphConfig: ContributionGraphConfig;
   contributionGraphRemountVersion: number;
@@ -569,25 +660,20 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
       activeSignaturePreset: "Default",
       signatureRenderVersion: state.signatureRenderVersion + 1,
     })),
-  splitFlapDisplayConfig: SPLIT_FLAP_DISPLAY_DEFAULT_CONFIG,
-  activeSplitFlapDisplayPreset: "Default",
-  splitFlapDisplayRenderVersion: 0,
-  setSplitFlapDisplayConfig: (config) => set({ splitFlapDisplayConfig: config }),
-  updateSplitFlapDisplayConfig: (updates) =>
+  vestaboardConfig: VESTABOARD_DEFAULT_CONFIG,
+  vestaboardRenderVersion: 0,
+  updateVestaboardConfig: (updates) =>
     set((state) => ({
-      splitFlapDisplayConfig: { ...state.splitFlapDisplayConfig, ...updates },
+      vestaboardConfig: { ...state.vestaboardConfig, ...updates },
     })),
-  setActiveSplitFlapDisplayPreset: (preset) =>
-    set({ activeSplitFlapDisplayPreset: preset }),
-  resetSplitFlapDisplayPreview: () =>
+  resetVestaboardPreview: () =>
     set((state) => ({
-      splitFlapDisplayRenderVersion: state.splitFlapDisplayRenderVersion + 1,
+      vestaboardRenderVersion: state.vestaboardRenderVersion + 1,
     })),
-  resetSplitFlapDisplayConfig: () =>
+  resetVestaboardConfig: () =>
     set((state) => ({
-      splitFlapDisplayConfig: SPLIT_FLAP_DISPLAY_DEFAULT_CONFIG,
-      activeSplitFlapDisplayPreset: "Default",
-      splitFlapDisplayRenderVersion: state.splitFlapDisplayRenderVersion + 1,
+      vestaboardConfig: VESTABOARD_DEFAULT_CONFIG,
+      vestaboardRenderVersion: state.vestaboardRenderVersion + 1,
     })),
   cardStrokeConfig: CARD_STROKE_DEFAULT_CONFIG,
   activeCardStrokePreset: "Default",
@@ -597,7 +683,8 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
     set((state) => ({
       cardStrokeConfig: { ...state.cardStrokeConfig, ...updates },
     })),
-  setActiveCardStrokePreset: (preset) => set({ activeCardStrokePreset: preset }),
+  setActiveCardStrokePreset: (preset) =>
+    set({ activeCardStrokePreset: preset }),
   resetCardStrokePreview: () =>
     set((state) => ({
       cardStrokeRenderVersion: state.cardStrokeRenderVersion + 1,
@@ -633,11 +720,13 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
   resetGreetingPreloaderConfig: () =>
     set((state) => ({
       greetingPreloaderConfig: GREETING_PRELOADER_DEFAULT_CONFIG,
-      greetingPreloaderRemountVersion: state.greetingPreloaderRemountVersion + 1,
+      greetingPreloaderRemountVersion:
+        state.greetingPreloaderRemountVersion + 1,
     })),
   resetGreetingPreloaderPreview: () =>
     set((state) => ({
-      greetingPreloaderRemountVersion: state.greetingPreloaderRemountVersion + 1,
+      greetingPreloaderRemountVersion:
+        state.greetingPreloaderRemountVersion + 1,
     })),
   stickerTrailConfig: STICKER_TRAIL_DEFAULT_CONFIG,
   stickerTrailRemountVersion: 0,
@@ -681,8 +770,7 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
     set((state) => ({
       fanCardsConfig: { ...state.fanCardsConfig, ...updates },
     })),
-  resetFanCardsConfig: () =>
-    set({ fanCardsConfig: FAN_CARDS_DEFAULT_CONFIG }),
+  resetFanCardsConfig: () => set({ fanCardsConfig: FAN_CARDS_DEFAULT_CONFIG }),
   diaTextRevealConfig: DIA_TEXT_REVEAL_DEFAULT_CONFIG,
   diaTextRevealRemountVersion: 0,
   updateDiaTextRevealConfig: (updates) =>
@@ -697,6 +785,51 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
   resetDiaTextRevealPreview: () =>
     set((state) => ({
       diaTextRevealRemountVersion: state.diaTextRevealRemountVersion + 1,
+    })),
+  encryptedTextConfig: ENCRYPTED_TEXT_DEFAULT_CONFIG,
+  encryptedTextRemountVersion: 0,
+  updateEncryptedTextConfig: (updates) =>
+    set((state) => ({
+      encryptedTextConfig: { ...state.encryptedTextConfig, ...updates },
+    })),
+  resetEncryptedTextConfig: () =>
+    set((state) => ({
+      encryptedTextConfig: ENCRYPTED_TEXT_DEFAULT_CONFIG,
+      encryptedTextRemountVersion: state.encryptedTextRemountVersion + 1,
+    })),
+  resetEncryptedTextPreview: () =>
+    set((state) => ({
+      encryptedTextRemountVersion: state.encryptedTextRemountVersion + 1,
+    })),
+  scrambleTextConfig: SCRAMBLE_TEXT_DEFAULT_CONFIG,
+  scrambleTextRemountVersion: 0,
+  updateScrambleTextConfig: (updates) =>
+    set((state) => ({
+      scrambleTextConfig: { ...state.scrambleTextConfig, ...updates },
+    })),
+  resetScrambleTextConfig: () =>
+    set((state) => ({
+      scrambleTextConfig: SCRAMBLE_TEXT_DEFAULT_CONFIG,
+      scrambleTextRemountVersion: state.scrambleTextRemountVersion + 1,
+    })),
+  resetScrambleTextPreview: () =>
+    set((state) => ({
+      scrambleTextRemountVersion: state.scrambleTextRemountVersion + 1,
+    })),
+  waveTextConfig: WAVE_TEXT_DEFAULT_CONFIG,
+  waveTextRemountVersion: 0,
+  updateWaveTextConfig: (updates) =>
+    set((state) => ({
+      waveTextConfig: { ...state.waveTextConfig, ...updates },
+    })),
+  resetWaveTextConfig: () =>
+    set((state) => ({
+      waveTextConfig: WAVE_TEXT_DEFAULT_CONFIG,
+      waveTextRemountVersion: state.waveTextRemountVersion + 1,
+    })),
+  resetWaveTextPreview: () =>
+    set((state) => ({
+      waveTextRemountVersion: state.waveTextRemountVersion + 1,
     })),
   accordionRevealConfig: ACCORDION_REVEAL_DEFAULT_CONFIG,
   updateAccordionRevealConfig: (updates) =>
@@ -714,10 +847,12 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
   resetContributionGraphConfig: () =>
     set((state) => ({
       contributionGraphConfig: CONTRIBUTION_GRAPH_DEFAULT_CONFIG,
-      contributionGraphRemountVersion: state.contributionGraphRemountVersion + 1,
+      contributionGraphRemountVersion:
+        state.contributionGraphRemountVersion + 1,
     })),
   resetContributionGraphPreview: () =>
     set((state) => ({
-      contributionGraphRemountVersion: state.contributionGraphRemountVersion + 1,
+      contributionGraphRemountVersion:
+        state.contributionGraphRemountVersion + 1,
     })),
 }));

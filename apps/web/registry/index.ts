@@ -2,13 +2,21 @@ export type ComponentCategory =
   | "Primitives"
   | "Components"
   | "Text Effects"
+  | "Backgrounds"
   | "Card Interactions"
   | "Visual Interactions"
+  | "FAQ"
   | "Logo Clouds"
   | "Pricing"
   | "Carousels";
 
-const PRIMITIVE_SLUG_ORDER = ["avatar", "badge", "switch"] as const;
+const PRIMITIVE_SLUG_ORDER = [
+  "avatar",
+  "badge",
+  "switch",
+  "otp-input",
+  "progressive-blur",
+] as const;
 
 export interface ComponentMetadata {
   title: string;
@@ -107,6 +115,14 @@ export const components: Record<string, ComponentMetadata> = {
     addedAt: "2026-06-09",
     previewImage: "/previews/switch.png",
   },
+  "otp-input": {
+    title: "OTP Input",
+    description:
+      "Accessible verification-code slots with separators, masking, validation states, and reduced-motion support.",
+    category: "Primitives",
+    slug: "otp-input",
+    addedAt: "2026-07-22",
+  },
   "dia-footer": {
     title: "Dia Footer",
     description:
@@ -195,6 +211,70 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "dia-text-reveal",
     addedAt: "2026-06-06",
     previewImage: "/previews/dia-text-reveal.png",
+  },
+  "encrypted-text": {
+    title: "Encrypted Text",
+    description:
+      "A viewport-triggered scramble effect that resolves gibberish into readable text one character at a time.",
+    category: "Text Effects",
+    slug: "encrypted-text",
+    addedAt: "2026-07-21",
+  },
+  "scramble-text": {
+    title: "Scramble Text",
+    description:
+      "A stable typewriter reveal with a short scrambling edge, refined caret presets, and imperative replay controls.",
+    category: "Text Effects",
+    slug: "scramble-text",
+    addedAt: "2026-07-21",
+  },
+  "text-roll": {
+    title: "Text Roll",
+    description:
+      "A compact 3D text rotator that rolls through words while reserving enough width for the longest item.",
+    category: "Text Effects",
+    slug: "text-roll",
+    addedAt: "2026-07-21",
+  },
+  "underline-hover": {
+    title: "Underline Hover",
+    description:
+      "A hand-drawn underline that sketches in on hover or keyboard focus and cycles through organic stroke shapes.",
+    category: "Text Effects",
+    slug: "underline-hover",
+    addedAt: "2026-07-21",
+  },
+  "wave-text": {
+    title: "Wave Text",
+    description:
+      "A pointer-led character ripple that travels through text with configurable glyph sets.",
+    category: "Text Effects",
+    slug: "wave-text",
+    addedAt: "2026-07-21",
+  },
+  "progressive-blur": {
+    title: "Progressive Blur",
+    description:
+      "A composable edge treatment that progressively blurs scrolling content into its container background.",
+    category: "Primitives",
+    slug: "progressive-blur",
+    addedAt: "2026-07-21",
+  },
+  "cloud-background": {
+    title: "Cloud Background",
+    description:
+      "A soft procedural cloud field with custom sky colors, speed, reduced-motion support, and automatic off-screen pausing.",
+    category: "Backgrounds",
+    slug: "cloud-background",
+    addedAt: "2026-07-21",
+  },
+  "curtain-background": {
+    title: "Curtain Background",
+    description:
+      "A flowing simplex-noise field with layered crimson light, animated grain, and a soft vignette.",
+    category: "Backgrounds",
+    slug: "curtain-background",
+    addedAt: "2026-07-21",
   },
   "logo-cloud-001": {
     title: "Logo Cloud 001",
@@ -334,11 +414,84 @@ export const components: Record<string, ComponentMetadata> = {
   "contribution-graph": {
     title: "Contribution Graph",
     description:
-      "GitHub activity heatmap with seven themes, city-lights glow, axis labels, and staggered load-in animations.",
+      "Interactive GitHub heatmap with seven themes, hover ripples, ambient motion, responsive sizing, and accessible tooltips.",
     category: "Components",
     slug: "contribution-graph",
     addedAt: "2026-06-10",
     previewImage: "/previews/contribution-graph.png",
+  },
+  "github-repo-card": {
+    title: "GitHub Repo Card",
+    description:
+      "Server-rendered repository card with cached GitHub metadata, topic tags, language, and stats.",
+    category: "Components",
+    slug: "github-repo-card",
+    addedAt: "2026-07-21",
+  },
+  "phone-mockup": {
+    title: "Phone Mockup",
+    description:
+      "An iPhone-style device frame with custom screen content, image support, and animated carousel or stack layouts.",
+    category: "Components",
+    slug: "phone-mockup",
+    addedAt: "2026-07-22",
+  },
+  "wheel-date-picker": {
+    title: "Wheel Date Picker",
+    description:
+      "Inertial month, day, and year wheels with cylindrical depth, spring snapping, and keyboard control.",
+    category: "Components",
+    slug: "wheel-date-picker",
+    addedAt: "2026-07-21",
+  },
+  "wheel-time-picker": {
+    title: "Wheel Time Picker",
+    description:
+      "Inertial time wheels with optional minute and second columns that resize the picker automatically.",
+    category: "Components",
+    slug: "wheel-time-picker",
+    addedAt: "2026-07-21",
+  },
+  vestaboard: {
+    title: "Vestaboard",
+    description:
+      "A mechanical split-flap display with inset two-part panels, optional color tiles, custom speed, rows, and columns.",
+    category: "Visual Interactions",
+    slug: "vestaboard",
+    addedAt: "2026-07-20",
+    previewImage: "/previews/vestaboard.png",
+  },
+  "preview-rail": {
+    title: "Preview Rail",
+    description:
+      "Responsive marker rail with spring-scaled indicators and blur-fade preview transitions.",
+    category: "Visual Interactions",
+    slug: "preview-rail",
+    addedAt: "2026-07-21",
+  },
+  "motion-accordion": {
+    title: "Motion Accordion",
+    description:
+      "Rounded FAQ accordion with spring height, scale, and plus-to-minus transitions.",
+    category: "FAQ",
+    slug: "motion-accordion",
+    addedAt: "2026-07-20",
+  },
+  "bouncy-accordion": {
+    title: "Bouncy Accordion",
+    description:
+      "Spring-grouped FAQ rows with controlled state, icons, disabled items, and customizable slots.",
+    category: "FAQ",
+    slug: "bouncy-accordion",
+    addedAt: "2026-07-20",
+  },
+  "line-accordion": {
+    title: "Line Accordion",
+    description:
+      "A restrained FAQ accordion with dividing lines, smooth height transitions, and a plus-to-minus indicator.",
+    category: "FAQ",
+    slug: "line-accordion",
+    addedAt: "2026-07-21",
   },
   "video-player-001": {
     title: "Video Player 001",
@@ -378,15 +531,15 @@ export function getComponentDocsHref(slug: string): string {
 function primitiveSlugSortIndex(slug: string): number {
   const index = PRIMITIVE_SLUG_ORDER.indexOf(
     slug as (typeof PRIMITIVE_SLUG_ORDER)[number],
-  )
-  return index === -1 ? PRIMITIVE_SLUG_ORDER.length : index
+  );
+  return index === -1 ? PRIMITIVE_SLUG_ORDER.length : index;
 }
 
 export function getPrimitiveSlugs(): string[] {
   return Object.values(components)
     .filter((c) => c.category === "Primitives")
     .map((c) => c.slug)
-    .sort((a, b) => primitiveSlugSortIndex(a) - primitiveSlugSortIndex(b))
+    .sort((a, b) => primitiveSlugSortIndex(a) - primitiveSlugSortIndex(b));
 }
 
 export function compareComponentsInCategory(
@@ -394,7 +547,7 @@ export function compareComponentsInCategory(
   b: ComponentMetadata,
 ): number {
   if (a.category === "Primitives" && b.category === "Primitives") {
-    return primitiveSlugSortIndex(a.slug) - primitiveSlugSortIndex(b.slug)
+    return primitiveSlugSortIndex(a.slug) - primitiveSlugSortIndex(b.slug);
   }
-  return a.title.localeCompare(b.title)
+  return a.title.localeCompare(b.title);
 }

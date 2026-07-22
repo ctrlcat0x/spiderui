@@ -1,33 +1,37 @@
-import { readFile } from "node:fs/promises"
-import path from "node:path"
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 // Cache for source code - persists across renders
-const sourceCache = new Map<string, string | null>()
+const sourceCache = new Map<string, string | null>();
 
 const PACKAGE_COMPONENTS_DIR = path.resolve(
   process.cwd(),
   "../../packages/ui/src/components",
-)
+);
 
 function normalizeRegistryContent(content: string): string {
   return content
     .replace(/@workspace\/ui\/lib\/utils/g, "@/lib/utils")
+    .replace(/@workspace\/ui\/components\//g, "@/components/ui/")
     .replace(
       /@workspace\/ui\/components\/webgl-error-boundary/g,
       "./webgl-error-boundary",
-    )
+    );
 }
 
 async function readPackageComponentSource(
   componentName: string,
 ): Promise<string | null> {
-  const componentPath = path.join(PACKAGE_COMPONENTS_DIR, `${componentName}.tsx`)
+  const componentPath = path.join(
+    PACKAGE_COMPONENTS_DIR,
+    `${componentName}.tsx`,
+  );
 
   try {
-    const raw = await readFile(componentPath, "utf8")
-    return normalizeRegistryContent(raw)
+    const raw = await readFile(componentPath, "utf8");
+    return normalizeRegistryContent(raw);
   } catch {
-    return null
+    return null;
   }
 }
 
@@ -36,20 +40,20 @@ async function readRegistryComponentSource(
 ): Promise<string | null> {
   // Dynamic import the registry JSON
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const registry = (await import(`@/public/r/${componentName}.json`)) as any
+  const registry = (await import(`@/public/r/${componentName}.json`)) as any;
 
   if (registry.files && registry.files.length > 0) {
     const matchingFile = registry.files.find(
       (file: { path: string }) =>
         file.path.endsWith(`/${componentName}.tsx`) ||
         file.path.endsWith(`${componentName}.tsx`),
-    )
+    );
     return (
       matchingFile?.content ??
       registry.files[registry.files.length - 1]?.content ??
       registry.files[0].content ??
       null
-    )
+    );
   }
 
   if (
@@ -57,10 +61,10 @@ async function readRegistryComponentSource(
     registry.default.files &&
     registry.default.files.length > 0
   ) {
-    return registry.default.files[0].content ?? null
+    return registry.default.files[0].content ?? null;
   }
 
-  return null
+  return null;
 }
 
 /**
@@ -72,22 +76,22 @@ async function readRegistryComponentSource(
 export async function readComponentSource(
   componentName: string,
 ): Promise<string | null> {
-  const cached = sourceCache.get(componentName)
+  const cached = sourceCache.get(componentName);
   if (cached !== undefined) {
-    return cached
+    return cached;
   }
 
   try {
     const content =
       (await readPackageComponentSource(componentName)) ??
-      (await readRegistryComponentSource(componentName))
+      (await readRegistryComponentSource(componentName));
 
-    sourceCache.set(componentName, content)
-    return content
+    sourceCache.set(componentName, content);
+    return content;
   } catch (error) {
-    console.error(`Error loading source for ${componentName}:`, error)
-    sourceCache.set(componentName, null)
-    return null
+    console.error(`Error loading source for ${componentName}:`, error);
+    sourceCache.set(componentName, null);
+    return null;
   }
 }
 
@@ -98,5 +102,5 @@ export async function readComponentSource(
 export async function preloadComponentSources(
   componentNames: string[],
 ): Promise<void> {
-  await Promise.all(componentNames.map((name) => readComponentSource(name)))
+  await Promise.all(componentNames.map((name) => readComponentSource(name)));
 }

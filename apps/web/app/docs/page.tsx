@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   compareComponentsInCategory,
   components,
@@ -11,18 +11,18 @@ import {
   isNewComponent,
   type ComponentCategory,
   type ComponentMetadata,
-} from "@/registry"
-import { SiteHeader } from "@/components/site-header"
-import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade"
+} from "@/registry";
+import { SiteHeader } from "@/components/site-header";
+import { ScrollEdgeFade } from "@/components/ui/scroll-edge-fade";
 
 function ComponentCard({
   component,
   index,
 }: {
-  component: ComponentMetadata
-  index: number
+  component: ComponentMetadata;
+  index: number;
 }) {
-  const hasPreview = Boolean(component.previewImage)
+  const hasPreview = Boolean(component.previewImage);
 
   return (
     <motion.div
@@ -70,60 +70,61 @@ function ComponentCard({
         </div>
       </Link>
     </motion.div>
-  )
+  );
 }
 
 const categoryOrder: ComponentCategory[] = [
   "Primitives",
   "Components",
+  "AI Input",
   "Carousels",
   "Text Effects",
   "Card Interactions",
   "Logo Clouds",
   "Pricing",
   "Visual Interactions",
-]
+];
 
 export default function DocsPage() {
-  const allComponents = Object.values(components)
-  const [activeSection, setActiveSection] = useState<string>("")
+  const allComponents = Object.values(components);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
     const observers = categoryOrder.map((cat) => {
-      const id = cat.toLowerCase().replace(/\s+/g, "-")
-      const element = document.getElementById(id)
-      if (!element) return null
+      const id = cat.toLowerCase().replace(/\s+/g, "-");
+      const element = document.getElementById(id);
+      if (!element) return null;
 
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0]?.isIntersecting) {
-            setActiveSection(cat)
+            setActiveSection(cat);
           }
         },
-        { rootMargin: "-20% 0px -50% 0px" }
-      )
-      observer.observe(element)
-      return observer
-    })
+        { rootMargin: "-20% 0px -50% 0px" },
+      );
+      observer.observe(element);
+      return observer;
+    });
 
     return () => {
-      observers.forEach((observer) => observer?.disconnect())
-    }
-  }, [])
+      observers.forEach((observer) => observer?.disconnect());
+    };
+  }, []);
 
   useEffect(() => {
     if (activeSection) {
-      const id = `nav-item-${activeSection}`
-      const element = document.getElementById(id)
+      const id = `nav-item-${activeSection}`;
+      const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
           inline: "center",
-        })
+        });
       }
     }
-  }, [activeSection])
+  }, [activeSection]);
 
   const grouped = categoryOrder
     .map((cat) => ({
@@ -132,33 +133,44 @@ export default function DocsPage() {
         .filter((c) => c.category === cat)
         .sort(compareComponentsInCategory),
     }))
-    .filter((g) => g.items.length > 0)
+    .filter((g) => g.items.length > 0);
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#111] text-zinc-900 dark:text-zinc-100 font-sans overflow-x-hidden">
-      <ScrollEdgeFade position="top" variant="docs-index" className="fixed z-40" />
-      <ScrollEdgeFade position="bottom" variant="docs-index" className="fixed z-40" />
+      <ScrollEdgeFade
+        position="top"
+        variant="docs-index"
+        className="fixed z-40"
+      />
+      <ScrollEdgeFade
+        position="bottom"
+        variant="docs-index"
+        className="fixed z-40"
+      />
 
       <SiteHeader />
 
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-full max-w-[calc(100vw-2rem)] sm:max-w-fit pointer-events-none">
         <nav className="flex items-center gap-1 p-1.5 rounded-2xl border border-border bg-white/80 dark:bg-[#121212] backdrop-blur-xl shadow-card pointer-events-auto overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categoryOrder.map((cat) => {
-            const isActive = activeSection === cat
+            const isActive = activeSection === cat;
             return (
               <a
                 key={cat}
                 id={`nav-item-${cat}`}
                 href={`#${cat.toLowerCase().replace(/\s+/g, "-")}`}
                 onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById(cat.toLowerCase().replace(/\s+/g, "-"))?.scrollIntoView({ behavior: "smooth" })
-                  setActiveSection(cat)
+                  e.preventDefault();
+                  document
+                    .getElementById(cat.toLowerCase().replace(/\s+/g, "-"))
+                    ?.scrollIntoView({ behavior: "smooth" });
+                  setActiveSection(cat);
                 }}
-                className={`relative px-4 py-2 text-[13px] font-medium transition-all duration-300 rounded-lg whitespace-nowrap flex-shrink-0 ${isActive
-                  ? "text-zinc-900 dark:text-zinc-100"
-                  : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50"
-                  }`}
+                className={`relative px-4 py-2 text-[13px] font-medium transition-all duration-300 rounded-lg whitespace-nowrap flex-shrink-0 ${
+                  isActive
+                    ? "text-zinc-900 dark:text-zinc-100"
+                    : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50"
+                }`}
               >
                 {isActive && (
                   <motion.div
@@ -169,7 +181,7 @@ export default function DocsPage() {
                 )}
                 <span className="relative z-10">{cat}</span>
               </a>
-            )
+            );
           })}
         </nav>
       </div>
@@ -187,7 +199,11 @@ export default function DocsPage() {
         <div className="space-y-24">
           {grouped.map(({ category, items }) => {
             return (
-              <section key={category} id={category.toLowerCase().replace(/\s+/g, "-")} className="scroll-mt-32">
+              <section
+                key={category}
+                id={category.toLowerCase().replace(/\s+/g, "-")}
+                className="scroll-mt-32"
+              >
                 <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-8 tracking-tight">
                   {category}
                 </h2>
@@ -201,10 +217,10 @@ export default function DocsPage() {
                   ))}
                 </div>
               </section>
-            )
+            );
           })}
         </div>
       </main>
     </div>
-  )
+  );
 }

@@ -32,6 +32,7 @@ const gettingStarted: NavGroup = {
 const categoryOrder = [
   "Primitives",
   "Components",
+  "AI Input",
   "Carousels",
   "Text Effects",
   "Backgrounds",
@@ -58,17 +59,8 @@ const getComponentNav = (): NavGroup[] => {
     });
   });
 
-  Object.keys(groups).forEach((key) => {
-    const category = key as keyof typeof groups;
-    const categoryComponents = Object.values(components).filter(
-      (c) => c.category === category,
-    );
-    groups[category]!.items.sort((a, b) => {
-      const compA = categoryComponents.find((c) => c.title === a.title);
-      const compB = categoryComponents.find((c) => c.title === b.title);
-      if (!compA || !compB) return a.title.localeCompare(b.title);
-      return compareComponentsInCategory(compA, compB);
-    });
+  Object.values(groups).forEach((group) => {
+    group.items.sort((a, b) => a.title.localeCompare(b.title));
   });
 
   // Return groups in defined order

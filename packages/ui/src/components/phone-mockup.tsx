@@ -49,6 +49,8 @@ export function PhoneMockup({
 
   return (
     <div
+      role={src ? "img" : undefined}
+      aria-label={src ? alt : undefined}
       className={cn("relative aspect-[433/882] max-w-full", className)}
       style={{ width, height, ...style }}
       {...props}
@@ -140,11 +142,16 @@ export interface PhoneCarouselItem {
   content?: ReactNode;
 }
 
+export interface ImageItem extends PhoneCarouselItem {
+  src: string;
+}
+
 export interface PhoneCarouselProps extends Omit<
   ComponentProps<"section">,
   "children"
 > {
-  items: readonly PhoneCarouselItem[];
+  items?: readonly PhoneCarouselItem[];
+  images?: readonly ImageItem[];
   variant?: "carousel" | "stack";
   activeIndex?: number;
   defaultActiveIndex?: number;
@@ -170,6 +177,7 @@ function getCircularOffset(index: number, activeIndex: number, length: number) {
 
 export function PhoneCarousel({
   items,
+  images,
   variant = "carousel",
   activeIndex,
   defaultActiveIndex = 0,
@@ -182,9 +190,10 @@ export function PhoneCarousel({
   className,
   ...props
 }: PhoneCarouselProps) {
+  const screens = images ?? items ?? [];
   const reduceMotion = useReducedMotion();
   const [internalIndex, setInternalIndex] = useState(() =>
-    wrapIndex(defaultActiveIndex, items.length),
+    wrapIndex(defaultActiveIndex, screens.length),
   );
   const [isPaused, setIsPaused] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
@@ -197,12 +206,12 @@ export function PhoneCarousel({
   const isControlled = activeIndex !== undefined;
   const currentIndex = wrapIndex(
     isControlled ? activeIndex : internalIndex,
-    items.length,
+    screens.length,
   );
-  const canNavigate = items.length > 1;
+  const canNavigate = screens.length > 1;
 
   const handleSelect = (nextIndex: number) => {
-    const normalizedIndex = wrapIndex(nextIndex, items.length);
+    const normalizedIndex = wrapIndex(nextIndex, screens.length);
     if (!isControlled) setInternalIndex(normalizedIndex);
     onActiveIndexChangeRef.current?.(normalizedIndex);
   };
@@ -222,11 +231,11 @@ export function PhoneCarousel({
       () => {
         if (isControlled) {
           onActiveIndexChangeRef.current?.(
-            wrapIndex(currentIndex + 1, items.length),
+            wrapIndex(currentIndex + 1, screens.length),
           );
           return;
         }
-        setInternalIndex((index) => wrapIndex(index + 1, items.length));
+        setInternalIndex((index) => wrapIndex(index + 1, screens.length));
       },
       Math.max(500, interval),
     );
@@ -240,12 +249,12 @@ export function PhoneCarousel({
     isControlled,
     isHovering,
     isPaused,
-    items.length,
+    screens.length,
     pauseOnHover,
     reduceMotion,
   ]);
 
-  if (items.length === 0) return null;
+  if (screens.length === 0) return null;
 
   const isStack = variant === "stack";
 
@@ -265,11 +274,15 @@ export function PhoneCarousel({
     >
       <div className="absolute inset-x-0 top-4 flex justify-center sm:top-6">
         <div className="relative h-[420px] w-full sm:h-[530px]">
-          {items.map((item, index) => {
-            const offset = getCircularOffset(index, currentIndex, items.length);
+          {screens.map((item, index) => {
+            const offset = getCircularOffset(
+              index,
+              currentIndex,
+              screens.length,
+            );
             const isVisible = Math.abs(offset) <= 1;
             const isActive = offset === 0;
-            const x = isStack ? 0 : offset * 58;
+            const x = isStack ? -50 : -50 + offset * 58;
             const y = isStack ? (offset + 1) * 24 : 0;
             const scale = isActive
               ? 1
@@ -281,7 +294,7 @@ export function PhoneCarousel({
               <motion.div
                 key={item.id ?? `${index}-${item.alt}`}
                 aria-hidden={!isActive}
-                className="absolute left-1/2 top-0 w-[230px] -translate-x-1/2 sm:w-[290px]"
+                className="absolute left-1/2 top-0 w-[230px] sm:w-[290px]"
                 initial={false}
                 animate={{
                   x: `${x}%`,

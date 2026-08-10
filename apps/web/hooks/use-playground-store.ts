@@ -62,6 +62,18 @@ export interface AvatarConfig {
   blinking: boolean;
 }
 
+export interface ToggleConfig {
+  accentColor: string;
+  size: "sm" | "default" | "lg";
+  disabled: boolean;
+}
+
+export const TOGGLE_DEFAULT_CONFIG: ToggleConfig = {
+  accentColor: "#10b981",
+  size: "default",
+  disabled: false,
+};
+
 export const AVATAR_DEFAULT_CONFIG: AvatarConfig = {
   color: "blue",
   size: "md",
@@ -190,11 +202,7 @@ export const ENCRYPTED_TEXT_DEFAULT_CONFIG: EncryptedTextConfig = {
   revealedColor: "#fafafa",
 };
 
-export type ScrambleTextCaretPreset =
-  | "line"
-  | "block"
-  | "underscore"
-  | "none";
+export type ScrambleTextCaretPreset = "line" | "block" | "underscore" | "none";
 
 export interface ScrambleTextConfig {
   text: string;
@@ -498,6 +506,9 @@ interface PlaygroundStore {
   avatarConfig: AvatarConfig;
   updateAvatarConfig: (updates: Partial<AvatarConfig>) => void;
   resetAvatarConfig: () => void;
+  toggleConfig: ToggleConfig;
+  updateToggleConfig: (updates: Partial<ToggleConfig>) => void;
+  resetToggleConfig: () => void;
   diaFooterConfig: DiaFooterConfig;
   updateDiaFooterConfig: (updates: Partial<DiaFooterConfig>) => void;
   resetDiaFooterConfig: () => void;
@@ -701,6 +712,12 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
       avatarConfig: { ...state.avatarConfig, ...updates },
     })),
   resetAvatarConfig: () => set({ avatarConfig: AVATAR_DEFAULT_CONFIG }),
+  toggleConfig: TOGGLE_DEFAULT_CONFIG,
+  updateToggleConfig: (updates) =>
+    set((state) => ({
+      toggleConfig: { ...state.toggleConfig, ...updates },
+    })),
+  resetToggleConfig: () => set({ toggleConfig: TOGGLE_DEFAULT_CONFIG }),
   diaFooterConfig: DIA_FOOTER_DEFAULT_CONFIG,
   updateDiaFooterConfig: (updates) =>
     set((state) => ({

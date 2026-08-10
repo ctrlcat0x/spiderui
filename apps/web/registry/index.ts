@@ -1,6 +1,7 @@
 export type ComponentCategory =
   | "Primitives"
   | "Components"
+  | "AI Input"
   | "Text Effects"
   | "Backgrounds"
   | "Card Interactions"
@@ -14,7 +15,14 @@ const PRIMITIVE_SLUG_ORDER = [
   "avatar",
   "badge",
   "switch",
+  "toggle",
   "otp-input",
+  "smooth-input",
+  "elastic-slider",
+  "modal",
+  "drawer",
+  "discrete-tabs",
+  "stepper",
   "progressive-blur",
 ] as const;
 
@@ -36,6 +44,22 @@ export function isNewComponent(component: ComponentMetadata): boolean {
 }
 
 export const components: Record<string, ComponentMetadata> = {
+  "ai-prompt-box": {
+    title: "AI Prompt Box",
+    description:
+      "A self-contained AI composer with attachments, tool modes, voice state, and loading controls.",
+    category: "AI Input",
+    slug: "ai-prompt-box",
+    addedAt: "2026-08-01",
+  },
+  "prompt-input": {
+    title: "Prompt Input",
+    description:
+      "An elastic AI composer with model, effort, attachment, voice, and submit controls.",
+    category: "AI Input",
+    slug: "prompt-input",
+    addedAt: "2026-08-01",
+  },
   "opos-hover": {
     title: "OPOS Hover",
     description:
@@ -53,9 +77,10 @@ export const components: Record<string, ComponentMetadata> = {
     addedAt: "2026-02-27",
     previewImage: "/previews/scrub-input.png",
   },
-  "signature": {
+  signature: {
     title: "Signature",
-    description: "An animated SVG signature effect that draws out text as if hand-written.",
+    description:
+      "An animated SVG signature effect that draws out text as if hand-written.",
     category: "Components",
     slug: "signature",
     addedAt: "2026-03-17",
@@ -78,6 +103,14 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "sticker-trail",
     addedAt: "2026-06-01",
     previewImage: "/previews/sticker-trail.png",
+  },
+  "marquee-along-path": {
+    title: "Marquee Along Path",
+    description:
+      "A responsive SVG-path marquee with hover pause, pointer scrubbing, rolling depth, and reduced-motion support.",
+    category: "Visual Interactions",
+    slug: "marquee-along-path",
+    addedAt: "2026-08-01",
   },
   "card-stroke": {
     title: "Card Stroke",
@@ -115,6 +148,14 @@ export const components: Record<string, ComponentMetadata> = {
     addedAt: "2026-06-09",
     previewImage: "/previews/switch.png",
   },
+  toggle: {
+    title: "Toggle",
+    description:
+      "A compact on/off switch with accent-state color, spring thumb motion, and reduced-motion support.",
+    category: "Primitives",
+    slug: "toggle",
+    addedAt: "2026-08-05",
+  },
   "otp-input": {
     title: "OTP Input",
     description:
@@ -122,6 +163,54 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Primitives",
     slug: "otp-input",
     addedAt: "2026-07-22",
+  },
+  "smooth-input": {
+    title: "Smooth Input",
+    description:
+      "A text field with a spring-following caret, stable measurement, and accessible field states.",
+    category: "Primitives",
+    slug: "smooth-input",
+    addedAt: "2026-07-31",
+  },
+  "elastic-slider": {
+    title: "Elastic Slider",
+    description:
+      "A tactile slider with spring motion, precise steps, and complete pointer and keyboard controls.",
+    category: "Primitives",
+    slug: "elastic-slider",
+    addedAt: "2026-07-31",
+  },
+  modal: {
+    title: "Modal",
+    description:
+      "An accessible modal with responsive sizes, optional close control, and flexible footer alignment.",
+    category: "Primitives",
+    slug: "modal",
+    addedAt: "2026-07-31",
+  },
+  drawer: {
+    title: "Drawer",
+    description:
+      "An accessible draggable side panel with configurable footer alignment and an optional handle.",
+    category: "Primitives",
+    slug: "drawer",
+    addedAt: "2026-07-31",
+  },
+  "discrete-tabs": {
+    title: "Discrete Tabs",
+    description:
+      "Accessible icon tabs that expand the active label with spring layout and blur-fade motion.",
+    category: "Primitives",
+    slug: "discrete-tabs",
+    addedAt: "2026-07-31",
+  },
+  stepper: {
+    title: "Stepper",
+    description:
+      "Accessible multi-step flows with visited-step navigation, keyboard controls, spring progress, and directional panels.",
+    category: "Primitives",
+    slug: "stepper",
+    addedAt: "2026-08-01",
   },
   "dia-footer": {
     title: "Dia Footer",
@@ -276,6 +365,14 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "curtain-background",
     addedAt: "2026-07-21",
   },
+  "waves-shader-background": {
+    title: "Waves Shader Background",
+    description:
+      "A grainy procedural blue wave field with configurable color, flow, surface treatment, and automatic animation pausing.",
+    category: "Backgrounds",
+    slug: "waves-shader-background",
+    addedAt: "2026-08-01",
+  },
   "logo-cloud-001": {
     title: "Logo Cloud 001",
     description:
@@ -410,6 +507,14 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "carousel-003",
     addedAt: "2026-06-10",
     previewImage: "/previews/carousel-003.png",
+  },
+  "carousel-004": {
+    title: "Carousel 004",
+    description:
+      "Spring-driven image gallery with a large draggable stage, expanding thumbnail rail, arrow controls, and autoplay.",
+    category: "Carousels",
+    slug: "carousel-004",
+    addedAt: "2026-08-01",
   },
   "contribution-graph": {
     title: "Contribution Graph",

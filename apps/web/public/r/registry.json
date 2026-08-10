@@ -14,6 +14,10 @@
       "type": "registry:ui"
     },
     {
+      "name": "ai-prompt-box",
+      "type": "registry:ui"
+    },
+    {
       "name": "album-cards",
       "type": "registry:ui"
     },
@@ -50,6 +54,10 @@
       "type": "registry:ui"
     },
     {
+      "name": "carousel-004",
+      "type": "registry:ui"
+    },
+    {
       "name": "cloud-background",
       "type": "registry:ui"
     },
@@ -67,6 +75,18 @@
     },
     {
       "name": "dia-text-reveal",
+      "type": "registry:ui"
+    },
+    {
+      "name": "discrete-tabs",
+      "type": "registry:ui"
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui"
+    },
+    {
+      "name": "elastic-slider",
       "type": "registry:ui"
     },
     {
@@ -126,7 +146,15 @@
       "type": "registry:ui"
     },
     {
+      "name": "marquee-along-path",
+      "type": "registry:ui"
+    },
+    {
       "name": "mini-archive",
+      "type": "registry:ui"
+    },
+    {
+      "name": "modal",
       "type": "registry:ui"
     },
     {
@@ -178,6 +206,10 @@
       "type": "registry:ui"
     },
     {
+      "name": "prompt-input",
+      "type": "registry:ui"
+    },
+    {
       "name": "scramble-text",
       "type": "registry:ui"
     },
@@ -190,12 +222,20 @@
       "type": "registry:ui"
     },
     {
+      "name": "smooth-input",
+      "type": "registry:ui"
+    },
+    {
       "name": "spotify-card",
       "type": "registry:ui"
     },
     {
       "name": "spotify-music",
       "type": "registry:style"
+    },
+    {
+      "name": "stepper",
+      "type": "registry:ui"
     },
     {
       "name": "sticker-trail",
@@ -207,6 +247,10 @@
     },
     {
       "name": "text-roll",
+      "type": "registry:ui"
+    },
+    {
+      "name": "toggle",
       "type": "registry:ui"
     },
     {
@@ -231,6 +275,10 @@
     },
     {
       "name": "wave-text",
+      "type": "registry:ui"
+    },
+    {
+      "name": "waves-shader-background",
       "type": "registry:ui"
     },
     {

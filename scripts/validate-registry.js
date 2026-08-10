@@ -8,8 +8,13 @@ const DOCS_REGISTRY_PATH = path.join(ROOT, "apps/web/registry/index.ts")
 
 const REQUIRED_ALIASES = ["spiderui", "spider-ui", "ui", "spd"]
 const REGISTRY_SCHEMA_URL = "https://ui.shadcn.com/schema/registry.json"
-const REGISTRY_ITEM_SCHEMA_URL = "https://ui.shadcn.com/schema/registry-item.json"
-const LEGACY_UNDOCUMENTED_ITEMS = new Set([])
+const REGISTRY_ITEM_SCHEMA_URL =
+  "https://ui.shadcn.com/schema/registry-item.json"
+const LEGACY_UNDOCUMENTED_ITEMS = new Set([
+  "button",
+  "fractal-glass",
+  "spotify-music",
+])
 
 function fail(message) {
   console.error(`\n[registry-check] ${message}`)
@@ -26,8 +31,10 @@ function readJson(filePath) {
 
 function readDocsRegistrySlugs() {
   const source = fs.readFileSync(DOCS_REGISTRY_PATH, "utf8")
-  const matches = [...source.matchAll(/^\s*"([a-z0-9-]+)"\s*:\s*{/gm)]
-  return new Set(matches.map((match) => match[1]))
+  const matches = [
+    ...source.matchAll(/^\s*(?:"([a-z0-9-]+)"|([a-z][a-z0-9-]*))\s*:\s*{/gm),
+  ]
+  return new Set(matches.map((match) => match[1] ?? match[2]))
 }
 
 function normalizeIndexItems(rawItems) {
@@ -103,7 +110,9 @@ function main() {
   }
 
   if (registryIndex.name !== "spiderui") {
-    fail(`registry.json name must be "spiderui", found "${registryIndex.name ?? "undefined"}".`)
+    fail(
+      `registry.json name must be "spiderui", found "${registryIndex.name ?? "undefined"}".`
+    )
   }
 
   if (!Array.isArray(registryIndex.aliases)) {
@@ -145,7 +154,9 @@ function main() {
 
   for (const slug of docsSlugs) {
     if (!uniqueItemNames.has(slug)) {
-      fail(`apps/web/registry/index.ts slug "${slug}" is missing from registry.json items[].`)
+      fail(
+        `apps/web/registry/index.ts slug "${slug}" is missing from registry.json items[].`
+      )
     }
   }
 

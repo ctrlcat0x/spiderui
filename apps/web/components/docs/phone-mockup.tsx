@@ -4,7 +4,7 @@ import { readComponentSource } from "@/lib/source-code";
 
 const importCode = `import { PhoneCarousel, PhoneMockup } from "@/components/ui/phone-mockup"`;
 
-const usageCode = `const screens = [
+const usageCode = `const images = [
   { src: "/screens/home.png", alt: "Home screen" },
   { src: "/screens/music.png", alt: "Music player" },
   { src: "/screens/weather.png", alt: "Weather screen" },
@@ -13,7 +13,7 @@ const usageCode = `const screens = [
 export function Demo() {
   return (
     <PhoneCarousel
-      items={screens}
+      images={images}
       interval={3500}
       className="max-w-3xl"
     />
@@ -61,9 +61,14 @@ export async function PhoneMockupDocs() {
           description: "Width of the phone frame.",
         },
         {
+          name: "images",
+          type: "readonly ImageItem[]",
+          description: "Image screens displayed by PhoneCarousel.",
+        },
+        {
           name: "items",
           type: "readonly PhoneCarouselItem[]",
-          description: "Screens displayed by PhoneCarousel.",
+          description: "Optional custom image or React content screens.",
         },
         {
           name: "variant",

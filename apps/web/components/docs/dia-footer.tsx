@@ -1,25 +1,46 @@
-import React from "react"
-import { DocsPageLayout } from "@/components/docs-page-layout"
-import { readComponentSource } from "@/lib/source-code"
+import React from "react";
+import { DocsPageLayout } from "@/components/docs-page-layout";
+import { readComponentSource } from "@/lib/source-code";
 import {
   DiaFooterPlayground,
   DiaFooterPersonalizePanel,
-} from "@/components/docs/previews/dia-footer-playground"
+} from "@/components/docs/previews/dia-footer-playground";
 
-const importCode = `import { DiaFooter } from "@/components/ui/dia-footer"`
+const importCode = `import { DiaFooter } from "@/components/ui/dia-footer"`;
 
-const usageCode = `export default function Page() {
+const usageCode = `const columns = [
+  { title: "Product", links: ["Overview", "Features", "Pricing"] },
+  { title: "Resources", links: ["Docs", "Guides", "Support"] },
+  { title: "Company", links: ["About", "Careers", "Contact"] },
+  { title: "Legal", links: ["Privacy", "Terms", "Security"] },
+]
+
+export default function Page() {
   return (
-    <DiaFooter
-      theme="dia-browser"
-      copyrightText={\`copyright © \${new Date().getFullYear()} — Spider UI\`}
-    />
+    <DiaFooter theme="dia-browser" gradientHeight="40vh">
+      <div className="mx-auto max-w-6xl px-6 pt-12">
+        <div className="grid gap-12 pb-12 lg:grid-cols-6">
+          <div className="lg:col-span-2">
+            <h2 className="font-mono text-white">Lumen Studio</h2>
+            <p className="mt-4 text-zinc-400">Design tooling for teams.</p>
+          </div>
+          <nav className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-4">
+            {columns.map((column) => (
+              <div key={column.title}>
+                <h3 className="text-white">{column.title}</h3>
+                {column.links.map((link) => <a key={link} href="#">{link}</a>)}
+              </div>
+            ))}
+          </nav>
+        </div>
+      </div>
+    </DiaFooter>
   )
-}`
+}`;
 
 const themeExampleCode = `export default function Page() {
   return <DiaFooter theme="ocean" />
-}`
+}`;
 
 const customColorsCode = `export default function Page() {
   return (
@@ -39,7 +60,7 @@ const customColorsCode = `export default function Page() {
       }}
     />
   )
-}`
+}`;
 
 const customTextCode = `export default function Page() {
   return (
@@ -48,25 +69,26 @@ const customTextCode = `export default function Page() {
       copyrightText={\`copyright © \${new Date().getFullYear()} — Spider UI\`}
     />
   )
-}`
+}`;
 
 export async function DiaFooterDocs() {
   const sourceCode =
     (await readComponentSource("dia-footer")) ||
-    "// Unable to load source code"
+    "// Unable to load source code";
 
   const installationNote = (
     <p className="text-sm leading-relaxed text-muted-foreground">
       The install command also adds{" "}
       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
-        gsap
+        clsx
       </code>{" "}
-      from the registry (includes ScrollTrigger and SplitText). Manual install:{" "}
+      and{" "}
       <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
-        pnpm add gsap
+        tailwind-merge
       </code>
+      . No animation library required.
     </p>
-  )
+  );
 
   const usageNote = (
     <div className="rounded-lg border border-border/60 bg-muted/30 p-4 text-sm text-muted-foreground">
@@ -80,7 +102,7 @@ export async function DiaFooterDocs() {
         >
           Dia Browser
         </a>
-        . Uses GSAP ScrollTrigger with SplitText for the copyright reveal. Themes:{" "}
+        . Uses local scroll progress and one inline SVG. Themes:{" "}
         <code className="text-foreground">dia-browser</code>,{" "}
         <code className="text-foreground">ocean</code>,{" "}
         <code className="text-foreground">amber</code>,{" "}
@@ -89,17 +111,17 @@ export async function DiaFooterDocs() {
         <code className="text-foreground">rose</code>.
       </p>
     </div>
-  )
+  );
 
   return (
     <DocsPageLayout
       title="Dia Footer"
-      description="A minimal scroll-driven footer with animated spectrum bars, inspired by Dia browser."
+      description="A composable footer with a scroll-rising blurred spectrum, responsive navigation, and configurable color themes."
       preview={<DiaFooterPlayground />}
       personalizeContent={<DiaFooterPersonalizePanel />}
       previewCode={usageCode}
       installPackageName="dia-footer"
-      installDependencies="gsap clsx tailwind-merge"
+      installDependencies="clsx tailwind-merge"
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/dia-footer.tsx"
       installationNote={installationNote}
@@ -147,11 +169,15 @@ export async function DiaFooterDocs() {
       ]}
       props={[
         {
+          name: "children",
+          type: "ReactNode",
+          description: "Footer content rendered above the spectrum.",
+        },
+        {
           name: "theme",
           type: "DiaFooterTheme",
           default: '"dia-browser"',
-          description:
-            "Preset color theme for text and SVG gradient stops.",
+          description: "Preset color theme for text and SVG gradient stops.",
         },
         {
           name: "colors",
@@ -170,7 +196,30 @@ export async function DiaFooterDocs() {
           description:
             "Optional scroll root for embedded previews. Omit for window scroll.",
         },
+        {
+          name: "surfaceColor",
+          type: "string",
+          default: '"#090909"',
+          description: "Footer surface behind content and spectrum.",
+        },
+        {
+          name: "gradientHeight",
+          type: "string",
+          default: '"60vh"',
+          description: "Spectrum height and scroll reveal distance.",
+        },
+        {
+          name: "minReveal",
+          type: "number",
+          default: "0.045",
+          description: "Resting spectrum visibility before final scroll range.",
+        },
+        {
+          name: "bars / blur / peak / valley",
+          type: "number",
+          description: "Controls spectrum geometry and softness.",
+        },
       ]}
     />
-  )
+  );
 }

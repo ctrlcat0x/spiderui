@@ -7,6 +7,14 @@ const docsImportMap: Record<
     | { [key: string]: React.ComponentType<Record<string, unknown>> }
   >
 > = {
+  "ai-prompt-box": () =>
+    import("@/components/docs/ai-prompt-box").then((m) => ({
+      default: m.AIPromptBoxDocs,
+    })),
+  "prompt-input": () =>
+    import("@/components/docs/prompt-input").then((m) => ({
+      default: m.PromptInputDocs,
+    })),
   "opos-hover": () =>
     import("@/components/docs/opos-hover").then((m) => ({
       default: m.OposHoverDocs,
@@ -15,7 +23,7 @@ const docsImportMap: Record<
     import("@/components/docs/scrub-input").then((m) => ({
       default: m.ScrubInputDocs,
     })),
-  "signature": () =>
+  signature: () =>
     import("@/components/docs/signature").then((m) => ({
       default: m.SignatureDocs,
     })),
@@ -26,6 +34,10 @@ const docsImportMap: Record<
   "sticker-trail": () =>
     import("@/components/docs/sticker-trail").then((m) => ({
       default: m.StickerTrailDocs,
+    })),
+  "marquee-along-path": () =>
+    import("@/components/docs/marquee-along-path").then((m) => ({
+      default: m.MarqueeAlongPathDocs,
     })),
   "card-stroke": () =>
     import("@/components/docs/card-stroke").then((m) => ({
@@ -43,9 +55,37 @@ const docsImportMap: Record<
     import("@/components/docs/switch").then((m) => ({
       default: m.SwitchDocs,
     })),
+  toggle: () =>
+    import("@/components/docs/toggle").then((m) => ({
+      default: m.ToggleDocs,
+    })),
   "otp-input": () =>
     import("@/components/docs/otp-input").then((m) => ({
       default: m.OTPInputDocs,
+    })),
+  "smooth-input": () =>
+    import("@/components/docs/smooth-input").then((m) => ({
+      default: m.SmoothInputDocs,
+    })),
+  "elastic-slider": () =>
+    import("@/components/docs/elastic-slider").then((m) => ({
+      default: m.ElasticSliderDocs,
+    })),
+  modal: () =>
+    import("@/components/docs/modal").then((m) => ({
+      default: m.ModalDocs,
+    })),
+  drawer: () =>
+    import("@/components/docs/drawer").then((m) => ({
+      default: m.DrawerDocs,
+    })),
+  "discrete-tabs": () =>
+    import("@/components/docs/discrete-tabs").then((m) => ({
+      default: m.DiscreteTabsDocs,
+    })),
+  stepper: () =>
+    import("@/components/docs/stepper").then((m) => ({
+      default: m.StepperDocs,
     })),
   "dia-footer": () =>
     import("@/components/docs/dia-footer").then((m) => ({
@@ -115,6 +155,10 @@ const docsImportMap: Record<
     import("@/components/docs/curtain-background").then((m) => ({
       default: m.CurtainBackgroundDocs,
     })),
+  "waves-shader-background": () =>
+    import("@/components/docs/waves-shader-background").then((m) => ({
+      default: m.WavesShaderBackgroundDocs,
+    })),
   "accordion-reveal": () =>
     import("@/components/docs/accordion-reveal").then((m) => ({
       default: m.AccordionRevealDocs,
@@ -178,6 +222,10 @@ const docsImportMap: Record<
   "carousel-003": () =>
     import("@/components/docs/carousel-003").then((m) => ({
       default: m.Carousel003Docs,
+    })),
+  "carousel-004": () =>
+    import("@/components/docs/carousel-004").then((m) => ({
+      default: m.Carousel004Docs,
     })),
   "contribution-graph": () =>
     import("@/components/docs/contribution-graph").then((m) => ({

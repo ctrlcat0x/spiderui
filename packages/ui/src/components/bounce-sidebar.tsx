@@ -1,118 +1,188 @@
 "use client";
 
-import * as React from "react";
-import { motion, useReducedMotion } from "motion/react";
-
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+} from "motion/react";
+import {
+  type ReactNode,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { cn } from "@workspace/ui/lib/utils";
 
 export interface BounceSidebarItem {
   id: string;
-  label: React.ReactNode;
+  label: ReactNode;
   href?: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   disabled?: boolean;
+  target?: "_blank" | "_self" | "_parent" | "_top";
+  rel?: string;
 }
 
-export interface BounceSidebarProps extends Omit<
-  React.ComponentProps<"nav">,
-  "onChange"
-> {
+export interface BounceSidebarProps {
   items: BounceSidebarItem[];
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
+  ariaLabel?: string;
+  className?: string;
   listClassName?: string;
   itemClassName?: string;
   indicatorClassName?: string;
 }
 
-const INDICATOR_SIZE = 6;
+const DOT_SIZE = 6;
+const BOUNCE_SPRING = {
+  type: "spring",
+  stiffness: 280,
+  damping: 18,
+  mass: 0.3,
+} as const;
+
+function quadraticBezier(
+  start: number,
+  control: number,
+  end: number,
+  progress: number,
+) {
+  const remaining = 1 - progress;
+  return (
+    remaining * remaining * start +
+    2 * remaining * progress * control +
+    progress * progress * end
+  );
+}
 
 export function BounceSidebar({
   items,
   value,
   defaultValue,
   onValueChange,
+  ariaLabel = "Sidebar navigation",
   className,
   listClassName,
   itemClassName,
   indicatorClassName,
-  "aria-label": ariaLabel = "Sidebar navigation",
-  ...props
 }: BounceSidebarProps) {
   const reduceMotion = useReducedMotion();
-  const [internalValue, setInternalValue] = React.useState(
+  const [internalValue, setInternalValue] = useState(
     defaultValue ?? items[0]?.id ?? "",
   );
-  const [indicatorY, setIndicatorY] = React.useState(0);
-  const listRef = React.useRef<HTMLUListElement>(null);
-  const itemRefs = React.useRef(new Map<string, HTMLLIElement>());
-  const selectedValue = items.some(
-    (item) => item.id === (value ?? internalValue),
-  )
-    ? (value ?? internalValue)
+  const requestedValue = value ?? internalValue;
+  const selectedValue = items.some((item) => item.id === requestedValue)
+    ? requestedValue
     : (items[0]?.id ?? "");
+  const selectedIndex = items.findIndex((item) => item.id === selectedValue);
+  const listRef = useRef<HTMLUListElement>(null);
+  const itemRefs = useRef(new Map<string, HTMLLIElement>());
+  const selectedValueRef = useRef(selectedValue);
+  const previousIndexRef = useRef(selectedIndex);
+  const hasPositionRef = useRef(false);
+  const animationRef = useRef<ReturnType<typeof animate> | null>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  selectedValueRef.current = selectedValue;
 
-  const measureIndicator = React.useCallback(() => {
-    const selectedItem = itemRefs.current.get(selectedValue);
+  const snapIndicator = useCallback(() => {
+    const selectedItem = itemRefs.current.get(selectedValueRef.current);
     if (!selectedItem) return;
-    setIndicatorY(
-      selectedItem.offsetTop + (selectedItem.offsetHeight - INDICATOR_SIZE) / 2,
+    animationRef.current?.stop();
+    x.set(0);
+    y.set(selectedItem.offsetTop + (selectedItem.offsetHeight - DOT_SIZE) / 2);
+    hasPositionRef.current = true;
+  }, [x, y]);
+
+  const positionIndicator = useCallback(
+    (shouldAnimate: boolean) => {
+      const selectedItem = itemRefs.current.get(selectedValue);
+      if (!selectedItem) return;
+      const destinationY =
+        selectedItem.offsetTop + (selectedItem.offsetHeight - DOT_SIZE) / 2;
+      animationRef.current?.stop();
+
+      if (!hasPositionRef.current || reduceMotion || !shouldAnimate) {
+        x.set(0);
+        y.set(destinationY);
+        hasPositionRef.current = true;
+        previousIndexRef.current = selectedIndex;
+        return;
+      }
+
+      const startY = y.get();
+      const travel = Math.abs(destinationY - startY);
+      const longJumpProgress = Math.min(1, Math.max(0, (travel - 48) / 120));
+      const controlX = -Math.min(40, Math.max(8, travel * 0.25));
+      const midpointY = (startY + destinationY) / 2;
+      const controlY =
+        destinationY + (midpointY - destinationY) * longJumpProgress;
+
+      animationRef.current = animate(0, 1, {
+        ...BOUNCE_SPRING,
+        stiffness: BOUNCE_SPRING.stiffness - 60 * longJumpProgress,
+        damping: BOUNCE_SPRING.damping + longJumpProgress,
+        mass: BOUNCE_SPRING.mass + 0.15 * longJumpProgress,
+        onUpdate: (progress) => {
+          x.set(quadraticBezier(0, controlX, 0, progress));
+          y.set(quadraticBezier(startY, controlY, destinationY, progress));
+        },
+        onComplete: () => {
+          x.set(0);
+          y.set(destinationY);
+        },
+      });
+      previousIndexRef.current = selectedIndex;
+    },
+    [reduceMotion, selectedIndex, selectedValue, x, y],
+  );
+
+  useLayoutEffect(() => {
+    positionIndicator(
+      hasPositionRef.current && previousIndexRef.current !== selectedIndex,
     );
-  }, [selectedValue]);
+  }, [positionIndicator, selectedIndex]);
 
-  React.useLayoutEffect(measureIndicator, [measureIndicator]);
-
-  React.useEffect(() => {
+  useLayoutEffect(() => {
     const list = listRef.current;
     if (!list || typeof ResizeObserver === "undefined") return;
-    const observer = new ResizeObserver(measureIndicator);
+    const observer = new ResizeObserver(snapIndicator);
     observer.observe(list);
     return () => observer.disconnect();
-  }, [measureIndicator]);
+  }, [snapIndicator]);
 
-  const handleSelect = (id: string) => {
+  useLayoutEffect(() => () => animationRef.current?.stop(), []);
+
+  const selectItem = (id: string) => {
     if (value === undefined) setInternalValue(id);
     onValueChange?.(id);
   };
 
   return (
-    <nav
-      aria-label={ariaLabel}
-      className={cn("relative", className)}
-      {...props}
-    >
+    <nav aria-label={ariaLabel} className={cn("relative", className)}>
       <ul
         ref={listRef}
         className={cn(
-          "relative flex list-none flex-col gap-2 pl-7",
+          "relative flex list-none flex-col gap-1.5 pl-6",
           listClassName,
         )}
       >
-        {items.length > 0 && (
+        {selectedIndex >= 0 && (
           <li
             aria-hidden="true"
             role="presentation"
             className="pointer-events-none absolute inset-0"
           >
             <motion.span
+              style={{ x, y }}
               className={cn(
-                "absolute left-3 top-0 size-1.5 rounded-full bg-foreground",
+                "absolute left-3 top-0 size-1.5 rounded-full bg-primary",
                 indicatorClassName,
               )}
-              initial={false}
-              animate={{
-                y: indicatorY,
-                x: reduceMotion ? 0 : [0, -12, 0],
-              }}
-              transition={{
-                y: reduceMotion
-                  ? { duration: 0 }
-                  : { type: "spring", stiffness: 320, damping: 22, mass: 0.45 },
-                x: reduceMotion
-                  ? { duration: 0 }
-                  : { duration: 0.38, ease: "easeOut" },
-              }}
             />
           </li>
         )}
@@ -121,12 +191,16 @@ export function BounceSidebar({
           const active = item.id === selectedValue;
           const content = (
             <>
-              {item.icon && <span aria-hidden="true">{item.icon}</span>}
+              {item.icon && (
+                <span aria-hidden="true" className="shrink-0">
+                  {item.icon}
+                </span>
+              )}
               <span>{item.label}</span>
             </>
           );
-          const itemClasses = cn(
-            "flex min-h-10 w-full items-center gap-2 rounded-lg px-2 text-left text-base font-medium outline-none transition-colors",
+          const interactiveClasses = cn(
+            "flex min-h-9 w-full items-center gap-2 rounded-lg px-2 text-left text-sm font-medium outline-none transition-colors",
             "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             active
               ? "text-foreground"
@@ -142,18 +216,27 @@ export function BounceSidebar({
                 if (node) itemRefs.current.set(item.id, node);
                 else itemRefs.current.delete(item.id);
               }}
+              className="relative"
             >
               {item.href ? (
                 <a
                   href={item.href}
+                  target={item.target}
+                  rel={
+                    item.rel ??
+                    (item.target === "_blank"
+                      ? "noreferrer noopener"
+                      : undefined)
+                  }
                   aria-current={active ? "page" : undefined}
                   aria-disabled={item.disabled || undefined}
+                  data-active={active || undefined}
                   tabIndex={item.disabled ? -1 : undefined}
                   onClick={(event) => {
                     if (item.disabled) event.preventDefault();
-                    else handleSelect(item.id);
+                    else selectItem(item.id);
                   }}
-                  className={itemClasses}
+                  className={interactiveClasses}
                 >
                   {content}
                 </a>
@@ -162,8 +245,9 @@ export function BounceSidebar({
                   type="button"
                   disabled={item.disabled}
                   aria-current={active ? "page" : undefined}
-                  onClick={() => handleSelect(item.id)}
-                  className={itemClasses}
+                  data-active={active || undefined}
+                  onClick={() => selectItem(item.id)}
+                  className={interactiveClasses}
                 >
                   {content}
                 </button>

@@ -129,6 +129,14 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "rich-button",
     addedAt: "2026-08-19",
   },
+  "bounce-sidebar": {
+    title: "Bounce Sidebar",
+    description:
+      "A compact sidebar with a springing active indicator and accessible navigation items.",
+    category: "Visual Interactions",
+    slug: "bounce-sidebar",
+    addedAt: "2026-08-19",
+  },
   "card-stroke": {
     title: "Card Stroke",
     description:

@@ -47,6 +47,10 @@ const docsImportMap: Record<
     import("@/components/docs/rich-button").then((m) => ({
       default: m.RichButtonDocs,
     })),
+  "bounce-sidebar": () =>
+    import("@/components/docs/bounce-sidebar").then((m) => ({
+      default: m.BounceSidebarDocs,
+    })),
   "card-stroke": () =>
     import("@/components/docs/card-stroke").then((m) => ({
       default: m.CardStrokeDocs,

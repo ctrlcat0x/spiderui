@@ -30,6 +30,10 @@
       "type": "registry:ui"
     },
     {
+      "name": "bounce-sidebar",
+      "type": "registry:ui"
+    },
+    {
       "name": "bouncy-accordion",
       "type": "registry:ui"
     },

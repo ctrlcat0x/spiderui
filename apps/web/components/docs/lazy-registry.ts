@@ -43,6 +43,10 @@ const docsImportMap: Record<
     import("@/components/docs/emoji-reaction").then((m) => ({
       default: m.EmojiReactionDocs,
     })),
+  "rich-button": () =>
+    import("@/components/docs/rich-button").then((m) => ({
+      default: m.RichButtonDocs,
+    })),
   "card-stroke": () =>
     import("@/components/docs/card-stroke").then((m) => ({
       default: m.CardStrokeDocs,

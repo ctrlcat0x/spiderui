@@ -16,6 +16,7 @@ const PRIMITIVE_SLUG_ORDER = [
   "badge",
   "switch",
   "toggle",
+  "rich-button",
   "otp-input",
   "smooth-input",
   "elastic-slider",
@@ -118,6 +119,14 @@ export const components: Record<string, ComponentMetadata> = {
       "A playful reaction picker with native emoji and animated emoji bursts.",
     category: "Visual Interactions",
     slug: "emoji-reaction",
+    addedAt: "2026-08-19",
+  },
+  "rich-button": {
+    title: "Rich Button",
+    description:
+      "A tactile gradient button with restrained color variants and press feedback.",
+    category: "Primitives",
+    slug: "rich-button",
     addedAt: "2026-08-19",
   },
   "card-stroke": {

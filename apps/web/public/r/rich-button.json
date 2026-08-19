@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rich-button",
+  "type": "registry:ui",
+  "title": "Rich Button",
+  "dependencies": [],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "description": "Component for rich-button",
+  "files": [
+    {
+      "path": "components/ui/rich-button.tsx",
+      "content": "import * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst colorClasses = {\n  default:\n    \"bg-foreground text-background dark:bg-background dark:text-foreground\",\n  slate: \"bg-slate-700 text-white dark:bg-slate-300 dark:text-slate-950\",\n  orange: \"bg-orange-600 text-white dark:bg-orange-500 dark:text-white\",\n  purple: \"bg-purple-600 text-white dark:bg-purple-500 dark:text-white\",\n  emerald: \"bg-emerald-600 text-white dark:bg-emerald-500 dark:text-white\",\n} as const;\n\nconst sizeClasses = {\n  sm: \"h-8 rounded-md px-3 text-sm\",\n  default: \"h-10 rounded-lg px-5 text-base\",\n  lg: \"h-12 rounded-xl px-7 text-lg\",\n} as const;\n\nexport interface RichButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\n  color?: keyof typeof colorClasses;\n  size?: keyof typeof sizeClasses;\n}\n\nexport const RichButton = React.forwardRef<HTMLButtonElement, RichButtonProps>(\n  (\n    {\n      className,\n      color = \"default\",\n      size = \"default\",\n      type = \"button\",\n      ...props\n    },\n    ref,\n  ) => (\n    <button\n      ref={ref}\n      type={type}\n      data-slot=\"rich-button\"\n      data-color={color}\n      data-size={size}\n      className={cn(\n        \"inline-flex shrink-0 items-center justify-center whitespace-nowrap font-medium shadow-[inset_0_1px_0_oklch(1_0_0/0.35),0_4px_12px_oklch(0_0_0/0.2)] transition-[filter,transform] duration-200 hover:brightness-110 active:scale-[0.96] active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50\",\n        colorClasses[color],\n        sizeClasses[size],\n        className,\n      )}\n      {...props}\n    />\n  ),\n);\n\nRichButton.displayName = \"RichButton\";\n",
+      "type": "registry:ui"
+    }
+  ]
+}

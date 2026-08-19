@@ -90,6 +90,10 @@
       "type": "registry:ui"
     },
     {
+      "name": "emoji-reaction",
+      "type": "registry:ui"
+    },
+    {
       "name": "encrypted-text",
       "type": "registry:ui"
     },

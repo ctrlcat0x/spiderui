@@ -112,6 +112,14 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "marquee-along-path",
     addedAt: "2026-08-01",
   },
+  "emoji-reaction": {
+    title: "Emoji Reaction",
+    description:
+      "A playful reaction picker with native emoji and animated emoji bursts.",
+    category: "Visual Interactions",
+    slug: "emoji-reaction",
+    addedAt: "2026-08-19",
+  },
   "card-stroke": {
     title: "Card Stroke",
     description:

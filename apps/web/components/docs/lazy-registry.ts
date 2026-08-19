@@ -39,6 +39,10 @@ const docsImportMap: Record<
     import("@/components/docs/marquee-along-path").then((m) => ({
       default: m.MarqueeAlongPathDocs,
     })),
+  "emoji-reaction": () =>
+    import("@/components/docs/emoji-reaction").then((m) => ({
+      default: m.EmojiReactionDocs,
+    })),
   "card-stroke": () =>
     import("@/components/docs/card-stroke").then((m) => ({
       default: m.CardStrokeDocs,

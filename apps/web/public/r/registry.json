@@ -94,10 +94,6 @@
       "type": "registry:ui"
     },
     {
-      "name": "feedback-input",
-      "type": "registry:ui"
-    },
-    {
       "name": "encrypted-text",
       "type": "registry:ui"
     },

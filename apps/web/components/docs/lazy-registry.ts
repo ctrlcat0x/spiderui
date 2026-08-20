@@ -39,10 +39,6 @@ const docsImportMap: Record<
     import("@/components/docs/marquee-along-path").then((m) => ({
       default: m.MarqueeAlongPathDocs,
     })),
-  "feedback-input": () =>
-    import("@/components/docs/feedback-input").then((m) => ({
-      default: m.FeedbackInputDocs,
-    })),
   "expanding-menu": () =>
     import("@/components/docs/expanding-menu").then((m) => ({
       default: m.ExpandingMenuDocs,

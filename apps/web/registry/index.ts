@@ -113,14 +113,6 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "marquee-along-path",
     addedAt: "2026-08-01",
   },
-  "feedback-input": {
-    title: "Feedback Input",
-    description:
-      "A playful satisfaction meter with native emoji and animated feedback bursts.",
-    category: "Visual Interactions",
-    slug: "feedback-input",
-    addedAt: "2026-08-20",
-  },
   "expanding-menu": {
     title: "Expanding Menu",
     description:

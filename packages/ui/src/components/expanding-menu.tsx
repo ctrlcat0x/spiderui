@@ -129,6 +129,11 @@ export function ExpandingMenu({
     ? { duration: 0 }
     : { type: "spring" as const, bounce: 0.1, duration: 0.4 };
 
+  const handleItemSelect = (item: ExpandingMenuItem) => {
+    onItemSelect?.(item);
+    setOpen(false);
+  };
+
   return (
     <div className={cn("w-fit", className)} {...props}>
       <AnimatePresence mode="popLayout" initial={false}>
@@ -187,7 +192,7 @@ export function ExpandingMenu({
                 <motion.button
                   key={item.value ?? item.label}
                   type="button"
-                  onClick={() => onItemSelect?.(item)}
+                  onClick={() => handleItemSelect(item)}
                   whileTap={reducedMotion ? undefined : { scale: 0.96 }}
                   className="group flex min-h-20 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-3 text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring sm:min-h-24 sm:gap-1.5 sm:rounded-[1.25rem] sm:py-4"
                 >

@@ -47,6 +47,10 @@ const docsImportMap: Record<
     import("@/components/docs/expanding-menu").then((m) => ({
       default: m.ExpandingMenuDocs,
     })),
+  "expanding-button": () =>
+    import("@/components/docs/expanding-button").then((m) => ({
+      default: m.ExpandingButtonDocs,
+    })),
   "rich-button": () =>
     import("@/components/docs/rich-button").then((m) => ({
       default: m.RichButtonDocs,

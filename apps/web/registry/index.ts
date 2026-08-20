@@ -129,6 +129,14 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "expanding-menu",
     addedAt: "2026-08-20",
   },
+  "expanding-button": {
+    title: "Expanding Button",
+    description:
+      "A springy action button that dissolves into a compact row of choices.",
+    category: "Visual Interactions",
+    slug: "expanding-button",
+    addedAt: "2026-08-20",
+  },
   "rich-button": {
     title: "Rich Button",
     description:

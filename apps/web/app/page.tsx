@@ -60,15 +60,16 @@ export default function Home() {
       <SiteHeader transparent />
 
       <main className="relative z-10 overflow-x-clip">
-        <section className="flex min-h-svh items-center justify-center px-5 pb-20 pt-28 sm:px-6 sm:pt-32">
-          <div className="w-full max-w-5xl text-center">
+        <section className="flex min-h-[760px] items-center justify-center px-5 pb-24 pt-32 sm:min-h-[820px] sm:px-6 sm:pb-28 sm:pt-36">
+          <div className="w-full max-w-7xl text-center">
             <motion.h1
               initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className={`${nighty.className} text-[clamp(3.5rem,8vw,7.5rem)] font-normal leading-[0.92] tracking-[-0.025em] text-zinc-900 dark:text-zinc-50`}
+              className={`${nighty.className} mx-auto max-w-6xl text-balance text-[clamp(3.5rem,7vw,6rem)] font-normal leading-[0.9] tracking-[-0.02em] text-zinc-900 dark:text-zinc-50`}
             >
-              Craft your UI with motion<span className="text-rose-500">.</span>
+              Give your UI some character
+              <span className="text-rose-500">.</span>
             </motion.h1>
 
             <motion.p
@@ -79,7 +80,7 @@ export default function Home() {
                 delay: 0.18,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mx-auto mt-7 max-w-xl text-balance text-sm leading-6 text-zinc-500 sm:text-base"
+              className="mx-auto mt-10 max-w-xl text-balance text-sm leading-6 text-zinc-500 sm:mt-12 sm:text-base"
             >
               Polished <span className="text-rose-500">primitives</span> and{" "}
               <span className="text-rose-500">components</span> for React and
@@ -94,7 +95,7 @@ export default function Home() {
                 delay: 0.3,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mt-5"
+              className="mt-2"
             >
               <HeroButtons />
             </motion.div>

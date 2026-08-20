@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Terminal } from "lucide-react";
 import Link from "next/link";
 
@@ -9,31 +9,34 @@ import { CopyButton } from "@/components/copy-button";
 const installCommand = "pnpm dlx shadcn@latest add @spiderui/name";
 
 export function HeroButtons() {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
-    <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-      <motion.div whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}>
-        <div className="flex h-11 max-w-[calc(100vw-2.5rem)] items-center gap-3 rounded-xl border border-zinc-200 bg-zinc-100 px-3 text-zinc-600 shadow-sm dark:border-white/[0.06] dark:bg-white/[0.045] dark:text-zinc-400">
-          <Terminal aria-hidden className="size-3.5 shrink-0" />
-          <code className="truncate font-mono text-xs sm:text-sm">
+    <div className="flex flex-col items-center justify-center gap-4 pb-2 pt-6 sm:flex-row">
+      <motion.div whileTap={{ scale: 0.98 }}>
+        <div className="group relative inline-flex h-12 max-w-[calc(100vw-2.5rem)] items-center justify-center gap-3 overflow-hidden rounded-xl bg-[#E3E3E3]/80 px-4 text-sm font-semibold text-zinc-900 shadow-[0_2px_4px_0_rgba(0,0,0,0.10),0_0_0_1px_rgba(0,0,0,0.16),inset_0_1px_0_0_rgba(255,255,255,1)] backdrop-blur-xl transition-all duration-300 hover:px-6 hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.16),inset_0_1px_0_0_rgba(255,255,255,1)] dark:bg-zinc-800/80 dark:text-zinc-100 dark:shadow-[0_2px_4px_0_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.1)]">
+          <Terminal className="size-4 shrink-0 text-zinc-600 dark:text-zinc-400" />
+          <span className="max-w-[210px] truncate whitespace-nowrap font-mono text-sm tracking-tight text-zinc-700 dark:text-zinc-400 sm:max-w-[360px]">
             {installCommand}
-          </code>
+          </span>
           <CopyButton
             code={installCommand}
             absolute={false}
-            className="shrink-0 p-1.5"
+            className="p-1.5"
           />
         </div>
       </motion.div>
 
-      <motion.div whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}>
+      <motion.div
+        whileTap={{ scale: 0.98 }}
+        className="relative z-10 w-full sm:w-fit"
+      >
         <Link
           href="/docs"
-          className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-zinc-900 px-5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+          className="group relative inline-flex h-12 w-full items-center justify-center gap-3 overflow-hidden rounded-xl bg-zinc-900/90 px-4 text-sm font-semibold text-zinc-100 shadow-[0_2px_4px_0_rgba(0,0,0,0.25),0_0_0_1px_rgba(255,255,255,0.12),inset_0_1px_0_0_rgba(255,255,255,0.08)] backdrop-blur-xl transition-all duration-300 hover:px-6 hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.14),inset_0_1px_0_0_rgba(255,255,255,0.1)] dark:bg-[#E3E3E3]/80 dark:text-zinc-900 dark:shadow-[0_2px_4px_0_rgba(0,0,0,0.10),0_0_0_1px_rgba(0,0,0,0.16),inset_0_1px_0_0_rgba(255,255,255,1)] dark:hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.12),0_0_0_1px_rgba(0,0,0,0.16),inset_0_1px_0_0_rgba(255,255,255,1)] sm:w-fit"
         >
-          Documentation
-          <ArrowRight aria-hidden className="size-4" />
+          <span className="text-sm font-medium tracking-tight text-zinc-100 dark:text-zinc-700">
+            Documentation
+          </span>
+          <ArrowRight className="size-4 text-zinc-400 dark:text-zinc-600" />
         </Link>
       </motion.div>
     </div>

@@ -11,7 +11,7 @@ import { CardStroke } from "@workspace/ui/components/card-stroke";
 import { SectionHeading } from "@/components/landing/section-heading";
 
 const showcaseCardClass =
-  "group relative flex flex-col rounded-2xl border border-border bg-white dark:bg-[#1a1a1a] p-2 shadow-card transition-all duration-300 hover:border-input hover:shadow-card-hover";
+  "relative flex flex-col rounded-2xl border border-border bg-white dark:bg-[#1a1a1a] p-2 shadow-card transition-all duration-300 hover:border-input hover:shadow-card-hover";
 
 const showcasePreviewClass =
   "relative w-full overflow-hidden rounded-xl border border-dashed border-border bg-zinc-50 dark:bg-[#111] shadow-surface-inset transition-colors";
@@ -82,26 +82,28 @@ export function ShowcaseSection() {
         className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4"
       >
         {showcaseItems.map((item) => (
-          <Link
+          <article
             key={item.href}
-            href={item.href}
             className={`${item.className} ${showcaseCardClass}`}
           >
             <div className={`${showcasePreviewClass} ${item.previewClassName}`}>
               {item.preview}
             </div>
             <div className="shrink-0 px-3 pb-2 pt-3">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
+              <Link
+                href={item.href}
+                className="group flex items-center justify-between gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <span className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
                   {item.title}
-                </p>
+                </span>
                 <ArrowRight className="size-3.5 shrink-0 text-zinc-400 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100 dark:text-zinc-500" />
-              </div>
+              </Link>
               <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-500">
                 {item.description}
               </p>
             </div>
-          </Link>
+          </article>
         ))}
       </motion.div>
 

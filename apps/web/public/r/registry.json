@@ -94,7 +94,7 @@
       "type": "registry:ui"
     },
     {
-      "name": "emoji-reaction",
+      "name": "feedback-input",
       "type": "registry:ui"
     },
     {

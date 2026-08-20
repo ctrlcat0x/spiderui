@@ -39,9 +39,9 @@ const docsImportMap: Record<
     import("@/components/docs/marquee-along-path").then((m) => ({
       default: m.MarqueeAlongPathDocs,
     })),
-  "emoji-reaction": () =>
-    import("@/components/docs/emoji-reaction").then((m) => ({
-      default: m.EmojiReactionDocs,
+  "feedback-input": () =>
+    import("@/components/docs/feedback-input").then((m) => ({
+      default: m.FeedbackInputDocs,
     })),
   "rich-button": () =>
     import("@/components/docs/rich-button").then((m) => ({

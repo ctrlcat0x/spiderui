@@ -1,18 +1,20 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
-import { StickerTrailPreview } from "@/components/docs/previews/sticker-trail-playground"
-import { SwitchPreview } from "@/components/docs/previews/switch-preview"
-import { CardStroke } from "@workspace/ui/components/card-stroke"
-import { SectionHeading } from "@/components/landing/section-heading"
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { StickerTrailPreview } from "@/components/docs/previews/sticker-trail-playground";
+import { SwitchPreview } from "@/components/docs/previews/switch-preview";
+import { BounceSidebarPreview } from "@/components/docs/previews/bounce-sidebar-preview";
+import { WheelDatePickerPreview } from "@/components/docs/previews/wheel-date-picker-preview";
+import { CardStroke } from "@workspace/ui/components/card-stroke";
+import { SectionHeading } from "@/components/landing/section-heading";
 
 const showcaseCardClass =
-  "group relative flex flex-col rounded-2xl border border-border bg-white dark:bg-[#1a1a1a] p-2 shadow-card transition-all duration-300 hover:border-input hover:shadow-card-hover"
+  "group relative flex flex-col rounded-2xl border border-border bg-white dark:bg-[#1a1a1a] p-2 shadow-card transition-all duration-300 hover:border-input hover:shadow-card-hover";
 
 const showcasePreviewClass =
-  "relative w-full overflow-hidden rounded-xl border border-dashed border-border bg-zinc-50 dark:bg-[#111] shadow-surface-inset transition-colors"
+  "relative w-full overflow-hidden rounded-xl border border-dashed border-border bg-zinc-50 dark:bg-[#111] shadow-surface-inset transition-colors";
 
 const showcaseItems = [
   {
@@ -36,14 +38,32 @@ const showcaseItems = [
     title: "Card stroke",
     description: "GSAP split-text card with animated border strokes.",
     className: "md:col-span-1",
-    previewClassName: "min-h-[300px] md:min-h-[340px] flex items-center justify-center p-4",
+    previewClassName:
+      "min-h-[300px] md:min-h-[340px] flex items-center justify-center p-4",
     preview: (
       <div className="flex h-full w-full items-center justify-center p-4">
         <CardStroke className="w-full max-w-[260px]" />
       </div>
     ),
   },
-] as const
+  {
+    href: "/docs/components/wheel-date-picker",
+    title: "Wheel date picker",
+    description:
+      "Inertial date wheels with depth, snapping, and keyboard control.",
+    className: "md:col-span-1",
+    previewClassName: "min-h-[360px] md:min-h-[440px]",
+    preview: <WheelDatePickerPreview />,
+  },
+  {
+    href: "/docs/components/bounce-sidebar",
+    title: "Bounce sidebar",
+    description: "Navigation with a springing, curved active indicator.",
+    className: "md:col-span-1",
+    previewClassName: "min-h-[360px] md:min-h-[440px]",
+    preview: <BounceSidebarPreview />,
+  },
+] as const;
 
 export function ShowcaseSection() {
   return (
@@ -101,5 +121,5 @@ export function ShowcaseSection() {
         </Link>
       </motion.div>
     </section>
-  )
+  );
 }

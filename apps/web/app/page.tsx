@@ -9,6 +9,8 @@ import { HeroButtons } from "@/components/landing/hero-buttons";
 import { ShowcaseSection } from "@/components/landing/showcase-section";
 import { SiteHeader } from "@/components/site-header";
 import { SpiderLogo } from "@/components/logos/spider-logo";
+import { MotionAccordion } from "@workspace/ui/components/motion-accordion";
+import { ProgressiveBlur } from "@workspace/ui/components/progressive-blur";
 
 const nighty = localFont({
   src: "./fonts/nighty.woff2",
@@ -47,9 +49,15 @@ export default function Home() {
   return (
     <div
       data-route-home
-      className="relative min-h-screen w-full bg-white text-foreground selection:bg-rose-200 dark:bg-[#111] dark:selection:bg-rose-950"
+      className="relative min-h-screen w-full bg-white text-foreground selection:bg-rose-200 [--landing-background:#fff] dark:bg-[#111] dark:selection:bg-rose-950 dark:[--landing-background:#111]"
     >
-      <SiteHeader />
+      <ProgressiveBlur
+        position="top"
+        height="7rem"
+        backgroundColor="var(--landing-background)"
+        className="fixed z-40"
+      />
+      <SiteHeader transparent />
 
       <main className="relative z-10 overflow-x-clip">
         <section className="flex min-h-svh items-center justify-center px-5 pb-20 pt-28 sm:px-6 sm:pt-32">
@@ -167,27 +175,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="space-y-3">
-            {faqs.map((faq) => (
-              <details
-                key={faq.question}
-                className="group rounded-2xl border border-zinc-200/80 bg-zinc-50 px-5 dark:border-white/[0.04] dark:bg-white/[0.025]"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-sm font-medium text-zinc-800 marker:content-none dark:text-zinc-200 [&::-webkit-details-marker]:hidden">
-                  {faq.question}
-                  <span
-                    aria-hidden
-                    className="text-lg font-light text-zinc-400 transition-transform group-open:rotate-45"
-                  >
-                    +
-                  </span>
-                </summary>
-                <p className="max-w-xl pb-5 pr-8 text-sm leading-6 text-zinc-500 dark:text-zinc-400">
-                  {faq.answer}
-                </p>
-              </details>
-            ))}
-          </div>
+          <MotionAccordion items={faqs} gap={10} />
         </section>
       </main>
 

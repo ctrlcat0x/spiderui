@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import localFont from "next/font/local";
-import Link from "next/link";
 
 import { Footer } from "@/components/footer";
 import { HeroButtons } from "@/components/landing/hero-buttons";
@@ -101,7 +100,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-2xl px-6 py-24 sm:py-32">
+        <section className="mx-auto max-w-xl px-6 py-24 sm:py-32">
           <div className="mb-8 flex items-center justify-between gap-6 text-sm">
             <div className="flex items-center gap-3">
               <Image
@@ -126,36 +125,6 @@ export default function Home() {
               padding a catalog with 200 ugly components, but by making fewer
               pieces with stronger design and purposeful motion.
             </p>
-            <p>
-              The goal is simple: every component should feel{" "}
-              <em className="font-serif text-zinc-700 dark:text-zinc-300">
-                considered, reusable, and genuinely enjoyable to use.
-              </em>
-            </p>
-            <p>
-              Start with the open-source{" "}
-              <Link
-                className="text-orange-500 hover:text-orange-400"
-                href="/docs/components/primitives"
-              >
-                primitives
-              </Link>
-              , explore the{" "}
-              <Link
-                className="text-orange-500 hover:text-orange-400"
-                href="/docs/components"
-              >
-                components
-              </Link>
-              , or discover the{" "}
-              <Link
-                className="text-orange-500 hover:text-orange-400"
-                href="/templates"
-              >
-                templates
-              </Link>
-              . More carefully made blocks are on the way.
-            </p>
             <p>Take what you need. Make it yours.</p>
           </div>
         </section>
@@ -166,14 +135,16 @@ export default function Home() {
 
         <section className="mx-auto max-w-2xl px-6 pb-32 pt-10 sm:pb-40">
           <div className="mb-10 text-center">
-            <h2 className="font-serif text-3xl tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
+            <h2
+              className={`${nighty.className} text-4xl font-normal leading-tight text-zinc-900 dark:text-zinc-100 sm:text-6xl`}
+            >
               Frequently asked questions
             </h2>
             <p className="mt-2 text-sm text-zinc-500">
               Anything else?{" "}
               <a
                 className="text-orange-500 hover:text-orange-400"
-                href="mailto:hello@spiderui.dev"
+                href="mailto:developer.sahilran@gmail.com"
               >
                 Drop me an email.
               </a>

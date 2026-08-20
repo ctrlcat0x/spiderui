@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import localFont from "next/font/local";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { StickerTrailPreview } from "@/components/docs/previews/sticker-trail-playground";
@@ -8,7 +9,11 @@ import { SwitchPreview } from "@/components/docs/previews/switch-preview";
 import { BounceSidebarPreview } from "@/components/docs/previews/bounce-sidebar-preview";
 import { WheelDatePickerPreview } from "@/components/docs/previews/wheel-date-picker-preview";
 import { CardStroke } from "@workspace/ui/components/card-stroke";
-import { SectionHeading } from "@/components/landing/section-heading";
+
+const nighty = localFont({
+  src: "../../app/fonts/nighty.woff2",
+  display: "swap",
+});
 
 const showcaseCardClass =
   "relative flex flex-col rounded-2xl border border-border bg-white dark:bg-[#1a1a1a] p-2 shadow-card transition-all duration-300 hover:border-input hover:shadow-card-hover";
@@ -68,11 +73,11 @@ const showcaseItems = [
 export function ShowcaseSection() {
   return (
     <section className="w-full max-w-[1240px] mx-auto px-4">
-      <SectionHeading
-        eyebrow="Featured"
-        title="Components with personality"
-        description="A taste of what's in the library — interactive, polished, and ready to paste into your project."
-      />
+      <h2
+        className={`${nighty.className} text-center text-4xl font-normal leading-tight text-zinc-900 dark:text-zinc-50 sm:text-6xl`}
+      >
+        A taste of what&apos;s in the library
+      </h2>
 
       <motion.div
         initial={{ opacity: 0, y: 32 }}

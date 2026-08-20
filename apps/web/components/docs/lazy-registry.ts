@@ -43,6 +43,10 @@ const docsImportMap: Record<
     import("@/components/docs/feedback-input").then((m) => ({
       default: m.FeedbackInputDocs,
     })),
+  "expanding-menu": () =>
+    import("@/components/docs/expanding-menu").then((m) => ({
+      default: m.ExpandingMenuDocs,
+    })),
   "rich-button": () =>
     import("@/components/docs/rich-button").then((m) => ({
       default: m.RichButtonDocs,

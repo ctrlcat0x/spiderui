@@ -102,6 +102,10 @@
       "type": "registry:ui"
     },
     {
+      "name": "expanding-menu",
+      "type": "registry:ui"
+    },
+    {
       "name": "fan-cards",
       "type": "registry:ui"
     },

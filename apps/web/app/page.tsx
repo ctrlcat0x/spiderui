@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import localFont from "next/font/local";
 import Link from "next/link";
 
@@ -8,7 +9,6 @@ import { Footer } from "@/components/footer";
 import { HeroButtons } from "@/components/landing/hero-buttons";
 import { ShowcaseSection } from "@/components/landing/showcase-section";
 import { SiteHeader } from "@/components/site-header";
-import { SpiderLogo } from "@/components/logos/spider-logo";
 import { MotionAccordion } from "@workspace/ui/components/motion-accordion";
 import { ProgressiveBlur } from "@workspace/ui/components/progressive-blur";
 
@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <div
       data-route-home
-      className="relative min-h-screen w-full bg-white text-foreground selection:bg-rose-200 [--landing-background:#fff] dark:bg-[#111] dark:selection:bg-rose-950 dark:[--landing-background:#111]"
+      className="relative min-h-screen w-full bg-white text-foreground selection:bg-orange-200 [--landing-background:#fff] dark:bg-[#111] dark:selection:bg-orange-950 dark:[--landing-background:#111]"
     >
       <ProgressiveBlur
         position="top"
@@ -66,10 +66,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className={`${nighty.className} mx-auto max-w-6xl text-balance text-[clamp(3.5rem,7vw,6rem)] font-normal leading-[0.9] tracking-[-0.02em] text-zinc-900 dark:text-zinc-50`}
+              className={`${nighty.className} mx-auto max-w-xl text-balance text-[clamp(3.5rem,7vw,6rem)] font-normal leading-[0.9] tracking-[-0.02em] text-zinc-900 dark:text-zinc-50`}
             >
               Give your UI some character
-              <span className="text-rose-500">.</span>
             </motion.h1>
 
             <motion.p
@@ -80,11 +79,11 @@ export default function Home() {
                 delay: 0.18,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mx-auto mt-10 max-w-xl text-balance text-sm leading-6 text-zinc-500 sm:mt-12 sm:text-base"
+              className="mx-auto mt-6 max-w-xl text-balance text-sm leading-6 text-zinc-500 sm:mt-7 sm:text-base"
             >
-              Polished <span className="text-rose-500">primitives</span> and{" "}
-              <span className="text-rose-500">components</span> for React and
-              shadcn, shaped with thoughtful motion.
+              Thoughtful components for React and shadcn, built with expressive{" "}
+              <span className="text-orange-500">motion</span> and careful{" "}
+              <span className="text-orange-500">design</span>.
             </motion.p>
 
             <motion.div
@@ -95,7 +94,7 @@ export default function Home() {
                 delay: 0.3,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mt-2"
+              className="mt-5"
             >
               <HeroButtons />
             </motion.div>
@@ -104,13 +103,18 @@ export default function Home() {
 
         <section className="mx-auto max-w-2xl px-6 py-24 sm:py-32">
           <div className="mb-8 flex items-center justify-between gap-6 text-sm">
-            <p className="flex items-center gap-2 font-medium text-zinc-800 dark:text-zinc-200">
-              A note from
-              <span className="inline-flex size-5 items-center justify-center rounded-full bg-rose-500 text-white">
-                <SpiderLogo className="size-3" variant="dark" decorative />
-              </span>
-              ctrlcat0X.
-            </p>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/founder-note.png"
+                alt=""
+                width={40}
+                height={40}
+                className="size-10 rounded-full object-cover"
+              />
+              <p className="font-medium text-zinc-800 dark:text-zinc-200">
+                A note from ctrlcat0X.
+              </p>
+            </div>
             <time className="shrink-0 text-zinc-400" dateTime="2026-08-20">
               2026-08-20
             </time>
@@ -118,41 +122,41 @@ export default function Home() {
 
           <div className="space-y-5 text-pretty text-base leading-7 text-zinc-500 dark:text-zinc-400">
             <p>
-              Spider UI began after hours spent exploring component libraries;
-              many were quick to impress, but just as quick to fade. Some felt
-              designed for screenshots rather than real products.
+              Spider UI was born to raise the bar for component libraries—not by
+              padding a catalog with 200 ugly components, but by making fewer
+              pieces with stronger design and purposeful motion.
             </p>
             <p>
-              So I put my emphasis into{" "}
+              The goal is simple: every component should feel{" "}
               <em className="font-serif text-zinc-700 dark:text-zinc-300">
-                quality, reusability, and simplicity.
+                considered, reusable, and genuinely enjoyable to use.
               </em>
             </p>
             <p>
               Start with the open-source{" "}
               <Link
-                className="text-rose-500 hover:text-rose-400"
+                className="text-orange-500 hover:text-orange-400"
                 href="/docs/components/primitives"
               >
                 primitives
               </Link>
               , explore the{" "}
               <Link
-                className="text-rose-500 hover:text-rose-400"
+                className="text-orange-500 hover:text-orange-400"
                 href="/docs/components"
               >
                 components
               </Link>
               , or discover the{" "}
               <Link
-                className="text-rose-500 hover:text-rose-400"
+                className="text-orange-500 hover:text-orange-400"
                 href="/templates"
               >
                 templates
               </Link>
-              . More thoughtful blocks are on the way.
+              . More carefully made blocks are on the way.
             </p>
-            <p>Take your time. Enjoy the visit.</p>
+            <p>Take what you need. Make it yours.</p>
           </div>
         </section>
 
@@ -168,7 +172,7 @@ export default function Home() {
             <p className="mt-2 text-sm text-zinc-500">
               Anything else?{" "}
               <a
-                className="text-rose-500 hover:text-rose-400"
+                className="text-orange-500 hover:text-orange-400"
                 href="mailto:hello@spiderui.dev"
               >
                 Drop me an email.

@@ -14,10 +14,6 @@
       "type": "registry:ui"
     },
     {
-      "name": "ai-prompt-box",
-      "type": "registry:ui"
-    },
-    {
       "name": "album-cards",
       "type": "registry:ui"
     },
@@ -63,10 +59,6 @@
     },
     {
       "name": "cloud-background",
-      "type": "registry:ui"
-    },
-    {
-      "name": "contribution-graph",
       "type": "registry:ui"
     },
     {
@@ -118,10 +110,6 @@
       "type": "registry:ui"
     },
     {
-      "name": "greeting-preloader",
-      "type": "registry:ui"
-    },
-    {
       "name": "image-2-gif",
       "type": "registry:ui"
     },
@@ -155,10 +143,6 @@
     },
     {
       "name": "logo-cloud-006",
-      "type": "registry:ui"
-    },
-    {
-      "name": "marquee-along-path",
       "type": "registry:ui"
     },
     {
@@ -218,19 +202,11 @@
       "type": "registry:ui"
     },
     {
-      "name": "prompt-input",
-      "type": "registry:ui"
-    },
-    {
       "name": "rich-button",
       "type": "registry:ui"
     },
     {
       "name": "scramble-text",
-      "type": "registry:ui"
-    },
-    {
-      "name": "scrub-input",
       "type": "registry:ui"
     },
     {
@@ -275,10 +251,6 @@
     },
     {
       "name": "vertical-spotify-card",
-      "type": "registry:ui"
-    },
-    {
-      "name": "vestaboard",
       "type": "registry:ui"
     },
     {

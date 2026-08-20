@@ -336,7 +336,7 @@ export function CommandMenu({ trigger }: { trigger?: React.ReactNode }) {
                   <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white dark:via-white/20 to-transparent" />
 
                   <div className="p-2">
-                    <div className="flex items-center gap-2 rounded-xl border border-zinc-200/80 dark:border-zinc-700/40 bg-zinc-100/70 dark:bg-zinc-800/50 px-3 py-2.5 [box-shadow:inset_0_1px_2px_rgba(0,0,0,0.04)] dark:[box-shadow:inset_0_1px_2px_rgba(0,0,0,0.2)]">
+                    <div className="flex items-center gap-2 rounded-lg border border-zinc-200/80 dark:border-zinc-700/40 bg-zinc-100/70 dark:bg-zinc-800/50 px-3 py-2.5 [box-shadow:inset_0_1px_2px_rgba(0,0,0,0.04)] dark:[box-shadow:inset_0_1px_2px_rgba(0,0,0,0.2)]">
                       <Search className="h-4 w-4 text-muted-foreground/50" />
                       <Command.Input
                         ref={inputRef}

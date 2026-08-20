@@ -314,38 +314,6 @@ export const IMAGE_TRAIL_DEFAULT_CONFIG: ImageTrailConfig = {
   blindDirection: "vertical",
 };
 
-export interface VestaboardConfig {
-  text: string;
-  rows: number;
-  columns: number;
-  flipSpeed: number;
-  enableColorTiles: boolean;
-  colorTileColors: Record<string, string>;
-  boardColor: string;
-  flapColor: string;
-  textColor: string;
-}
-
-export const VESTABOARD_DEFAULT_CONFIG: VestaboardConfig = {
-  text: "WHAT DID YOU GET DONE\nTHIS WEEK?",
-  rows: 6,
-  columns: 22,
-  flipSpeed: 160,
-  enableColorTiles: false,
-  colorTileColors: {
-    red: "#d94b3d",
-    orange: "#ed7b2d",
-    yellow: "#e8b33d",
-    green: "#3f9b62",
-    blue: "#3e78c7",
-    violet: "#7d5ab5",
-    white: "#f2f0e8",
-  },
-  boardColor: "#171717",
-  flapColor: "#262626",
-  textColor: "#fafafa",
-};
-
 export const DITHER_PRISM_HERO_DEFAULT_CONFIG: DitherPrismHeroConfig = {
   title1: "Experience",
   title2: "The Future",
@@ -490,11 +458,6 @@ interface PlaygroundStore {
   setActiveSignaturePreset: (preset: string) => void;
   resetSignaturePreview: () => void;
   resetSignatureConfig: () => void;
-  vestaboardConfig: VestaboardConfig;
-  vestaboardRenderVersion: number;
-  updateVestaboardConfig: (updates: Partial<VestaboardConfig>) => void;
-  resetVestaboardPreview: () => void;
-  resetVestaboardConfig: () => void;
   cardStrokeConfig: CardStrokeConfig;
   activeCardStrokePreset: string;
   cardStrokeRenderVersion: number;
@@ -670,21 +633,6 @@ export const usePlaygroundStore = create<PlaygroundStore>((set) => ({
       signatureConfig: SIGNATURE_DEFAULT_CONFIG,
       activeSignaturePreset: "Default",
       signatureRenderVersion: state.signatureRenderVersion + 1,
-    })),
-  vestaboardConfig: VESTABOARD_DEFAULT_CONFIG,
-  vestaboardRenderVersion: 0,
-  updateVestaboardConfig: (updates) =>
-    set((state) => ({
-      vestaboardConfig: { ...state.vestaboardConfig, ...updates },
-    })),
-  resetVestaboardPreview: () =>
-    set((state) => ({
-      vestaboardRenderVersion: state.vestaboardRenderVersion + 1,
-    })),
-  resetVestaboardConfig: () =>
-    set((state) => ({
-      vestaboardConfig: VESTABOARD_DEFAULT_CONFIG,
-      vestaboardRenderVersion: state.vestaboardRenderVersion + 1,
     })),
   cardStrokeConfig: CARD_STROKE_DEFAULT_CONFIG,
   activeCardStrokePreset: "Default",

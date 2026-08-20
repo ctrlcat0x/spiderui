@@ -1,7 +1,6 @@
 export type ComponentCategory =
   | "Primitives"
   | "Components"
-  | "AI Input"
   | "Text Effects"
   | "Backgrounds"
   | "Card Interactions"
@@ -45,22 +44,6 @@ export function isNewComponent(component: ComponentMetadata): boolean {
 }
 
 export const components: Record<string, ComponentMetadata> = {
-  "ai-prompt-box": {
-    title: "AI Prompt Box",
-    description:
-      "A self-contained AI composer with attachments, tool modes, voice state, and loading controls.",
-    category: "AI Input",
-    slug: "ai-prompt-box",
-    addedAt: "2026-08-01",
-  },
-  "prompt-input": {
-    title: "Prompt Input",
-    description:
-      "An elastic AI composer with model, effort, attachment, voice, and submit controls.",
-    category: "AI Input",
-    slug: "prompt-input",
-    addedAt: "2026-08-01",
-  },
   "opos-hover": {
     title: "OPOS Hover",
     description:
@@ -69,14 +52,6 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "opos-hover",
     addedAt: "2026-06-04",
     previewImage: "/previews/opos-hover.png",
-  },
-  "scrub-input": {
-    title: "Scrub Input",
-    description: "An inline interactive slider styled as a pill.",
-    category: "Components",
-    slug: "scrub-input",
-    addedAt: "2026-02-27",
-    previewImage: "/previews/scrub-input.png",
   },
   signature: {
     title: "Signature",
@@ -104,14 +79,6 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "sticker-trail",
     addedAt: "2026-06-01",
     previewImage: "/previews/sticker-trail.png",
-  },
-  "marquee-along-path": {
-    title: "Marquee Along Path",
-    description:
-      "A responsive SVG-path marquee with hover pause, pointer scrubbing, rolling depth, and reduced-motion support.",
-    category: "Visual Interactions",
-    slug: "marquee-along-path",
-    addedAt: "2026-08-01",
   },
   "expanding-menu": {
     title: "Expanding Menu",
@@ -262,14 +229,6 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "image-2-gif",
     addedAt: "2026-06-09",
     previewImage: "/previews/image-2-gif.png",
-  },
-  "greeting-preloader": {
-    title: "Greetings Preloader",
-    description:
-      "A multilingual greeting preloader with Motion transitions and a GSAP page reveal.",
-    category: "Components",
-    slug: "greeting-preloader",
-    addedAt: "2026-06-01",
   },
   "spotify-card": {
     title: "Spotify Card",
@@ -549,15 +508,6 @@ export const components: Record<string, ComponentMetadata> = {
     slug: "carousel-004",
     addedAt: "2026-08-01",
   },
-  "contribution-graph": {
-    title: "Contribution Graph",
-    description:
-      "Interactive GitHub heatmap with seven themes, hover ripples, ambient motion, responsive sizing, and accessible tooltips.",
-    category: "Components",
-    slug: "contribution-graph",
-    addedAt: "2026-06-10",
-    previewImage: "/previews/contribution-graph.png",
-  },
   "github-repo-card": {
     title: "GitHub Repo Card",
     description:
@@ -589,15 +539,6 @@ export const components: Record<string, ComponentMetadata> = {
     category: "Components",
     slug: "wheel-time-picker",
     addedAt: "2026-07-21",
-  },
-  vestaboard: {
-    title: "Vestaboard",
-    description:
-      "A mechanical split-flap display with inset two-part panels, optional color tiles, custom speed, rows, and columns.",
-    category: "Visual Interactions",
-    slug: "vestaboard",
-    addedAt: "2026-07-20",
-    previewImage: "/previews/vestaboard.png",
   },
   "preview-rail": {
     title: "Preview Rail",

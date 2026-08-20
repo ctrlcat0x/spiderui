@@ -76,7 +76,6 @@ function ComponentCard({
 const categoryOrder: ComponentCategory[] = [
   "Primitives",
   "Components",
-  "AI Input",
   "Carousels",
   "Text Effects",
   "Card Interactions",

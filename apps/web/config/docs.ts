@@ -31,16 +31,15 @@ const gettingStarted: NavGroup = {
 
 const categoryOrder = [
   "Primitives",
-  "Components",
-  "AI Input",
-  "Carousels",
-  "Text Effects",
   "Backgrounds",
   "Card Interactions",
+  "Carousels",
+  "Components",
+  "FAQ",
   "Logo Clouds",
   "Pricing",
+  "Text Effects",
   "Visual Interactions",
-  "FAQ",
 ];
 
 const getComponentNav = (): NavGroup[] => {

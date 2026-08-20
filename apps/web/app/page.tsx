@@ -144,7 +144,7 @@ export default function Home() {
               Anything else?{" "}
               <a
                 className="text-orange-500 hover:text-orange-400"
-                href="mailto:developer.sahilran@gmail.com"
+                href="mailto:developer.sahilrana@gmail.com"
               >
                 Drop me an email.
               </a>

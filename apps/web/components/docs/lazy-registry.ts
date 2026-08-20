@@ -7,21 +7,9 @@ const docsImportMap: Record<
     | { [key: string]: React.ComponentType<Record<string, unknown>> }
   >
 > = {
-  "ai-prompt-box": () =>
-    import("@/components/docs/ai-prompt-box").then((m) => ({
-      default: m.AIPromptBoxDocs,
-    })),
-  "prompt-input": () =>
-    import("@/components/docs/prompt-input").then((m) => ({
-      default: m.PromptInputDocs,
-    })),
   "opos-hover": () =>
     import("@/components/docs/opos-hover").then((m) => ({
       default: m.OposHoverDocs,
-    })),
-  "scrub-input": () =>
-    import("@/components/docs/scrub-input").then((m) => ({
-      default: m.ScrubInputDocs,
     })),
   signature: () =>
     import("@/components/docs/signature").then((m) => ({
@@ -34,10 +22,6 @@ const docsImportMap: Record<
   "sticker-trail": () =>
     import("@/components/docs/sticker-trail").then((m) => ({
       default: m.StickerTrailDocs,
-    })),
-  "marquee-along-path": () =>
-    import("@/components/docs/marquee-along-path").then((m) => ({
-      default: m.MarqueeAlongPathDocs,
     })),
   "expanding-menu": () =>
     import("@/components/docs/expanding-menu").then((m) => ({
@@ -110,10 +94,6 @@ const docsImportMap: Record<
   "image-2-gif": () =>
     import("@/components/docs/image-2-gif").then((m) => ({
       default: m.Image2GifDocs,
-    })),
-  "greeting-preloader": () =>
-    import("@/components/docs/greeting-preloader").then((m) => ({
-      default: m.GreetingPreloaderDocs,
     })),
   "spotify-card": () =>
     import("@/components/docs/spotify-card").then((m) => ({
@@ -243,10 +223,6 @@ const docsImportMap: Record<
     import("@/components/docs/carousel-004").then((m) => ({
       default: m.Carousel004Docs,
     })),
-  "contribution-graph": () =>
-    import("@/components/docs/contribution-graph").then((m) => ({
-      default: m.ContributionGraphDocs,
-    })),
   "github-repo-card": () =>
     import("@/components/docs/github-repo-card").then((m) => ({
       default: m.GitHubRepoCardDocs,
@@ -262,10 +238,6 @@ const docsImportMap: Record<
   "wheel-time-picker": () =>
     import("@/components/docs/wheel-time-picker").then((m) => ({
       default: m.WheelTimePickerDocs,
-    })),
-  vestaboard: () =>
-    import("@/components/docs/vestaboard").then((m) => ({
-      default: m.VestaboardDocs,
     })),
   "preview-rail": () =>
     import("@/components/docs/preview-rail").then((m) => ({

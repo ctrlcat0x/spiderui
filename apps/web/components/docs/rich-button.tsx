@@ -14,11 +14,11 @@ export async function RichButtonDocs() {
   return (
     <DocsPageLayout
       title="Rich Button"
-      description="A tactile gradient button with restrained color variants, responsive sizes, and press feedback."
+      description="A tactile gradient button with inset highlights, color variants, responsive sizes, and press feedback."
       preview={<RichButtonPreview />}
       previewCode={usageCode}
       installPackageName="rich-button"
-      installDependencies="clsx tailwind-merge"
+      installDependencies="@radix-ui/react-slot clsx tailwind-merge"
       installSourceCode={sourceCode}
       installSourceFilename="components/ui/rich-button.tsx"
       usageImportCode={importCode}
@@ -26,9 +26,15 @@ export async function RichButtonDocs() {
       props={[
         {
           name: "color",
-          type: '"default" | "slate" | "orange" | "purple" | "emerald"',
+          type: "RichButtonColor",
           default: "default",
           description: "Button color treatment.",
+        },
+        {
+          name: "asChild",
+          type: "boolean",
+          default: "false",
+          description: "Merges button behavior into a single child element.",
         },
         {
           name: "size",
